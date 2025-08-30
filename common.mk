@@ -216,9 +216,6 @@ PRODUCT_PACKAGES += \
 # Kernel
 PRODUCT_ENABLE_UFFD_GC := false
 
-# Include
-$(call soong_config_set,samsungVars,target_specific_header_path,$(LOCAL_PATH)/include)
-
 # Keylayout
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/keylayout/sec_touchscreen.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/sec_touchscreen.kl
