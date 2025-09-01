@@ -240,7 +240,6 @@ PRODUCT_PACKAGES += \
 # Lineage Health
 PRODUCT_PACKAGES += \
     vendor.lineage.health-service.default
-
 # LiveDisplay
 ifneq ($(TARGET_IS_TABLET),true)
 ifeq ($(TARGET_HAS_AMOLED),true)
