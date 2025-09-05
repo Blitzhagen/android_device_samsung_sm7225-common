@@ -585,5 +585,9 @@ PRODUCT_CERTIFICATE_OVERRIDES := \
     com.android.virt:com.android.virt.cert \
     com.android.wifi:com.android.wifi.cert
 
+# UDFPS
+$(call soong_config_set,samsungUdfpsVars,udfps_zorder,0x20000000u)
+$(call soong_config_set,surfaceflinger,udfps_lib,//hardware/samsung/fingerprint:libudfps_extension.samsung)
+
 # Inherit proprietary blobs
 $(call inherit-product, vendor/samsung/sm7225-common/sm7225-common-vendor.mk)
