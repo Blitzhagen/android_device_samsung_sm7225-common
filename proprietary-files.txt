@@ -1337,7 +1337,6 @@ vendor/lib64/libhexagon_nn_stub.so
 vendor/lib64/libhqm_hwparam.so
 vendor/lib64/libhta.so
 vendor/lib64/libhta_hexagon_runtime.so
-vendor/lib64/libhyper.so
 vendor/lib64/libhypermotion_core.so
 vendor/lib64/libhypermotion_interface.so
 vendor/lib64/libhypervintf.so
