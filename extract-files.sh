@@ -87,6 +87,19 @@ function blob_fixup() {
         vendor/lib/mediadrm/libwvdrmengine.so)
             "${PATCHELF_0_18}" --replace-needed "libcrypto.so" "libcrypto-v33.so" "${2}"
             ;;
+        vendor/lib64/vendor.samsung.hardware.light-V1-ndk_platform.so|vendor/bin/hw/vendor.samsung.hardware.light-service)
+            "${PATCHELF_0_18}" --replace-needed "android.hardware.light-V1-ndk_platform.so" "android.hardware.light-V1-ndk.so" "${2}"
+            ;;
+        vendor/bin/hw/macloader)
+            sed -i 's/vendor\.wifi\.dualconcurrent\.interface/vnedor\.wiff\.dualconcurreut\.iuterface/g' "${2}"
+            sed -i 's/ro\.vendor\.wifi\.sap\.interface/ru\.vnedor\.wiff\.sep\.iuterface/g' "${2}"
+            ;;
+        vendor/lib64/libdpps.so)
+            "${PATCHELF_0_18}" --replace-needed "libtinyxml2.so" "libtinyxml2-v34.so" "${2}"
+            ;;
+        *)
+            return 1
+            ;;
     esac
 }
 
