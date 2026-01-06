@@ -45,6 +45,7 @@ PRODUCT_PACKAGES += \
     init.samsung.display.rc \
     init.samsung.rc \
     init.target.rc \
+    ipa_fws.rc \
     init.vendor.rilcommon.rc \
     vendor.samsung.rilchip.qcom.rc \
     ueventd.qcom.rc
