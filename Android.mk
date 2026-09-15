@@ -13,11 +13,22 @@ include $(call all-makefiles-under,$(LOCAL_PATH))
 # (qcom-caf Module setzen KERNEL_OBJ/usr als Dependency; bei
 #  TARGET_FORCE_PREBUILT_KERNEL wird es sonst nicht erzeugt)
 KERNEL_HEADERS_USR := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
+# "make" ist im Android-Build ein disallowed PATH tool -> absoluter Pfad
+# (command -v liefert den out/.path-Shim, daher hart /usr/bin/make)
+KERNEL_HEADERS_MAKE := /usr/bin/make
 $(KERNEL_HEADERS_USR):
 	@echo "Installing kernel headers -> $@"
 	@mkdir -p $@
-	$(hide) +$(MAKE) -C $(TARGET_KERNEL_SOURCE) O=$(abspath $(KERNEL_HEADERS_USR)/..) \
+	$(hide) $(KERNEL_HEADERS_MAKE) -C $(TARGET_KERNEL_SOURCE) O=$(abspath $(KERNEL_HEADERS_USR)/..) \
+	    HOSTCC=$(BUILD_TOP)/prebuilts/clang/host/$(HOST_PREBUILT_TAG)/clang-r487747c/bin/clang \
+	    HOSTCXX=$(BUILD_TOP)/prebuilts/clang/host/$(HOST_PREBUILT_TAG)/clang-r487747c/bin/clang++ \
 	    ARCH=arm64 headers_install
+	@# asm*/signal.h kollidiert mit Bionics sigaction (bionic nennt es
+	@# __kernel_sigaction); linux/ion.h (Upstream-UAPI) kollidiert mit
+	@# libions Legacy-UAPI (ion_user_handle_t) -> beides aus dem
+	@# Include-Pfad entfernen
+	$(hide) rm -f $@/include/asm/signal.h $@/include/asm-generic/signal.h \
+	    $@/include/linux/ion.h
 
 include $(CLEAR_VARS)
 
@@ -36,27 +47,22 @@ $(DSP_MOUNT_POINT): $(LOCAL_INSTALLED_MODULE)
 	@echo "Creating $(DSP_MOUNT_POINT)"
 	@mkdir -p $(TARGET_OUT_VENDOR)/dsp
 
-ODM_SYMLINK := $(TARGET_OUT_VENDOR)/odm
-$(ODM_SYMLINK): $(LOCAL_INSTALLED_MODULE)
-	@echo "Creating vendor/odm symlink"
-	$(hide) ln -sf /odm $@
-
-ALL_DEFAULT_INSTALLED_MODULES += $(FIRMWARE_MOUNT_POINT) $(FIRMWARE_MODEM_MOUNT_POINT) $(DSP_MOUNT_POINT) $(ODM_SYMLINK)
+ALL_DEFAULT_INSTALLED_MODULES += $(FIRMWARE_MOUNT_POINT) $(FIRMWARE_MODEM_MOUNT_POINT) $(DSP_MOUNT_POINT)
 
 define rfs-tree
-RFS_$(1)_$(2)_SYMLINKS := $$(TARGET_OUT_VENDOR)/rfs/$(1)/$(2)/
-$$(RFS_$(1)_$(2)_SYMLINKS): $$(LOCAL_INSTALLED_MODULE)
-	@echo "Creating RFS $(1)/$(2) structure: $$@"
-	@rm -rf $$@/*
-	@mkdir -p $$@/readonly/vendor
-	$$(hide) ln -sf /data/vendor/tombstones/rfs/$(3) $$@/ramdumps
-	$$(hide) ln -sf /mnt/vendor/persist/rfs/$(1)/$(2) $$@/readwrite
-	$$(hide) ln -sf /mnt/vendor/persist/rfs/shared $$@/shared
-	$$(hide) ln -sf /mnt/vendor/persist/hlos_rfs/shared $$@/hlos
-	$$(hide) ln -sf /vendor/$(4) $$@/readonly/firmware
-	$$(hide) ln -sf /vendor/firmware $$@/readonly/vendor/firmware
+RFS_$(1)_$(2)_STAMP := $$(TARGET_OUT_INTERMEDIATES)/rfs_$(1)_$(2)_links_done
+$$(RFS_$(1)_$(2)_STAMP): $$(LOCAL_INSTALLED_MODULE)
+	@echo "Creating RFS $(1)/$(2) structure"
+	@mkdir -p $$(TARGET_OUT_VENDOR)/rfs/$(1)/$(2)/readonly/vendor
+	$$(hide) ln -sf /data/vendor/tombstones/rfs/$(3) $$(TARGET_OUT_VENDOR)/rfs/$(1)/$(2)/ramdumps
+	$$(hide) ln -sf /mnt/vendor/persist/rfs/$(1)/$(2) $$(TARGET_OUT_VENDOR)/rfs/$(1)/$(2)/readwrite
+	$$(hide) ln -sf /mnt/vendor/persist/rfs/shared $$(TARGET_OUT_VENDOR)/rfs/$(1)/$(2)/shared
+	$$(hide) ln -sf /mnt/vendor/persist/hlos_rfs/shared $$(TARGET_OUT_VENDOR)/rfs/$(1)/$(2)/hlos
+	$$(hide) ln -sf /vendor/$(4) $$(TARGET_OUT_VENDOR)/rfs/$(1)/$(2)/readonly/firmware
+	$$(hide) ln -sf /vendor/firmware $$(TARGET_OUT_VENDOR)/rfs/$(1)/$(2)/readonly/vendor/firmware
+	$$(hide) mkdir -p $$(dir $$@) && touch $$@
 
-ALL_DEFAULT_INSTALLED_MODULES += $$(RFS_$(1)_$(2)_SYMLINKS)
+ALL_DEFAULT_INSTALLED_MODULES += $$(RFS_$(1)_$(2)_STAMP)
 endef
 
 $(eval $(call rfs-tree,apq,gnss,modem,firmware_mnt))
@@ -85,21 +91,23 @@ $(EGL_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 
 ALL_DEFAULT_INSTALLED_MODULES += $(EGL_SYMLINKS)
 
-CNE_APP_SYMLINKS := $(TARGET_OUT_VENDOR)/app/CneApp/lib/arm64
+CNE_APP_SYMLINKS := $(TARGET_OUT_VENDOR)/app/CneApp/lib/arm64/.cne_links_done
 $(CNE_APP_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
-	@echo "Creating CneApp symlinks: $@"
-	@mkdir -p $@
-	$(hide) ln -sf /vendor/lib64/libvndfwk_detect_jni.qti.so $@/libvndfwk_detect_jni.qti.so
+	@echo "Creating CneApp symlinks"
+	@mkdir -p $(dir $@)
+	$(hide) ln -sf /vendor/lib64/libvndfwk_detect_jni.qti.so $(dir $@)libvndfwk_detect_jni.qti.so
+	$(hide) touch $@
 
 ALL_DEFAULT_INSTALLED_MODULES += $(CNE_APP_SYMLINKS)
 
 # vendor/bin toybox_vendor/toolbox Applets (Symlinks aus Stock)
+SM7225_COMMON_DIR := $(LOCAL_PATH)
 TOYBOX_BIN_LINKS := $(TARGET_OUT_VENDOR)/bin/.toybox_links_done
-$(TOYBOX_BIN_LINKS): $(LOCAL_INSTALLED_MODULE) $(LOCAL_PATH)/vendor_bin_symlinks.txt
+$(TOYBOX_BIN_LINKS): $(LOCAL_INSTALLED_MODULE) $(SM7225_COMMON_DIR)/vendor_bin_symlinks.txt
 	@echo "Creating vendor/bin applet symlinks"
 	$(hide) while IFS=: read -r name target; do \
 	    ln -sf $$target $(TARGET_OUT_VENDOR)/bin/$$name; \
-	done < $(LOCAL_PATH)/vendor_bin_symlinks.txt
+	done < $(SM7225_COMMON_DIR)/vendor_bin_symlinks.txt
 	$(hide) touch $@
 
 ALL_DEFAULT_INSTALLED_MODULES += $(TOYBOX_BIN_LINKS)
@@ -115,6 +123,7 @@ LOCAL_VENDOR_MODULE := true
 LOCAL_MULTILIB      := both
 LOCAL_SRC_FILES_32  := $(VND_PREB)/vendor/lib/libthermalclient.so
 LOCAL_SRC_FILES_64  := $(VND_PREB)/vendor/lib64/libthermalclient.so
+LOCAL_CHECK_ELF_FILES := false
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
@@ -124,6 +133,7 @@ LOCAL_MODULE_SUFFIX := .so
 LOCAL_VENDOR_MODULE := true
 LOCAL_MULTILIB      := 64
 LOCAL_SRC_FILES_64  := $(VND_PREB)/vendor/lib64/libskeymaster4device.so
+LOCAL_CHECK_ELF_FILES := false
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
@@ -134,6 +144,7 @@ LOCAL_VENDOR_MODULE := true
 LOCAL_MULTILIB      := both
 LOCAL_SRC_FILES_32  := $(VND_PREB)/vendor/lib/libfastcvopt.so
 LOCAL_SRC_FILES_64  := $(VND_PREB)/vendor/lib64/libfastcvopt.so
+LOCAL_CHECK_ELF_FILES := false
 include $(BUILD_PREBUILT)
 
 endif
