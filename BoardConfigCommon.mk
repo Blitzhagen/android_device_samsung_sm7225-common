@@ -38,6 +38,8 @@ TARGET_BOOTLOADER_BOARD_NAME := lito
 
 TARGET_NO_BOOTLOADER := true
 
+BOARD_VENDOR := samsung
+
 # Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-2a
@@ -205,10 +207,13 @@ DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
     hardware/qcom-caf/common/vendor_framework_compatibility_matrix_legacy.xml \
     hardware/samsung/vintf/samsung_framework_compatibility_matrix.xml
 
-DEVICE_MATRIX_FILE := hardware/qcom-caf/common/compatibility_matrix.xml
+DEVICE_MATRIX_FILE := $(COMMON_PATH)/configs/compatibility_matrix.xml
 
 # Lights
 $(call soong_config_set,samsungVars,target_specific_header_path,$(COMMON_PATH)/include)
+
+# Keymaster
+TARGET_KEYMASTER_VARIANT := samsung
 
 # Media
 TARGET_USES_ION := true

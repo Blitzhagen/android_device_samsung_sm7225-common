@@ -9,6 +9,16 @@ ifneq ($(filter gts7xllite,$(TARGET_DEVICE)),)
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
+# Kernel-Header aus dem Original-Quellcode fuer Legacy-Make-Module
+# (qcom-caf Module setzen KERNEL_OBJ/usr als Dependency; bei
+#  TARGET_FORCE_PREBUILT_KERNEL wird es sonst nicht erzeugt)
+KERNEL_HEADERS_USR := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
+$(KERNEL_HEADERS_USR):
+	@echo "Installing kernel headers -> $@"
+	@mkdir -p $@
+	$(hide) +$(MAKE) -C $(TARGET_KERNEL_SOURCE) O=$(abspath $(KERNEL_HEADERS_USR)/..) \
+	    ARCH=arm64 headers_install
+
 include $(CLEAR_VARS)
 
 FIRMWARE_MOUNT_POINT := $(TARGET_OUT_VENDOR)/firmware_mnt
@@ -93,5 +103,37 @@ $(TOYBOX_BIN_LINKS): $(LOCAL_INSTALLED_MODULE) $(LOCAL_PATH)/vendor_bin_symlinks
 	$(hide) touch $@
 
 ALL_DEFAULT_INSTALLED_MODULES += $(TOYBOX_BIN_LINKS)
+
+# Prebuilt Vendor-Libs als linkbare Make-Module (qcom-caf Android.mk-Deps)
+VND_PREB := ../../../vendor/samsung/sm7225-common/proprietary
+
+include $(CLEAR_VARS)
+LOCAL_MODULE        := libthermalclient
+LOCAL_MODULE_CLASS  := SHARED_LIBRARIES
+LOCAL_MODULE_SUFFIX := .so
+LOCAL_VENDOR_MODULE := true
+LOCAL_MULTILIB      := both
+LOCAL_SRC_FILES_32  := $(VND_PREB)/vendor/lib/libthermalclient.so
+LOCAL_SRC_FILES_64  := $(VND_PREB)/vendor/lib64/libthermalclient.so
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE        := libskeymaster4device
+LOCAL_MODULE_CLASS  := SHARED_LIBRARIES
+LOCAL_MODULE_SUFFIX := .so
+LOCAL_VENDOR_MODULE := true
+LOCAL_MULTILIB      := 64
+LOCAL_SRC_FILES_64  := $(VND_PREB)/vendor/lib64/libskeymaster4device.so
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE        := libfastcvopt
+LOCAL_MODULE_CLASS  := SHARED_LIBRARIES
+LOCAL_MODULE_SUFFIX := .so
+LOCAL_VENDOR_MODULE := true
+LOCAL_MULTILIB      := both
+LOCAL_SRC_FILES_32  := $(VND_PREB)/vendor/lib/libfastcvopt.so
+LOCAL_SRC_FILES_64  := $(VND_PREB)/vendor/lib64/libfastcvopt.so
+include $(BUILD_PREBUILT)
 
 endif

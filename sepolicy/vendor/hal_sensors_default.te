@@ -47,4 +47,3 @@ unix_socket_connect(hal_sensors_default, property, init)
 
 set_prop(hal_sensors_default, sns_camera_light_prop)
 
-dontaudit hal_sensors_default { default_prop build_bootimage_prop }:file { getattr map open read };

@@ -8,4 +8,3 @@ vendor_internal_prop(vendor_qseecomd_prop)
 vendor_internal_prop(vendor_gnss_psds_prop)
 
 # NFC
-vendor_internal_prop(vendor_nfc_prop)

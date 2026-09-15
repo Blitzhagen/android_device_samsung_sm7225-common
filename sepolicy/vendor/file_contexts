@@ -35,7 +35,6 @@
 /dev/network_latency                                                                                        u:object_r:radio_device:s0
 /dev/network_throughput                                                                                     u:object_r:radio_qos_device:s0
 /dev/esfp[0-9]                                                                                              u:object_r:fp_sensor_device:s0
-/dev/pn547                                                                                                  u:object_r:nfc_device:s0
 /dev/drb                                                                                                    u:object_r:drb_device:s0
 /dev/ttyHS[0-9]*                                                                                            u:object_r:ttyhs_device:s0
 
@@ -53,7 +52,6 @@
 /efs/cpk(/.*)?                                                                                              u:object_r:cpk_efs_file:s0
 /efs/FactoryApp(/.*)?                                                                                       u:object_r:app_efs_file:s0
 /efs/imei(/.*)?                                                                                             u:object_r:imei_efs_file:s0
-/efs/nfc(/.*)?                                                                                              u:object_r:nfc_efs_file:s0
 /efs/pfw_data(/.*)?                                                                                         u:object_r:pfw_efs_file:s0
 /efs/recovery(/.*)?                                                                                         u:object_r:sec_efs_file:s0
 /efs/sec_efs(/.*)?                                                                                          u:object_r:sec_efs_file:s0
@@ -73,10 +71,8 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.drm@[0-9]\.[0-9]-service\.widevine                        u:object_r:hal_drm_widevine_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.keymaster@[0-9]\.[0-9]-service\.samsung                   u:object_r:hal_keymaster_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.power(@[0-9]\.[0-9])?-service\.pixel-libperfmgr           u:object_r:hal_power_default_exec:s0
-/(vendor|system/vendor)/bin/hw/nxp\.android\.hardware\.nfc@[0-9]\.[0-9]-service                             u:object_r:hal_nfc_default_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.lineage\.fastcharge@[0-9]\.[0-9]-service\.samsung                    u:object_r:hal_lineage_fastcharge_default_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.lineage\.touch-service\.samsung		                            u:object_r:hal_lineage_touch_default_exec:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint-service\.samsung                  u:object_r:hal_fingerprint_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.sensors-service\.samsung-multihal                         u:object_r:hal_sensors_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.vibrator\-service\.samsung                                u:object_r:hal_vibrator_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.health-service\.samsung                                   u:object_r:hal_health_default_exec:s0

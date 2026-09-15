@@ -30,7 +30,6 @@ allow hal_bluetooth_default property_socket:sock_file write;
 
 allow hal_bluetooth_default init:unix_stream_socket connectto;
 
-allow hal_bluetooth_default hwservicemanager_prop:file { read getattr map open };
 
 binder_call(hal_bluetooth_default, gpuservice)
 allow hal_bluetooth_default gpuservice:fd use;

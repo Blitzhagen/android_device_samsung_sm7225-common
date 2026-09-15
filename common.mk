@@ -13,10 +13,6 @@ $(call inherit-product, hardware/qcom-caf/common/common.mk)
 
 # Partitions
 
-PRODUCT_PACKAGES += \
-    vendor_dsp_mountpoint \
-    vendor_firmware_mnt_mountpoint \
-    vendor_firmware-modem_mountpoint
 
 PRODUCT_BUILD_SUPER_PARTITION := false
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
@@ -155,7 +151,7 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.allocator-service \
     vendor.qti.hardware.display.composer-service \
     vendor.qti.hardware.memtrack-service \
-    gralloc.qcom \
+    gralloc.lito \
     libsdmcore \
     libsdedrm
 
@@ -398,7 +394,8 @@ PRODUCT_PACKAGES += \
 
 # USB
 PRODUCT_PACKAGES += \
-    android.hardware.usb-service.qti
+    android.hardware.usb@1.3-service-qti \
+    android.hardware.usb.gadget@1.2-service-qti
 
 # Vibrator
 PRODUCT_PACKAGES += \
@@ -429,7 +426,6 @@ PRODUCT_COPY_FILES += \
 
 # WiFi Firmware Symlinks
 PRODUCT_PACKAGES += \
-    firmware_qca6750_WCNSS_qcom_cfg.ini_symlink \
     firmware_wlan_WCNSS_qcom_cfg.ini_symlink
 
 # Wifi Display

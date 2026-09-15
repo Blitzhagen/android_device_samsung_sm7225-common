@@ -13,9 +13,6 @@ persist.vendor.sec.fastchg_enabled               u:object_r:vendor_fastcharge_pr
 vendor.gnss.psds                                 u:object_r:vendor_gnss_psds_prop:s0
 
 # NFC
-persist.vendor.nfc.log.index                     u:object_r:vendor_nfc_prop:s0
-ro.vendor.nfc.                                   u:object_r:vendor_nfc_prop:s0
-vendor.nfc.fw.                                   u:object_r:vendor_nfc_prop:s0
 
 # Perf
 ro.vendor.extension_library                      u:object_r:vendor_mpctl_prop:s0

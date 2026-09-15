@@ -2,8 +2,8 @@
 genfscon proc /last_kmsg                                                                                    u:object_r:proc_last_kmsg:s0
 
 # Backlight
-/sys/devices/platform/soc/ae00000.qcom,mdss_mdp/backlight/panel0-backlight/brightness                       u:object_r:sysfs_backlight_writable:s0
-/sys/devices/platform/soc/ae00000.qcom,mdss_mdp/backlight/panel0-backlight/max_brightness                   u:object_r:sysfs_backlight_writable:s0
+genfscon sysfs /devices/platform/soc/ae00000.qcom,mdss_mdp/backlight/panel0-backlight/brightness                       u:object_r:sysfs_backlight_writable:s0
+genfscon sysfs /devices/platform/soc/ae00000.qcom,mdss_mdp/backlight/panel0-backlight/max_brightness                   u:object_r:sysfs_backlight_writable:s0
 
 # Battery
 genfscon sysfs /devices/platform/soc/984000.i2c/i2c-33/33-0049/                                             u:object_r:sysfs_battery:s0
@@ -50,7 +50,6 @@ genfscon sysfs /devices/platform/samsung_mobile_device/samsung_mobile_device:ets
 
 genfscon sysfs /class/sec/tsp                                                                               u:object_r:sysfs_sec_touchscreen:s0
 genfscon sysfs /class/sensor_event                                                                          u:object_r:sysfs_sensors:s0
-genfscon sysfs /class/fingerprint/fingerprint                                                               u:object_r:sysfs_fingerprint:s0
 genfscon sysfs /kernel/boot_wlan/                                                                           u:object_r:sysfs_wifi_writable:s0
 
 genfscon sysfs /devices/virtual/audio/earjack/state                                                         u:object_r:sysfs_audio_writable:s0
@@ -65,7 +64,6 @@ genfscon sysfs /devices/platform/samsung_mobile_device/samsung_mobile_device:sec
 genfscon sysfs /devices/platform/samsung_mobile_device/samsung_mobile_device:fixed_regulator@1/             u:object_r:sysfs_battery:s0
 genfscon sysfs /devices/platform/samsung_mobile_device/samsung_mobile_device:battery/power_supply/battery/batt_slate_mode                       u:object_r:sysfs_battery_writable:s0
 genfscon sysfs /devices/virtual/sensors/                                                                    u:object_r:sysfs_sensors:s0
-genfscon sysfs /devices/virtual/fingerprint/fingerprint                                                     u:object_r:sysfs_fingerprint:s0
 genfscon sysfs /devices/virtual/sec/sec_key                                                                 u:object_r:sysfs_sec_key:s0
 genfscon sysfs /devices/virtual/sec/tsp                                                                     u:object_r:sysfs_sec_touchscreen:s0
 genfscon sysfs /devices/virtual/sec/tsp/ear_detect_enable                                                   u:object_r:sysfs_touchscreen_writable:s0
@@ -78,9 +76,6 @@ genfscon sysfs /devices/virtual/camera/                                         
 genfscon sysfs /devices/virtual/camera/rear/ssrm_camera_info                                                u:object_r:sysfs_camera_writable:s0
 genfscon sysfs /devices/virtual/camera/flash/rear_flash                                                     u:object_r:sysfs_camera_writable:s0
 genfscon sysfs /devices/virtual/camera/rear/supported_cameraIds                                             u:object_r:sysfs_camera_writable:s0
-genfscon sysfs /kernel/mm/vmscan/mem_boost_mode                                                             u:object_r:sysfs_camera_writable:s0
-genfscon sysfs /kernel/mm/vmscan/am_app_launch                                                              u:object_r:sysfs_camera_writable:s0
-genfscon sysfs /devices/virtual/camera/rear/supported_cameraIds						    u:object_r:sysfs_camera_writable:s0
 genfscon sysfs /devices/virtual/audio/amp                                                                   u:object_r:sysfs_thermal:s0
 genfscon sysfs /devices/virtual/sec/sec-ap-thermistor/                                                      u:object_r:sysfs_thermal:s0
 genfscon sysfs /devices/virtual/sec/sec-pa-thermistor/                                                      u:object_r:sysfs_thermal:s0

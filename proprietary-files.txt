@@ -366,7 +366,6 @@ vendor/etc/init/wfdvndservice.rc
 vendor/etc/init/wifi.rc
 vendor/etc/init/wifi_qcom.rc
 vendor/etc/izat.conf
-vendor/etc/linker.config.pb
 vendor/etc/lm/AdaptLaunchFeature.xml
 vendor/etc/lm/AppClassifierFeature.xml
 vendor/etc/lm/GameOptimizationFeature.xml
@@ -512,8 +511,6 @@ vendor/etc/sysconfig/vendor-apex-allowlist.xml
 vendor/etc/system_properties.xml
 vendor/etc/thermal-engine.conf
 vendor/etc/traceconfig.txt
-vendor/etc/vintf/compatibility_matrix.xml
-vendor/etc/vintf/manifest.xml
 vendor/etc/vintf/manifest/android.hardware.atrace@1.0-service.xml
 vendor/etc/vintf/manifest/android.hardware.cas@1.2-service-lazy.xml
 vendor/etc/vintf/manifest/android.hardware.dumpstate@1.1-service-lazy.xml
