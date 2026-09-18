@@ -24,7 +24,6 @@ vendor/bin/hw/android.hardware.drm@1.3-service.widevine
 vendor/bin/hw/android.hardware.dumpstate@1.1-service-lazy
 vendor/bin/hw/android.hardware.gnss@2.1-service-qti
 vendor/bin/hw/android.hardware.media.omx@1.0-service
-vendor/bin/hw/android.hardware.memtrack@1.0-service
 vendor/bin/hw/android.hardware.neuralnetworks@1.3-service-qti
 vendor/bin/hw/android.hardware.wifi@1.0-service
 vendor/bin/hw/macloader
@@ -167,7 +166,6 @@ vendor/etc/init/android.hardware.drm@1.3-service.widevine.rc
 vendor/etc/init/android.hardware.dumpstate@1.1-service-lazy.rc
 vendor/etc/init/android.hardware.gnss@2.1-service-qti.rc
 vendor/etc/init/android.hardware.media.omx@1.0-service.rc
-vendor/etc/init/android.hardware.memtrack@1.0-service.rc
 vendor/etc/init/android.hardware.neuralnetworks@1.3-service-qti.rc
 vendor/etc/init/android.hardware.wifi@1.0-service.rc
 vendor/etc/init/argos.rc

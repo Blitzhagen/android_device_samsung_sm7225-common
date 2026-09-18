@@ -110,16 +110,10 @@
         <fqname>@1.0::IOmx/default</fqname>
         <fqname>@1.0::IOmxStore/default</fqname>
     </hal>
-    <hal format="hidl">
-        <name>android.hardware.memtrack</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IMemtrack</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@1.0::IMemtrack/default</fqname>
-    </hal>
+    <!-- android.hardware.memtrack (AIDL IMemtrack) is provided by the
+         source-built vendor.qti.hardware.memtrack-service; see
+         vendor/etc/vintf/manifest/memtrack_qti.xml. The legacy HIDL
+         blob service was removed (no passthrough impl shipped). -->
     <hal format="hidl">
         <name>android.hardware.radio</name>
         <transport>hwbinder</transport>
