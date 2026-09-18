@@ -72,7 +72,11 @@ TARGET_KERNEL_LLVM_BINUTILS := false
 # clang>=12 emittiert DWARF5-.file mit Dir-Operand+md5; GNU as 2.27 kann das
 # nicht -> kein Dir-Operand und DWARF4-Debuginfo (nur Format, kein Verhalten).
 # KCFLAGS gilt fuer alle Kernel-Build-Baeume (KERNEL_OUT/DTB_OUT/DTBO_OUT).
-TARGET_KERNEL_ADDITIONAL_FLAGS := KCFLAGS="-fno-dwarf-directory-asm -gdwarf-4 -Wno-unused-but-set-variable -Wno-unused-variable"
+# PROJECT_NAME steuert die Samsung-techpack-Conf-Auswahl (audio/display).
+# Ohne sie greift der leere filter()-Trick -> lito_a42 (TAS2562) statt
+# lito_gts7plite (CS35L45) -> Soundkarte wartet ewig auf tas2562.18-004c.
+TARGET_KERNEL_ADDITIONAL_FLAGS := KCFLAGS="-fno-dwarf-directory-asm -gdwarf-4 -Wno-unused-but-set-variable -Wno-unused-variable" \
+                                  PROJECT_NAME=gts7xllite
 
 # Kernel flags
 BOARD_KERNEL_CMDLINE += console=null androidboot.hardware=qcom androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 androidboot.usbcontroller=a600000.dwc3 swiotlb=2048 cgroup.memory=nokmem,nosocket firmware_class.path=/vendor/firmware_mnt/image loop.max_part=7 androidboot.bootdevice=1d84000.ufshc androidboot.fstab_suffix=default androidboot.boot_devices=soc/1d84000.ufshc
