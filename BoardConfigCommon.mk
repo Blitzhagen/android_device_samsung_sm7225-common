@@ -60,13 +60,19 @@ TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a55
 TARGET_KERNEL_SOURCE        := kernel/samsung/sm7225
 # Original Samsung-Defconfig aus dem Opensource-Release (T736BXXS9DYF1)
 TARGET_KERNEL_CONFIG := vendor/gts7xllite_eur_openx_defconfig
-TARGET_KERNEL_NO_GCC	    := true
+# Stock-Kernel wurde mit clang 10.0.7 gebaut; r450784e (clang 14) ist die
+# naechste im Tree verfuegbare Version (clang-3289846 braucht libtinfo.so.5)
+TARGET_KERNEL_CLANG_VERSION := r450784e
 TARGET_KERNEL_ARCH          := arm64
 TARGET_KERNEL_HEADER_ARCH   := arm64
 TARGET_LINUX_KERNEL_VERSION := 4.19
-TARGET_KERNEL_ADDITIONAL_FLAGS := \
-    LLVM=1 \
-    LLVM_IAS=1
+# Stock baute mit clang 10.0.7 + GNU as/ld 2.27 (kein LLVM); LLVM_IAS bricht
+# z.B. arch/arm64/crypto/aes-modes.S (ldr q8,=imm64)
+TARGET_KERNEL_LLVM_BINUTILS := false
+# clang>=12 emittiert DWARF5-.file mit Dir-Operand+md5; GNU as 2.27 kann das
+# nicht -> kein Dir-Operand und DWARF4-Debuginfo (nur Format, kein Verhalten).
+# KCFLAGS gilt fuer alle Kernel-Build-Baeume (KERNEL_OUT/DTB_OUT/DTBO_OUT).
+TARGET_KERNEL_ADDITIONAL_FLAGS := KCFLAGS="-fno-dwarf-directory-asm -gdwarf-4 -Wno-unused-but-set-variable -Wno-unused-variable"
 
 # Kernel flags
 BOARD_KERNEL_CMDLINE += console=null androidboot.hardware=qcom androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 androidboot.usbcontroller=a600000.dwc3 swiotlb=2048 cgroup.memory=nokmem,nosocket firmware_class.path=/vendor/firmware_mnt/image loop.max_part=7 androidboot.bootdevice=1d84000.ufshc androidboot.fstab_suffix=default androidboot.boot_devices=soc/1d84000.ufshc
@@ -91,7 +97,6 @@ BOARD_MKBOOTIMG_ARGS += --kernel_offset $(BOARD_KERNEL_OFFSET)
 
 # Kernel Clang Flags
 KERNEL_CC := CC=clang
-KERNEL_TOOLCHAIN_PREFIX := aarch64-linux-gnu-
 
 # Enable LZ4 compression for ramdisks
 BOARD_RAMDISK_USE_LZ4 := true

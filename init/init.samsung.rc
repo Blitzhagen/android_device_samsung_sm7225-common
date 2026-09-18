@@ -39,6 +39,10 @@ on init
     symlink /dev/block/bootdevice/by-name/steady  /dev/block/steady
     symlink /dev/block/bootdevice/by-name/persistent  /dev/block/persistent
 
+    # Root-ADB im userdebug-Boot (adbd liest das Prop beim Start,
+    # adbroot_service-Gate wird so nicht benoetigt)
+    setprop service.adb.root 1
+
     # Change backlog queue size
     write /proc/sys/net/core/netdev_max_backlog 100000
 	
