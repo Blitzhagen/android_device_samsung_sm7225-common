@@ -70,6 +70,12 @@ function blob_fixup() {
         vendor/lib64/libeffectsconfig.so)
             "${PATCHELF_0_18}" --add-needed "libaudiotypeconv_shim.so" "${2}"
             ;;
+        # Android 11 vendor OMX BufferQueue bridge: fix framework ABI
+        # mismatches (hidl_vec/QueueBufferInput/Region/Fence layouts) that
+        # broke video recording on Android 14.
+        vendor/lib/libstagefright_bufferqueue_helper_vendor.so)
+            python3 "${MY_DIR}/patches/patch_bqh_vendor.py" "${2}"
+            ;;
     esac
 }
 
