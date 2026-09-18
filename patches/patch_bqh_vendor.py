@@ -38,6 +38,18 @@ Patches applied (offsets are virtual addresses; file offset = vaddr-0x1000):
   6. The vendored destroy path reads/closes the fence fd at +4 (A11) and
      stores -1 at +4; retargeted to +8 (A14 mFenceFd).
 
+  7. TWGraphicBufferProducer::dequeueBuffer (+0x2d4): the vendored fence
+     release sequence calls close() on an fd that is owned by an A14
+     unique_fd elsewhere (the fd was taken out of the incoming
+     hidl_handle without dup(), i.e. double ownership).  On A14 fdsan
+     aborts the process: 'attempted to close file descriptor 1,
+     expected to be owned by unique_fd ..., actually unowned'
+     -> media.codec dies -> -EPIPE to the camera stream.
+     Patch makes the `fd == -1` check always true (adds r0,r6,#1 ->
+     movs r0,#0), which skips only the close; refcount decrement,
+     the -1 store and object deletion still run.  The fd stays owned
+     by its real unique_fd owner and is released there.
+
 Usage: patch_bqh_vendor.py <path-to-library>
 """
 
@@ -70,6 +82,8 @@ PATCHES = [
     # --- 6. fd accesses +4 -> +8 ---
     (0x33456, '52f8048f', '52f8088f'),  # ldr.w r8,[r2,#4]! -> #8
     (0x3348C, '7060', 'b060'),          # str r0,[r6,#4] -> [r6,#8]
+    # --- 7. dequeueBuffer: skip close on fd owned by another object ---
+    (0x2264A, '701c', '0020'),          # adds r0,r6,#1 -> movs r0,#0
 ]
 
 
