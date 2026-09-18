@@ -1,0 +1,5 @@
+service secril_fwready /vendor/bin/secril_fwready
+    class main
+    user radio
+    group radio log
+    shutdown critical

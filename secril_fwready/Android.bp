@@ -1,0 +1,15 @@
+// SPDX-License-Identifier: Apache-2.0
+
+cc_binary {
+    name: "secril_fwready",
+    srcs: ["secril_fwready.cpp"],
+    system_ext_specific: true,
+    init_rc: ["secril_fwready.rc"],
+    shared_libs: [
+        "libbase",
+        "libhidlbase",
+        "liblog",
+        "libutils",
+        "vendor.samsung.hardware.radio@2.2",
+    ],
+}

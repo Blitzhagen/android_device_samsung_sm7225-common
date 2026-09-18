@@ -179,10 +179,10 @@ TARGET_FS_CONFIG_GEN := $(COMMON_PATH)/config.fs
 
 # gts7xllite hat keinen Fingerabdrucksensor
 
-# FM
+# RIL: FW_READY-Konfiguration fuer libsec-ril (aktiviert Unsol-Responses
+# wie eingehende SMS, die sonst in der Pending-Queue haengen bleiben)
 PRODUCT_PACKAGES += \
-    android.hardware.broadcastradio@1.0-impl \
-    FMRadio
+    secril_fwready
 
 # Gatekeeper
 PRODUCT_PACKAGES += \
