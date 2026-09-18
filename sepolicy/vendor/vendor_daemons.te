@@ -1,0 +1,44 @@
+type argosd, domain;
+type argosd_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(argosd)
+
+type btcoex_cont, domain;
+type btcoex_cont_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(btcoex_cont)
+
+type cassd, domain;
+type cassd_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(cassd)
+
+type emservice, domain;
+type emservice_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(emservice)
+
+type mfgloader, domain;
+type mfgloader_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(mfgloader)
+allow mfgloader self:capability sys_module;
+allow mfgloader vendor_firmware_file:file r_file_perms;
+allow mfgloader vendor_file:file r_file_perms;
+
+type snap_hidl, domain, halserverdomain;
+type snap_hidl_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(snap_hidl)
+allow snap_hidl snap_hwservice:hwservice_manager add;
+allow snap_hidl hal_snap_service:service_manager add;
+
+type snap_utility, domain;
+type snap_utility_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(snap_utility)
+
+type vaultkeeperd, domain;
+type vaultkeeperd_exec, exec_type, vendor_file_type, file_type;
+type vaultkeeper_efs_file, file_type;
+type vaultkeeper_socket, file_type;
+init_daemon_domain(vaultkeeperd)
+allow vaultkeeperd vaultkeeper_efs_file:dir create_dir_perms;
+allow vaultkeeperd vaultkeeper_efs_file:file create_file_perms;
+allow vaultkeeperd vaultkeeper_socket:sock_file create_file_perms;
+allow vaultkeeperd hal_vaultkeeper_server_hwservice:hwservice_manager add;
+
+type sec_wifi_data_file, file_type, data_file_type;

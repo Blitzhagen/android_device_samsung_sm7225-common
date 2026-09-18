@@ -1,0 +1,84 @@
+type hal_authfw_default, domain, halserverdomain;
+type hal_authfw_default_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_authfw_default)
+allow hal_authfw_default hal_authfw_hwservice:hwservice_manager add;
+
+type hal_drk_default, domain, halserverdomain;
+type hal_drk_default_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_drk_default)
+allow hal_drk_default hal_drk_hwservice:hwservice_manager add;
+
+type hal_engmode_default, domain, halserverdomain;
+type hal_engmode_default_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_engmode_default)
+allow hal_engmode_default hal_engmode_hwservice:hwservice_manager add;
+
+type hal_hdm_default, domain, halserverdomain;
+type hal_hdm_default_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_hdm_default)
+allow hal_hdm_default hal_hdm_hwservice:hwservice_manager add;
+
+type hal_hqm_default, domain, halserverdomain;
+type hal_hqm_default_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_hqm_default)
+allow hal_hqm_default hal_hqm_hwservice:hwservice_manager add;
+
+type hal_iccc_default, domain, halserverdomain;
+type hal_iccc_default_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_iccc_default)
+allow hal_iccc_default hal_iccc_hwservice:hwservice_manager add;
+
+type hal_kgta_default, domain, halserverdomain;
+type hal_kgta_default_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_kgta_default)
+allow hal_kgta_default hal_kgta_hwservice:hwservice_manager add;
+
+type hal_proca_default, domain, halserverdomain;
+type hal_proca_default_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_proca_default)
+allow hal_proca_default hal_proca_hwservice:hwservice_manager add;
+
+type hal_qchdcpkprov_default, domain, halserverdomain;
+type hal_qchdcpkprov_default_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_qchdcpkprov_default)
+allow hal_qchdcpkprov_default hal_qchdcpkprov_hwservice:hwservice_manager add;
+
+type hal_sec_inputdev_default, domain, halserverdomain;
+type hal_sec_inputdev_default_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_sec_inputdev_default)
+allow hal_sec_inputdev_default hal_sec_inputdev_hwservice:hwservice_manager add;
+
+type hal_skpm_default, domain, halserverdomain;
+type hal_skpm_default_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_skpm_default)
+allow hal_skpm_default hal_skpm_hwservice:hwservice_manager add;
+
+type hal_ucmtlc_default, domain, halserverdomain;
+type hal_ucmtlc_default_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_ucmtlc_default)
+allow hal_ucmtlc_default hal_ucmtlc_hwservice:hwservice_manager add;
+
+type hal_hyper_default, domain, halserverdomain;
+type hal_hyper_default_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_hyper_default)
+allow hal_hyper_default hal_hyper_hwservice:hwservice_manager add;
+allow hal_hyper_default hal_hyper_service:service_manager add;
+
+type hal_fkey_default, domain, halserverdomain;
+type hal_fkey_default_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_fkey_default)
+allow hal_fkey_default hal_fkey_service:service_manager add;
+
+type hal_wvkprov_default, domain, halserverdomain;
+type hal_wvkprov_default_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_wvkprov_default)
+allow hal_wvkprov_default hal_wvkprov_hwservice:hwservice_manager add;
+allow hal_wvkprov_default hal_wvkprov_service:service_manager add;
+
+type hal_converter_default, domain, halserverdomain;
+type hal_converter_default_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_converter_default)
+allow hal_converter_default hal_converter_hwservice:hwservice_manager add;
+allow hal_converter_default hal_converter_service:service_manager add;
+
+allow hal_power_default hal_miscpower_hwservice:hwservice_manager add;

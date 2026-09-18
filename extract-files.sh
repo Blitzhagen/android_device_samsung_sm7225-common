@@ -58,6 +58,18 @@ fi
 
 function blob_fixup() {
     case "${1}" in
+        # Android 11 vendor audio blobs need the A11 TypeConverter tables
+        # (mTable) and helpers (deviceFromString) that Android 14 no longer
+        # exports from libmedia_helper. Pull in libaudiotypeconv_shim.so
+        # which provides them.
+        vendor/lib/hw/android.hardware.audio@*.0-impl.so | \
+        vendor/lib64/hw/android.hardware.audio@*.0-impl.so | \
+        vendor/lib/libaudiofoundation.so | \
+        vendor/lib64/libaudiofoundation.so | \
+        vendor/lib/libeffectsconfig.so | \
+        vendor/lib64/libeffectsconfig.so)
+            "${PATCHELF_0_18}" --add-needed "libaudiotypeconv_shim.so" "${2}"
+            ;;
     esac
 }
 

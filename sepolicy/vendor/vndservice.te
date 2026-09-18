@@ -1,0 +1,4 @@
+type EngineeringMode_vndservice, vndservice_manager_type;
+type SccHalAudio_service, vndservice_manager_type;
+type remosaicd_vndservice, vndservice_manager_type;
+type wlandutservice_vndservice, vndservice_manager_type;

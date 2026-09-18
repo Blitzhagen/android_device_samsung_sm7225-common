@@ -1,0 +1,15 @@
+type aidl_codecsolution_service, service_manager_type;
+type hal_base_service, service_manager_type;
+type hal_converter_service, service_manager_type;
+type hal_fkey_service, service_manager_type;
+type hal_hdcp_service, service_manager_type;
+type hal_hyper_service, service_manager_type;
+type hal_ifaa_service, service_manager_type;
+type hal_kpm_service, service_manager_type;
+type hal_mpp_service, service_manager_type;
+type hal_securesnap_service, service_manager_type;
+type hal_snap_service, service_manager_type;
+type hal_ssu_service, service_manager_type;
+type hal_wsm_service, service_manager_type;
+type hal_wvkprov_service, service_manager_type;
+type thales_spu_service_service, service_manager_type;

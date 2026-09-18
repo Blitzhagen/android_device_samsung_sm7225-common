@@ -1,0 +1,12 @@
+cc_library_shared {
+    name: "libaudiotypeconv_shim",
+    vendor: true,
+    compile_multilib: "both",
+    srcs: ["TypeConvShim.cpp"],
+    header_libs: ["libaudio_system_headers"],
+    cflags: [
+        "-fexceptions",
+        "-Wall",
+        "-Werror",
+    ],
+}

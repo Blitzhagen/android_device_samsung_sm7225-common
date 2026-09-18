@@ -57,3 +57,6 @@ set_prop(rild, vendor_data_shsusr_prop);
 # Camera
 allow rild hal_camera_default:dir search;
 allow rild hal_camera_default:file { getattr open read };
+allow rild hal_radio_service:service_manager add;
+type_transition rild socket_device:sock_file vendor_rild_socket "qcrild";
+allow rild vendor_rild_socket:sock_file create_file_perms;

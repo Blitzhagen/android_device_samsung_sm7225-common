@@ -5,7 +5,8 @@
       "Path": "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq",
       "Values": [
         "9999999",
-        "1248000"
+        "1248000",
+        "1516800"
       ],
       "DefaultIndex": 0,
       "ResetOnInit": true
@@ -26,7 +27,8 @@
       "Path": "/sys/devices/system/cpu/cpu6/cpufreq/scaling_max_freq",
       "Values": [
         "9999999",
-        "1555200"
+        "1555200",
+        "1766400"
       ],
       "DefaultIndex": 0,
       "ResetOnInit": true
@@ -364,12 +366,6 @@
     },
     {
       "PowerHint": "INTERACTIVE",
-      "Node": "LightSensorEnable",
-      "Duration": 0,
-      "Value": "1"
-    },
-    {
-      "PowerHint": "INTERACTIVE",
       "Node": "BatteryLcdStatus",
       "Duration": 0,
       "Value": "1"
@@ -390,13 +386,7 @@
       "PowerHint": "Flipendo",
       "Node": "CPUBigClusterMaxFreq",
       "Duration": 0,
-      "Value": "1651200"
-    },
-    {
-      "PowerHint": "Flipendo",
-      "Node": "CPUBigPlusClusterMaxFreq",
-      "Duration": 0,
-      "Value": "1516800"
+      "Value": "1766400"
     }
   ]
 }

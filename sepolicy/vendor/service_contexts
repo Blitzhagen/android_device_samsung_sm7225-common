@@ -16,3 +16,26 @@ vendor.samsung.hardware.radio.network.ISehRadioNetwork/slot1        u:object_r:h
 vendor.samsung.hardware.radio.network.ISehRadioNetwork/slot2        u:object_r:hal_radio_service:s0
 vendor.samsung.hardware.radio.sim.ISehRadioSim/slot1                u:object_r:hal_radio_service:s0
 vendor.samsung.hardware.radio.sim.ISehRadioSim/slot2                u:object_r:hal_radio_service:s0
+
+vendor.samsung.hardware.light.ILights/default u:object_r:hal_light_service:s0
+vendor.samsung.hardware.base.ISehBase/default u:object_r:hal_base_service:s0
+vendor.samsung.hardware.hyper.ISehHyPer/default u:object_r:hal_hyper_service:s0
+vendor.samsung.hardware.uwb@1.0::ISehUwb/default u:object_r:hal_uwb_service:s0
+vendor.samsung.hardware.media.converter.ISehColorConverterStore/default u:object_r:hal_converter_service:s0
+vendor.samsung.hardware.media.mpp.ISehMppStore/default u:object_r:hal_mpp_service:s0
+vendor.samsung.frameworks.codecsolution.ISehCodecSolution/default u:object_r:aidl_codecsolution_service:s0
+vendor.samsung.hardware.kpm.ISehKpm/default u:object_r:hal_kpm_service:s0
+vendor.samsung.hardware.security.hdcp.wifidisplay.ISehHdcp/default u:object_r:hal_hdcp_service:s0
+vendor.samsung.hardware.ifaa@1.0::ISehIfaa/default u:object_r:hal_ifaa_service:s0
+vendor.samsung.hardware.ifaa.ISehIfaa/default u:object_r:hal_ifaa_service:s0
+vendor.samsung.hardware.snap.ISehSnap/default u:object_r:hal_snap_service:s0
+vendor.samsung.hardware.snap.ISehSnap/secsnap u:object_r:hal_securesnap_service:s0
+vendor.samsung.hardware.security.wsm@1.0::ISehWsm/default u:object_r:hal_wsm_service:s0
+vendor.samsung.hardware.security.fkeymaster.ISehFkeymaster/default u:object_r:hal_fkey_service:s0
+vendor.samsung.hardware.security.widevine.keyprov.ISehWidevineKeyProv/default u:object_r:hal_wvkprov_service:s0
+vendor.samsung.hardware.security.ssu.ISehSSUTEECL/default u:object_r:hal_ssu_service:s0
+vendor.samsung.hardware.security.wsm.service.ISehWsm/default u:object_r:hal_wsm_service:s0
+thales_spu_service u:object_r:thales_spu_service_service:s0
+android.hardware.neuralnetworks.IDevice/qti-default u:object_r:hal_neuralnetworks_service:s0
+android.hardware.neuralnetworks.IDevice/qti-gpu u:object_r:hal_neuralnetworks_service:s0
+android.hardware.neuralnetworks.IDevice/qti-dsp u:object_r:hal_neuralnetworks_service:s0
