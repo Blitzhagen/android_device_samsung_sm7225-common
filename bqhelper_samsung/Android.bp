@@ -1,0 +1,91 @@
+/*
+ * Source-built replacement for the proprietary
+ * libstagefright_bufferqueue_helper_vendor.so (Android 11 Samsung
+ * vendor blob).
+ *
+ * The blob bridges the vendor OMX stack (libstagefright_omx_vendor.so)
+ * to the framework BufferQueue. Its Android-11 build was ABI-incompatible
+ * with Android 14 framework objects (hidl_vec, Region, Fence,
+ * BufferItem, QueueBufferInput) and caused media.codec crashes during
+ * video recording.
+ *
+ * This module rebuilds it from the AOSP GraphicBufferSource
+ * implementation (frameworks/av/media/module/bqhelper), extended with
+ * the Samsung FrucFacade listener interface so the exported symbol
+ * surface and vtable layout match the blob exactly (verified: 22-slot
+ * vtable, secondary FrucCallbackInterface vtable at object offset +8).
+ *
+ * Consumers: libstagefright_omx_vendor.so only (34 imported symbols).
+ */
+
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+cc_library_shared {
+    name: "libstagefright_bufferqueue_helper_vendor",
+    vendor: true,
+    double_loadable: true,
+
+    srcs: [
+        ":libgui_frame_event_aidl",
+        "FrucFacade.cpp",
+        "FrameDropper.cpp",
+        "GraphicBufferSource.cpp",
+    ],
+
+    export_include_dirs: [
+        "include",
+    ],
+
+    header_libs: [
+        "media_plugin_headers",
+    ],
+
+    export_header_lib_headers: [
+        "media_plugin_headers",
+    ],
+
+    shared_libs: [
+        "libbase",
+        "libcutils",
+        "libhidlbase",
+        "libhidlmemory",
+        "liblog",
+        "libstagefright_foundation",
+        "libui",
+        "libutils",
+
+        "android.hardware.graphics.bufferqueue@1.0",
+        "android.hardware.graphics.bufferqueue@2.0",
+    ],
+
+    export_shared_lib_headers: [
+        "libhidlmemory",
+        "libstagefright_foundation",
+        "android.hardware.graphics.bufferqueue@1.0",
+        "android.hardware.graphics.bufferqueue@2.0",
+    ],
+
+    static_libs: [
+        "libgui_bufferqueue_static",
+    ],
+
+    cflags: [
+        "-Wall",
+        "-Wno-unused-parameter",
+        "-Wno-documentation",
+        "-DNO_BINDER",
+    ],
+
+    target: {
+        vendor: {
+            shared_libs: [
+                "android.hidl.token@1.0-utils",
+                "libEGL",
+                "libnativewindow",
+                "libvndksupport",
+            ],
+        },
+    },
+}
