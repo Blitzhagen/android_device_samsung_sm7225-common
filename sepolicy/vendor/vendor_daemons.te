@@ -41,7 +41,7 @@ allow vaultkeeperd vaultkeeper_efs_file:file create_file_perms;
 allow vaultkeeperd vaultkeeper_socket:sock_file create_file_perms;
 allow vaultkeeperd hal_vaultkeeper_server_hwservice:hwservice_manager add;
 
-type sec_wifi_data_file, file_type, data_file_type;
+type sec_wifi_data_file, file_type, data_file_type, core_data_file_type;
 
 # argosd (DVFS booster): net stats, devicetree soc info, qos device
 allow argosd proc_net:file r_file_perms;

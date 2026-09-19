@@ -28,6 +28,7 @@ PRODUCT_PACKAGES += \
 
 # VNDK
 PRODUCT_TARGET_VNDK_VERSION := 30
+PRODUCT_EXTRA_VNDK_VERSIONS := 30
 
 # Init files and fstab
 # (uebrige init-*.rc und init-*.sh kommen als Stock-Blobs aus vendor/)

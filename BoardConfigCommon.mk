@@ -177,6 +177,22 @@ TARGET_HEALTH_CHARGING_CONTROL_SUPPORTS_BYPASS := false
 # DRM
 TARGET_ENABLE_MEDIADRM_64 := true
 
+# Shim for pre-Android-14 GraphicBufferMapper lock/unlock symbols still
+# referenced by Samsung media/camera blobs. LD_PRELOAD in the service rc files
+# does not reach the linker reliably, so the linker injects the shim into
+# whatever namespace loads the needy library.
+TARGET_LD_SHIM_LIBS := \
+    /vendor/lib64/libcodec2_vndk.so|/vendor/lib64/libui_compat_shim.so \
+    /vendor/lib64/libscaler_hw.unifunc.so|/vendor/lib64/libui_compat_shim.so \
+    /vendor/lib64/libscaler_sw.unifunc.so|/vendor/lib64/libui_compat_shim.so \
+    /vendor/lib64/libstagefright_softomx.so|/vendor/lib64/libui_compat_shim.so \
+    /vendor/lib64/unihal_main@2.15.so|/vendor/lib64/libui_compat_shim.so \
+    /vendor/lib/libcodec2_vndk.so|/vendor/lib/libui_compat_shim.so \
+    /vendor/lib/libscaler_hw.unifunc.so|/vendor/lib/libui_compat_shim.so \
+    /vendor/lib/libscaler_sw.unifunc.so|/vendor/lib/libui_compat_shim.so \
+    /vendor/lib/libstagefright_softomx.so|/vendor/lib/libui_compat_shim.so \
+    /vendor/lib/unihal_main@2.15.so|/vendor/lib/libui_compat_shim.so
+
 # FOD
 ifeq ($(TARGET_HAS_UDFPS),true)
 TARGET_USES_FOD_ZPOS := true
