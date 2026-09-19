@@ -66,3 +66,4 @@ dontaudit rild default_prop:file r_file_perms;
 # rild reads emservice proc entries (VND multiclient plumbing)
 allow rild emservice:dir search;
 allow rild emservice:file r_file_perms;
+dontaudit rild system_prop:file r_file_perms;

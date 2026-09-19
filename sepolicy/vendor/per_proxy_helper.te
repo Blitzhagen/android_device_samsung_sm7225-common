@@ -4,3 +4,6 @@ init_daemon_domain(per_proxy_helper)
 allow per_proxy_helper vendor_per_mgr_service:service_manager find;
 vndbinder_use(per_proxy_helper)
 binder_call(per_proxy_helper, vendor_per_mgr)
+
+# SSR subsystem device access (remoteproc restart plumbing)
+allow per_proxy_helper vendor_ssr_device:chr_file rw_file_perms;

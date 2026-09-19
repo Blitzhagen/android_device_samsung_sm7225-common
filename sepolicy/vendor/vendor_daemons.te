@@ -69,3 +69,28 @@ binder_call(emservice, vndservicemanager)
 
 # snap_utility reads its cache under /data/vendor/snap
 allow snap_utility vendor_data_file:file r_file_perms;
+
+# emservice enumerates /dev/block during em checks
+allow emservice block_device:dir search;
+
+# snap_hidl aidl service registration
+binder_call(snap_hidl, servicemanager)
+
+# vaultkeeperd reads qseecomd prop + logs to kmsg + enumerates /dev/block
+get_prop(vaultkeeperd, vendor_qseecomd_prop)
+allow vaultkeeperd kmsg_device:chr_file rw_file_perms;
+allow vaultkeeperd block_device:dir r_dir_perms;
+# untyped default_prop reads are neverallow'd; keep denied + quiet
+dontaudit vaultkeeperd default_prop:file r_file_perms;
+dontaudit emservice default_prop:file r_file_perms;
+
+# emservice reads steady partition + sets props
+allow emservice steady_block_device:blk_file r_file_perms;
+unix_socket_connect(emservice, property, init)
+allow vaultkeeperd steady_block_device:blk_file r_file_perms;
+allow vaultkeeperd tee_device:chr_file rw_file_perms;
+allow vaultkeeperd ion_device:chr_file rw_file_perms;
+# vaultkeeperd keeps its own socket dir, sets props, writes steady partition
+allow vaultkeeperd vaultkeeper_socket:dir r_dir_perms;
+unix_socket_connect(vaultkeeperd, property, init)
+allow vaultkeeperd steady_block_device:blk_file rw_file_perms;
