@@ -82,3 +82,17 @@ allow hal_converter_default hal_converter_hwservice:hwservice_manager add;
 allow hal_converter_default hal_converter_service:service_manager add;
 
 allow hal_power_default hal_miscpower_hwservice:hwservice_manager add;
+
+type hal_samsung_c2_default, domain;
+type hal_samsung_c2_default_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_samsung_c2_default)
+hal_server_domain(hal_samsung_c2_default, hal_codec2)
+allow hal_samsung_c2_default hal_codec2_hwservice:hwservice_manager add;
+
+# fkey/proca TEE + ion access (observed denials: qseecom ioctls, ion alloc)
+allow hal_fkey_default tee_device:chr_file rw_file_perms;
+allow hal_fkey_default ion_device:chr_file rw_file_perms;
+binder_call(hal_fkey_default, servicemanager)
+
+allow hal_proca_default tee_device:chr_file rw_file_perms;
+allow hal_proca_default ion_device:chr_file rw_file_perms;

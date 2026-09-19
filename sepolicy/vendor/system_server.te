@@ -10,3 +10,4 @@ allow system_server {
 }:file r_file_perms;
 
 allow system_server self:capability sys_module;
+get_prop(system_server, wifi_hal_prop)

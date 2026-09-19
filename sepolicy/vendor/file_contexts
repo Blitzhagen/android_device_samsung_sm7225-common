@@ -128,3 +128,5 @@
 /vendor/bin/vendor\.samsung\.hardware\.security\.fkeymaster-service    u:object_r:hal_fkey_default_exec:s0
 /vendor/bin/vendor\.samsung\.hardware\.security\.vaultkeeper@1\.0-service      u:object_r:vaultkeeperd_exec:s0
 /vendor/bin/vendor\.samsung\.hardware\.security\.vaultkeeper@2\.0-service      u:object_r:vaultkeeperd_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.samsung\.hardware\.media\.converter@1\.0-service                  u:object_r:hal_converter_default_exec:s0
+/(vendor|system/vendor)/bin/hw/samsung\.software\.media\.c2@1\.0-service                               u:object_r:hal_samsung_c2_default_exec:s0

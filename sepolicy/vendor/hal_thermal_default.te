@@ -14,3 +14,6 @@ allow hal_thermal_default fwk_camera_hwservice:hwservice_manager find;
 binder_call(hal_thermal_default, cameraserver)
 
 hal_client_domain(hal_thermal_default, hal_audio)
+# sec-mmw-thermistor (genfs sysfs_thermal)
+allow hal_thermal_default sysfs_thermal:dir search;
+allow hal_thermal_default sysfs_thermal:file r_file_perms;

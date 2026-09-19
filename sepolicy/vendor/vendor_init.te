@@ -14,3 +14,13 @@ dontaudit vendor_init cache_file:dir search;
 
 
 
+
+set_prop(vendor_init, vendor_mm_parser_prop)
+set_prop(vendor_init, vendor_cnd_prop)
+# stock vendor_init probes ro.* props it may not set; stay denied, keep logs clean
+dontaudit vendor_init default_prop:property_service set;
+dontaudit vendor_init build_prop:property_service set;
+dontaudit vendor_init shell_prop:property_service set;
+dontaudit vendor_init config_prop:property_service set;
+allow vendor_init vts_status_prop:file read;
+allow vendor_init kmsg_debug_device:chr_file unlink;

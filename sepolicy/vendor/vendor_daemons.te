@@ -42,3 +42,30 @@ allow vaultkeeperd vaultkeeper_socket:sock_file create_file_perms;
 allow vaultkeeperd hal_vaultkeeper_server_hwservice:hwservice_manager add;
 
 type sec_wifi_data_file, file_type, data_file_type;
+
+# argosd (DVFS booster): net stats, devicetree soc info, qos device
+allow argosd proc_net:file r_file_perms;
+allow argosd vendor_sysfs_devicetree_soc:dir r_dir_perms;
+allow argosd vendor_sysfs_devicetree_soc:file r_file_perms;
+allow argosd radio_qos_device:chr_file rw_file_perms;
+
+# emservice: registers vndservice + talks to suspend HAL / rild socket
+allow emservice EngineeringMode_vndservice:service_manager add;
+allow emservice hal_system_suspend_service:service_manager find;
+binder_call(emservice, servicemanager)
+binder_call(emservice, system_suspend_server)
+binder_call(system_suspend_server, emservice)
+allow emservice rild:unix_stream_socket connectto;
+
+# vaultkeeperd prop read
+get_prop(vaultkeeperd, hwservicemanager_prop)
+hwbinder_use(vaultkeeperd)
+
+# emservice: ion/qseecom + vndbinder plumbing
+allow emservice ion_device:chr_file rw_file_perms;
+allow emservice tee_device:chr_file rw_file_perms;
+vndbinder_use(emservice)
+binder_call(emservice, vndservicemanager)
+
+# snap_utility reads its cache under /data/vendor/snap
+allow snap_utility vendor_data_file:file r_file_perms;

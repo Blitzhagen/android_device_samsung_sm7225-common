@@ -8,3 +8,5 @@ allow hal_audio_default efs_file:dir search;
 get_prop(hal_audio_default, vendor_radio_prop)
 
 # ro.multisim*
+# radio_prop readable only by radio/system domains; keep denied + quiet
+dontaudit hal_audio_default radio_prop:file r_file_perms;

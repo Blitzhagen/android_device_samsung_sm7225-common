@@ -22,3 +22,5 @@ allow kernel app_efs_file:file { read open getattr };
 
 # /sys/devices/virtual/lcd/panel/
 allow kernel sysfs_lcd_writable:file { open };
+allow kernel sysfs_sec_key:dir search;
+allow kernel self:capability kill;

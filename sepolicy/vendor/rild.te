@@ -60,3 +60,9 @@ allow rild hal_camera_default:file { getattr open read };
 allow rild hal_radio_service:service_manager add;
 type_transition rild socket_device:sock_file vendor_rild_socket "qcrild";
 allow rild vendor_rild_socket:sock_file create_file_perms;
+
+# untyped default_prop reads are neverallow'd; keep denied + quiet
+dontaudit rild default_prop:file r_file_perms;
+# rild reads emservice proc entries (VND multiclient plumbing)
+allow rild emservice:dir search;
+allow rild emservice:file r_file_perms;

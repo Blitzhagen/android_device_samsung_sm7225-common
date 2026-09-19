@@ -20,3 +20,6 @@ binder_call(hal_health_default, hal_thermal_default)
 # SysFS Wakeup
 allow hal_health_default sysfs_wakeup:file r_file_perms;
 allow hal_health_default sysfs_wakeup:dir r_dir_perms;
+# sm5714 fuelgauge power_supply nodes (genfs sysfs_battery)
+allow hal_health_default sysfs_battery:dir search;
+allow hal_health_default sysfs_battery:file r_file_perms;

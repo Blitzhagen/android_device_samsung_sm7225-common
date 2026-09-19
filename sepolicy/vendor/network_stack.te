@@ -1,0 +1,2 @@
+# network_stack reads per-pid /proc/<pid>/net/* during stats collection
+allow network_stack proc_net:file r_file_perms;
