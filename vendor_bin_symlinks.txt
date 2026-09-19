@@ -121,7 +121,6 @@ runcon:toybox_vendor
 sed:toybox_vendor
 sendevent:toybox_vendor
 seq:toybox_vendor
-setenforce:toybox_vendor
 setprop:toolbox
 setsid:toybox_vendor
 sha1sum:toybox_vendor

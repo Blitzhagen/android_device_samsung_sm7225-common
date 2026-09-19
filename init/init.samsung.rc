@@ -39,10 +39,6 @@ on init
     symlink /dev/block/bootdevice/by-name/steady  /dev/block/steady
     symlink /dev/block/bootdevice/by-name/persistent  /dev/block/persistent
 
-    # Root-ADB im userdebug-Boot (adbd liest das Prop beim Start,
-    # adbroot_service-Gate wird so nicht benoetigt)
-    setprop service.adb.root 1
-
     # Change backlog queue size
     write /proc/sys/net/core/netdev_max_backlog 100000
 	
@@ -243,9 +239,3 @@ service factory_ssc /vendor/bin/factory.ssc
     disabled
 
 # gts7xllite: kein Fingerabdrucksensor -> goodixd nicht starten
-
-# TEMP DIAG: adb so frueh wie moeglich. UsbDeviceManager (system_server) kommt in
-# der Bootschleife evtl. nicht hoch -> sys.usb.config selbst auf adb-only setzen.
-on property:sys.usb.configfs=1
-    setprop sys.usb.config adb
-    start adbd

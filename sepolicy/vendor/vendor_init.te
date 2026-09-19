@@ -23,4 +23,3 @@ dontaudit vendor_init build_prop:property_service set;
 dontaudit vendor_init shell_prop:property_service set;
 dontaudit vendor_init config_prop:property_service set;
 allow vendor_init vts_status_prop:file read;
-allow vendor_init kmsg_debug_device:chr_file unlink;

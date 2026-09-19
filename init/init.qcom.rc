@@ -61,10 +61,6 @@ on early-init
 
     chown root system /dev/kmsg
     chmod 0620 /dev/kmsg
-    # kmsg_debug entfernen: verhindert dass die Zygote-stderr (stdio_to_kmsg) auf
-    # /dev/kmsg_debug zeigt; ein dup() davon landet sonst als fd in der Zygote und
-    # schlaegt beim FileDescriptorTable-Scan von forkSystemServer fehl (crash).
-    rm /dev/kmsg_debug
     # Load WIGIG platform driver
     exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules msm_11ad_proxy
 
