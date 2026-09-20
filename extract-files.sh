@@ -70,6 +70,13 @@ function blob_fixup() {
         vendor/lib64/libeffectsconfig.so)
             "${PATCHELF_0_18}" --add-needed "libaudiotypeconv_shim.so" "${2}"
             ;;
+        # AOSP sends bt_wbs=on/off matching the negotiated SCO codec, but
+        # the Samsung HAL only understands g_sco_samplerate=<Hz>. Patch the
+        # blob so bt_wbs drives the internal wideband flag (16 kHz backend
+        # + "-wb" paths for mSBC, 8 kHz narrowband for CVSD).
+        vendor/lib/hw/audio.primary.lito.so)
+            python3 "${MY_DIR}/patches/patch_audio_primary_lito.py" "${2}"
+            ;;
     esac
 }
 
