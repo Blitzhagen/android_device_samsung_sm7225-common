@@ -548,7 +548,6 @@ vendor/lib/hw/android.hardware.renderscript@1.0-impl.so
 vendor/lib/hw/android.hardware.soundtrigger@2.0-impl.so
 vendor/lib/hw/android.hardware.soundtrigger@2.3-impl.so
 vendor/lib/hw/audio.a2dpsink.default.so
-vendor/lib/hw/audio.bluetooth.default.so
 vendor/lib/hw/audio.bluetooth_qti.default.so
 vendor/lib/hw/audio.primary.default.so
 vendor/lib/hw/audio.primary.lito.so
@@ -666,7 +665,6 @@ vendor/lib/libbatching.so
 vendor/lib/libbatterylistener.so
 vendor/lib/libbitmlengine.so
 vendor/lib/libbluetooth_a2dpsink_session.so
-vendor/lib/libbluetooth_audio_session.so
 vendor/lib/libbluetooth_audio_session_qti.so
 vendor/lib/libbodyid.arcsoft.so
 vendor/lib/libbt-hidlclient.so
@@ -1270,7 +1268,6 @@ vendor/lib64/hw/android.hardware.gnss@2.1-impl-qti.so
 vendor/lib64/hw/android.hardware.renderscript@1.0-impl.so
 vendor/lib64/hw/android.hardware.soundtrigger@2.3-impl.so
 vendor/lib64/hw/audio.a2dpsink.default.so
-vendor/lib64/hw/audio.bluetooth.default.so
 vendor/lib64/hw/audio.bluetooth_qti.default.so
 vendor/lib64/hw/audio.primary.default.so
 vendor/lib64/hw/audio.r_submix.default.so
@@ -1379,7 +1376,6 @@ vendor/lib64/libbase64.so
 vendor/lib64/libbatching.so
 vendor/lib64/libbitmlengine.so
 vendor/lib64/libbluetooth_a2dpsink_session.so
-vendor/lib64/libbluetooth_audio_session.so
 vendor/lib64/libbluetooth_audio_session_qti.so
 vendor/lib64/libbodyid.arcsoft.so
 vendor/lib64/libbt-hidlclient.so
