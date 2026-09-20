@@ -159,6 +159,7 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.memtrack-service \
     gralloc.lito \
     libsdmcore \
+    libsdmextension \
     libsdedrm
 
 ifneq ($(TARGET_IS_TABLET),true)

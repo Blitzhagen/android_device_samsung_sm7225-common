@@ -1,0 +1,31 @@
+// Device-owned replacement for the proprietary SDM extension library.
+// The stock Android-11 blob shares internal SDM structure layouts with
+// the stock libsdmcore blob and crashes the source-built libsdmcore on
+// Android 14. This module provides a source-compatible extension:
+// CreateResourceExtn delegates to ResourceDefault in libsdmcore,
+// CreateStrategyExtn supplies a GPU-composition strategy that also
+// clears the per-frame hw_layers vectors (which only the proprietary
+// StrategyImpl did), and an inert panel feature factory satisfies
+// DisplayBuiltIn::CreatePanelfeatures.
+
+cc_library_shared {
+    name: "libsdmextension",
+    vendor: true,
+    srcs: ["sdmextension_stub.cpp"],
+    header_libs: ["display_headers"],
+    export_include_dirs: ["."],
+    cflags: [
+        "-Wall",
+        "-Werror",
+        "-Wno-unused-parameter",
+    ],
+    shared_libs: [
+        "libc",
+        "libc++",
+        "libdl",
+        "liblog",
+        "libm",
+        "libsdmutils",
+        "libutils",
+    ],
+}
