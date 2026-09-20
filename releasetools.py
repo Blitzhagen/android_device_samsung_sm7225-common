@@ -13,8 +13,8 @@ def AddImage(info, dir, basename, dest):
 
 
 def FullOTA_InstallEnd(info):
-    AddImage(info, "RADIO", "dtbo.img", "/dev/block/bootdevice/by-name/dtbo")
-    AddImage(info, "RADIO", "vbmeta.img", "/dev/block/bootdevice/by-name/vbmeta")
+    AddImage(info, "IMAGES", "dtbo.img", "/dev/block/bootdevice/by-name/dtbo")
+    AddImage(info, "IMAGES", "vbmeta.img", "/dev/block/bootdevice/by-name/vbmeta")
 
 
 def IncrementalOTA_InstallEnd(info):
