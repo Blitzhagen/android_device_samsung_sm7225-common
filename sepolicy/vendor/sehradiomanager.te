@@ -1,0 +1,18 @@
+type sehradiomanager, domain, halserverdomain;
+type sehradiomanager_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(sehradiomanager)
+
+# hwbinder client of ISehRadio (served by rild, hal_telephony domain)
+hal_client_domain(sehradiomanager, hal_telephony)
+hwbinder_use(sehradiomanager)
+
+# AIDL binder client for ISehRadioNetwork (vndbinder)
+binder_use(sehradiomanager)
+vndbinder_use(sehradiomanager)
+
+# ro.vendor.multisim.simslotcount
+get_prop(sehradiomanager, vendor_radio_prop)
+
+# liblog
+unix_socket_send(sehradiomanager, logdw, logd)
