@@ -78,7 +78,6 @@ vendor/bin/qrtr-lookup
 vendor/bin/qrtr-ns
 vendor/bin/qseecomd
 vendor/bin/rmt_storage
-vendor/bin/secril_config_svc
 vendor/bin/shsusrd
 vendor/bin/snaplite_utility_64
 vendor/bin/sscrpcd
@@ -174,14 +173,12 @@ vendor/etc/init/cass.rc
 vendor/etc/init/dataadpl.rc
 vendor/etc/init/emservice.rc
 vendor/etc/init/hyper-default-sec.rc
-vendor/etc/init/init-qcril-data.rc
 vendor/etc/init/init.audio.samsung.rc
 vendor/etc/init/init.avb.rc
 vendor/etc/init/init.qti.media.rc
 vendor/etc/init/init.qti.qcv.rc
 vendor/etc/init/init.ramplus.rc
 vendor/etc/init/init.time_daemon.rc
-vendor/etc/init/init.vendor.rilcommon.rc
 vendor/etc/init/init.vendor.sensors.rc
 vendor/etc/init/init.vendor.sysfw.rc
 vendor/etc/init/init_thermal-engine.rc
@@ -234,7 +231,6 @@ vendor/etc/init/vendor.samsung.hardware.tlc.iccc@1.0-service.rc
 vendor/etc/init/vendor.samsung.hardware.tlc.kg@1.1-service.rc
 vendor/etc/init/vendor.samsung.hardware.tlc.ucm@2.0-service.rc
 vendor/etc/init/vendor.samsung.hardware.wifi@2.0-service.rc
-vendor/etc/init/vendor.samsung.rilchip.qcom.rc
 vendor/etc/init/vendor.sensors.sscrpcd.rc
 vendor/etc/init/vendor_flash_recovery.rc
 vendor/etc/init/wifi.rc
@@ -856,7 +852,6 @@ vendor/lib/libqti_vndfwk_detect.so
 vendor/lib/libqtigef.so
 vendor/lib/librecordalive.so
 vendor/lib/librecovery_updater_msm.so
-vendor/lib/librmnetctl.so
 vendor/lib/librmp.so
 vendor/lib/librpmb.so
 vendor/lib/libsaiv_BeautySolutionVideo.so
@@ -1595,7 +1590,6 @@ vendor/lib64/libreffeature.so
 vendor/lib64/libremosaiclib.so
 vendor/lib64/libril_sem.so
 vendor/lib64/librilutils.so
-vendor/lib64/librmnetctl.so
 vendor/lib64/librmp.so
 vendor/lib64/librpmb.so
 vendor/lib64/libsaiv_BeautySolutionVideo.so
@@ -1866,9 +1860,6 @@ vendor/lib64/vendor.samsung.hardware.miscpower@2.0.so
 vendor/lib64/vendor.samsung.hardware.radio.bridge@2.0.so
 vendor/lib64/vendor.samsung.hardware.radio.bridge@2.1.so
 vendor/lib64/vendor.samsung.hardware.radio.channel@2.0.so
-vendor/lib64/vendor.samsung.hardware.radio@2.0.so
-vendor/lib64/vendor.samsung.hardware.radio@2.1.so
-vendor/lib64/vendor.samsung.hardware.radio@2.2.so
 vendor/lib64/vendor.samsung.hardware.security.drk@2.0.so
 vendor/lib64/vendor.samsung.hardware.security.engmode@1.0.so
 vendor/lib64/vendor.samsung.hardware.security.fkeymaster-V1-ndk_platform.so

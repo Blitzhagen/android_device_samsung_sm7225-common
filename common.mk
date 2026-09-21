@@ -45,6 +45,8 @@ PRODUCT_PACKAGES += \
     init.samsung.display.rc \
     init.samsung.rc \
     init.target.rc \
+    init.vendor.rilcommon.rc \
+    vendor.samsung.rilchip.qcom.rc \
     ueventd.qcom.rc
 
 # libapexsupport ist LLNDK, steht aber nicht in der v30-LLNDK-Liste
@@ -186,11 +188,6 @@ PRODUCT_PACKAGES += \
 TARGET_FS_CONFIG_GEN := $(COMMON_PATH)/config.fs
 
 # gts7xllite hat keinen Fingerabdrucksensor
-
-# RIL: FW_READY-Konfiguration fuer libsec-ril (aktiviert Unsol-Responses
-# wie eingehende SMS, die sonst in der Pending-Queue haengen bleiben)
-PRODUCT_PACKAGES += \
-    secril_fwready
 
 # Gatekeeper
 PRODUCT_PACKAGES += \
@@ -340,7 +337,8 @@ PRODUCT_PACKAGES += \
 
 # RIL
 PRODUCT_PACKAGES += \
-    secril_config_svc
+    secril_config_svc \
+    sehradiomanager
 
 # Sensors
 PRODUCT_PACKAGES += \

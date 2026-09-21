@@ -1,9 +1,0 @@
-type secril_fwready, domain, coredomain;
-type secril_fwready_exec, system_file_type, exec_type, file_type;
-
-init_daemon_domain(secril_fwready)
-hwbinder_use(secril_fwready)
-hal_client_domain(secril_fwready, hal_telephony)
-
-# liblog (ALOGI/ALOGE)
-unix_socket_send(secril_fwready, logdw, logd)

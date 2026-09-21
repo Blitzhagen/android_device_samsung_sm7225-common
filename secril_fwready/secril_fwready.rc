@@ -1,5 +1,0 @@
-service secril_fwready /system_ext/bin/secril_fwready
-    class main
-    user radio
-    group radio log
-    shutdown critical

@@ -87,6 +87,20 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
+    name: "init.vendor.rilcommon.rc",
+    src: "init.vendor.rilcommon.rc",
+    sub_dir: "init",
+    soc_specific: true,
+}
+
+prebuilt_etc {
+    name: "vendor.samsung.rilchip.qcom.rc",
+    src: "vendor.samsung.rilchip.qcom.rc",
+    sub_dir: "init",
+    soc_specific: true,
+}
+
+prebuilt_etc {
     name: "ueventd.qcom.rc",
     src: "ueventd.qcom.rc",
     filename: "ueventd.rc",
