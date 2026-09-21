@@ -2,7 +2,11 @@
 
 cc_binary {
     name: "secril_fwready",
-    srcs: ["secril_fwready.cpp"],
+    srcs: [
+        "secril_fwready.cpp",
+        "SehRadioIndication.cpp",
+        "SehRadioResponse.cpp",
+    ],
     system_ext_specific: true,
     init_rc: ["secril_fwready.rc"],
     shared_libs: [
@@ -10,6 +14,8 @@ cc_binary {
         "libhidlbase",
         "liblog",
         "libutils",
+        "vendor.samsung.hardware.radio@2.0",
+        "vendor.samsung.hardware.radio@2.1",
         "vendor.samsung.hardware.radio@2.2",
     ],
 }

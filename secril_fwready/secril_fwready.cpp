@@ -14,10 +14,15 @@
 #include <unistd.h>
 #include <string>
 
+#include "SehRadioIndication.h"
+#include "SehRadioResponse.h"
+
 using android::sp;
 using android::hardware::hidl_vec;
 using vendor::samsung::hardware::radio::V2_2::ISehRadio;
 using vendor::samsung::hardware::radio::V2_2::SehVendorConfiguration;
+using vendor::samsung::hardware::radio::V2_2::implementation::SehRadioIndication;
+using vendor::samsung::hardware::radio::V2_2::implementation::SehRadioResponse;
 
 static const char* kSlots[] = {"slot1", "slot2"};
 
@@ -35,12 +40,24 @@ static void sendFwReady(const sp<ISehRadio>& radio, const char* slot, int counte
 }
 
 int main() {
+    sp<SehRadioResponse> sehResponse = sp<SehRadioResponse>::make();
+    sp<SehRadioIndication> sehIndication = sp<SehRadioIndication>::make();
+
+    android::hardware::configureRpcThreadpool(1, false);
+
     int counter = 0;
     for (;;) {
         bool any = false;
         for (const char* slot : kSlots) {
             sp<ISehRadio> radio = ISehRadio::getService(slot);
             if (radio != nullptr) {
+                // Idempotent: bei rild-Restart geht die Registrierung
+                // verloren, daher bei jedem Durchlauf erneut setzen.
+                auto regRet = radio->setResponseFunction(sehResponse, sehIndication);
+                if (!regRet.isOk()) {
+                    ALOGE("setResponseFunction an %s fehlgeschlagen: %s",
+                          slot, regRet.description().c_str());
+                }
                 sendFwReady(radio, slot, ++counter);
                 any = true;
             }
@@ -58,3 +75,4 @@ int main() {
     }
     return 0;
 }
+
