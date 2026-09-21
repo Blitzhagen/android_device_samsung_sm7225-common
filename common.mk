@@ -207,7 +207,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@4.0-service.samsung \
     libcrypto-v33 \
-    libkeymaster41
+    libkeymaster41.vendor \
+    libkeymaster4_1support.vendor
 
 $(call soong_config_set,samsungVars,target_keymaster4_library,//vendor/samsung/sm7225-common:libskeymaster4device)
 
