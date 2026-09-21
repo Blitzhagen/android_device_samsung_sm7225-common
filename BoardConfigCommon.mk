@@ -31,6 +31,9 @@ BOARD_AVB_SYSTEM_ROLLBACK_INDEX_LOCATION := 1
 # QC Connectivity Engine
 BOARD_USES_QCNE := true
 
+# VNDK: ro.vndk.version=30 (Stock-Vendor = Android 11). BOARD_VNDK_VERSION
+# ist hier wirkungslos (KEEP_VNDK=false in der ap2a-Release-Config).
+
 # Platform
 PRODUCT_PLATFORM := lito
 TARGET_BOARD_PLATFORM := lito

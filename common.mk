@@ -47,10 +47,14 @@ PRODUCT_PACKAGES += \
     init.target.rc \
     ueventd.qcom.rc
 
-# libapexsupport/libvndksupport sind LLNDK: Vendor-Prozesse loesen sie ueber
-# den system-Namespace-Link auf (/system/lib(64)) auf. NICHT nach /vendor/lib
-# kopieren - sonst "duplicate provider" und linkerconfig bricht die
-# Konfiguration komplett ab (alle Namespace-Links weg).
+# libapexsupport ist LLNDK, steht aber nicht in der v30-LLNDK-Liste
+# (ro.vndk.version=30 -> linkerconfig nutzt die APEX-Liste, Android-11-Stand).
+# Ohne requireLibs-Eintrag bekommt die Vendor-default-Namespace keinen
+# Link dorthin und source-gebaute Vendor-Binaries (libbinder) sterben
+# beim Laden. NICHT nach /vendor/lib kopieren - das waere ein
+# duplicate provider und linkerconfig bricht komplett ab.
+PRODUCT_VENDOR_LINKER_CONFIG_FRAGMENTS += \
+    $(COMMON_PATH)/linkerconfig/vendor-linker-config.json
 
 # fstab.default wird ueber soong-Module installiert (init/Android.bp):
 # fstab.default -> /vendor/etc, fstab.default.ramdisk -> Boot-Ramdisk-Root
