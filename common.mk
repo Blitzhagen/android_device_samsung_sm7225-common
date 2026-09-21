@@ -47,8 +47,11 @@ PRODUCT_PACKAGES += \
     init.target.rc \
     ueventd.qcom.rc
 
-# libapexsupport is provided by the system/runtime APEX in the LLNDK list.
-# Do NOT copy it to vendor: linkerconfig rejects duplicate providers.
+# libapexsupport/libvndksupport sind LLNDK, fehlen aber in der v30-VNDK-APEX
+# (APEX-Stand Android 11, libapexsupport kam erst mit Android 14).
+# Die source-gebaute vendor-libbinder braucht beide -> werden als Dateien
+# aus dem Vendor-Repo nach /vendor/lib(64) kopiert (kein duplicate provider,
+# die APEX liefert sie nicht).
 
 # fstab.default wird ueber soong-Module installiert (init/Android.bp):
 # fstab.default -> /vendor/etc, fstab.default.ramdisk -> Boot-Ramdisk-Root
