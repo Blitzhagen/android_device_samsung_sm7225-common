@@ -70,7 +70,7 @@ on post-fs-data
     chmod 0771 /spu
     restorecon /spu
 
-    # gts7xllite: kein Fingerabdrucksensor (Fingerprint-/Biometrics-Setup entfernt)
+    # gts7xllite: no fingerprint sensor (fingerprint/biometrics setup removed)
 
     mkdir /data/vendor/gatekeeper 0770 system system
 
@@ -238,4 +238,4 @@ service factory_ssc /vendor/bin/factory.ssc
     group system radio inet diag net_admin net_raw sdcard_rw sdcard_r media_rw
     disabled
 
-# gts7xllite: kein Fingerabdrucksensor -> goodixd nicht starten
+# gts7xllite: no fingerprint sensor -> do not start goodixd

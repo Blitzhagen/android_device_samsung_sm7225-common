@@ -9,12 +9,12 @@ ifneq ($(filter gts7xllite,$(TARGET_DEVICE)),)
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
-# Kernel-Header aus dem Original-Quellcode fuer Legacy-Make-Module
-# (qcom-caf Module setzen KERNEL_OBJ/usr als Dependency; bei
-#  TARGET_FORCE_PREBUILT_KERNEL wird es sonst nicht erzeugt)
+# Kernel headers from the original source for legacy make modules
+# (qcom-caf modules depend on KERNEL_OBJ/usr; it is not generated
+#  when TARGET_FORCE_PREBUILT_KERNEL is used)
 KERNEL_HEADERS_USR := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
-# "make" ist im Android-Build ein disallowed PATH tool -> absoluter Pfad
-# (command -v liefert den out/.path-Shim, daher hart /usr/bin/make)
+# "make" is a disallowed PATH tool in the Android build -> absolute path
+# (command -v would return the out/.path shim, hence hard /usr/bin/make)
 KERNEL_HEADERS_MAKE := /usr/bin/make
 $(KERNEL_HEADERS_USR):
 	@echo "Installing kernel headers -> $@"
@@ -100,7 +100,7 @@ $(CNE_APP_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 
 ALL_DEFAULT_INSTALLED_MODULES += $(CNE_APP_SYMLINKS)
 
-# vendor/bin toybox_vendor/toolbox Applets (Symlinks aus Stock)
+# vendor/bin toybox_vendor/toolbox applets (symlinks from stock)
 SM7225_COMMON_DIR := $(LOCAL_PATH)
 TOYBOX_BIN_LINKS := $(TARGET_OUT_VENDOR)/bin/.toybox_links_done
 $(TOYBOX_BIN_LINKS): $(LOCAL_INSTALLED_MODULE) $(SM7225_COMMON_DIR)/vendor_bin_symlinks.txt
@@ -112,7 +112,7 @@ $(TOYBOX_BIN_LINKS): $(LOCAL_INSTALLED_MODULE) $(SM7225_COMMON_DIR)/vendor_bin_s
 
 ALL_DEFAULT_INSTALLED_MODULES += $(TOYBOX_BIN_LINKS)
 
-# Prebuilt Vendor-Libs als linkbare Make-Module (qcom-caf Android.mk-Deps)
+# Prebuilt vendor libs as linkable make modules (qcom-caf Android.mk deps)
 VND_PREB := ../../../vendor/samsung/sm7225-common/proprietary
 
 include $(CLEAR_VARS)

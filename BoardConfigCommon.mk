@@ -31,8 +31,8 @@ BOARD_AVB_SYSTEM_ROLLBACK_INDEX_LOCATION := 1
 # QC Connectivity Engine
 BOARD_USES_QCNE := true
 
-# VNDK: ro.vndk.version=30 (Stock-Vendor = Android 11). BOARD_VNDK_VERSION
-# ist hier wirkungslos (KEEP_VNDK=false in der ap2a-Release-Config).
+# VNDK: ro.vndk.version=30 (stock vendor = Android 11). BOARD_VNDK_VERSION
+# has no effect here (KEEP_VNDK=false in the ap2a release config).
 
 # Platform
 PRODUCT_PLATFORM := lito
@@ -61,23 +61,24 @@ TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a55
 
 # Kernel config
 TARGET_KERNEL_SOURCE        := kernel/samsung/sm7225
-# Original Samsung-Defconfig aus dem Opensource-Release (T736BXXS9DYF1)
+# Stock Samsung defconfig from the opensource release (T736BXXS9DYF1)
 TARGET_KERNEL_CONFIG := vendor/gts7xllite_eur_openx_defconfig
-# Stock-Kernel wurde mit clang 10.0.7 gebaut; r450784e (clang 14) ist die
-# naechste im Tree verfuegbare Version (clang-3289846 braucht libtinfo.so.5)
+# Stock kernel was built with clang 10.0.7; r450784e (clang 14) is the
+# closest version available in tree (clang-3289846 needs libtinfo.so.5)
 TARGET_KERNEL_CLANG_VERSION := r450784e
 TARGET_KERNEL_ARCH          := arm64
 TARGET_KERNEL_HEADER_ARCH   := arm64
 TARGET_LINUX_KERNEL_VERSION := 4.19
-# Stock baute mit clang 10.0.7 + GNU as/ld 2.27 (kein LLVM); LLVM_IAS bricht
-# z.B. arch/arm64/crypto/aes-modes.S (ldr q8,=imm64)
+# Stock used clang 10.0.7 + GNU as/ld 2.27 (no LLVM); LLVM_IAS breaks
+# e.g. arch/arm64/crypto/aes-modes.S (ldr q8,=imm64)
 TARGET_KERNEL_LLVM_BINUTILS := false
-# clang>=12 emittiert DWARF5-.file mit Dir-Operand+md5; GNU as 2.27 kann das
-# nicht -> kein Dir-Operand und DWARF4-Debuginfo (nur Format, kein Verhalten).
-# KCFLAGS gilt fuer alle Kernel-Build-Baeume (KERNEL_OUT/DTB_OUT/DTBO_OUT).
-# PROJECT_NAME steuert die Samsung-techpack-Conf-Auswahl (audio/display).
-# Ohne sie greift der leere filter()-Trick -> lito_a42 (TAS2562) statt
-# lito_gts7plite (CS35L45) -> Soundkarte wartet ewig auf tas2562.18-004c.
+# clang>=12 emits DWARF5 .file with dir operand+md5; GNU as 2.27 cannot
+# handle that -> no dir operand and DWARF4 debug info (format only, no
+# functional change). KCFLAGS applies to all kernel build trees
+# (KERNEL_OUT/DTB_OUT/DTBO_OUT). PROJECT_NAME selects the Samsung
+# techpack config (audio/display). Without it the empty filter() trick
+# resolves to lito_a42 (TAS2562) instead of lito_gts7plite (CS35L45)
+# -> sound card waits forever for tas2562.18-004c.
 TARGET_KERNEL_ADDITIONAL_FLAGS := KCFLAGS="-fno-dwarf-directory-asm -gdwarf-4 -Wno-unused-but-set-variable -Wno-unused-variable" \
                                   PROJECT_NAME=gts7xllite
 

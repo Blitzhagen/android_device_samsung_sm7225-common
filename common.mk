@@ -31,7 +31,7 @@ PRODUCT_TARGET_VNDK_VERSION := 30
 PRODUCT_EXTRA_VNDK_VERSIONS := 30
 
 # Init files and fstab
-# (uebrige init-*.rc und init-*.sh kommen als Stock-Blobs aus vendor/)
+# (remaining init-*.rc and init-*.sh come as stock blobs from vendor/)
 PRODUCT_PACKAGES += \
     fstab.default \
     fstab.default.ramdisk \
@@ -49,17 +49,17 @@ PRODUCT_PACKAGES += \
     vendor.samsung.rilchip.qcom.rc \
     ueventd.qcom.rc
 
-# libapexsupport ist LLNDK, steht aber nicht in der v30-LLNDK-Liste
-# (ro.vndk.version=30 -> linkerconfig nutzt die APEX-Liste, Android-11-Stand).
-# Ohne requireLibs-Eintrag bekommt die Vendor-default-Namespace keinen
-# Link dorthin und source-gebaute Vendor-Binaries (libbinder) sterben
-# beim Laden. NICHT nach /vendor/lib kopieren - das waere ein
-# duplicate provider und linkerconfig bricht komplett ab.
+# libapexsupport is LLNDK but missing from the v30 LLNDK list
+# (ro.vndk.version=30 -> linkerconfig uses the APEX list, Android 11 state).
+# Without a requireLibs entry the vendor default namespace gets no link
+# to it and source-built vendor binaries (libbinder) die on load.
+# Do NOT copy it to /vendor/lib - that would be a duplicate provider
+# and linkerconfig aborts entirely.
 PRODUCT_VENDOR_LINKER_CONFIG_FRAGMENTS += \
     $(COMMON_PATH)/linkerconfig/vendor-linker-config.json
 
-# fstab.default wird ueber soong-Module installiert (init/Android.bp):
-# fstab.default -> /vendor/etc, fstab.default.ramdisk -> Boot-Ramdisk-Root
+# fstab.default is installed via soong modules (init/Android.bp):
+# fstab.default -> /vendor/etc, fstab.default.ramdisk -> boot ramdisk root
 
 $(call soong_config_set,libinit,vendor_init_lib,//$(COMMON_PATH):libinit_sm7225)
 
@@ -187,7 +187,7 @@ PRODUCT_PACKAGES += \
 # File System
 TARGET_FS_CONFIG_GEN := $(COMMON_PATH)/config.fs
 
-# gts7xllite hat keinen Fingerabdrucksensor
+# gts7xllite has no fingerprint sensor
 
 # Gatekeeper
 PRODUCT_PACKAGES += \

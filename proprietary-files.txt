@@ -1,7 +1,7 @@
-# Automatisch aus Stock-Dump T736BXXS9DYF1 generiert: vendor/ vollstaendig.
-# Ausgenommen: selinux/permissions/build.prop/fs_config/passwd/group,
-# ueventd.rc, Symlinks (per Android.mk neu erzeugt) und Dateien, die
-# device/samsung/{sm7225-common,gts7xllite} selbst installieren.
+# Automatically generated from stock dump T736BXXS9DYF1: vendor/ complete.
+# Excluded: selinux/permissions/build.prop/fs_config/passwd/group,
+# ueventd.rc, symlinks (recreated via Android.mk) and files that
+# device/samsung/{sm7225-common,gts7xllite} install themselves.
 vendor/apex/com.samsung.android.biometrics.face.signed.apex
 vendor/apex/com.samsung.android.camera.unihal.signed.apex
 vendor/apex/com.samsung.android.wifi.broadcom.signed.apex
