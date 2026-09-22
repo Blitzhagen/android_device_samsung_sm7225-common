@@ -5,3 +5,8 @@ allow tee sec_efs_file:dir create_dir_perms;
 allow tee sec_efs_file:file create_file_perms;
 allow tee kmsg_device:chr_file { open write };
 set_prop(tee, vendor_qseecomd_prop)
+
+# Gatekeeper TA writes its throttle/counter file to /data/vendor/gatekeeper.
+# Without this, lockscreen PIN verify aborts and LockSettingsService crashes.
+allow tee vendor_data_file:dir create_dir_perms;
+allow tee vendor_data_file:file create_file_perms;
