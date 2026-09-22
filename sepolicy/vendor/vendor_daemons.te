@@ -24,7 +24,8 @@ allow mfgloader vendor_file:file r_file_perms;
 type snap_hidl, domain, halserverdomain;
 type snap_hidl_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(snap_hidl)
-allow snap_hidl snap_hwservice:hwservice_manager add;
+allow snap_hidl snap_hwservice:hwservice_manager { add find };
+allow snap_hidl hidl_base_hwservice:hwservice_manager add;
 allow snap_hidl hal_snap_service:service_manager add;
 
 type snap_utility, domain;
@@ -40,6 +41,7 @@ allow vaultkeeperd vaultkeeper_efs_file:dir create_dir_perms;
 allow vaultkeeperd vaultkeeper_efs_file:file create_file_perms;
 allow vaultkeeperd vaultkeeper_socket:sock_file create_file_perms;
 allow vaultkeeperd hal_vaultkeeper_server_hwservice:hwservice_manager add;
+allow vaultkeeperd hidl_base_hwservice:hwservice_manager add;
 
 type sec_wifi_data_file, file_type, data_file_type, core_data_file_type;
 
@@ -67,8 +69,14 @@ allow emservice tee_device:chr_file rw_file_perms;
 vndbinder_use(emservice)
 binder_call(emservice, vndservicemanager)
 
-# snap_utility reads its cache under /data/vendor/snap
-allow snap_utility vendor_data_file:file r_file_perms;
+# snap_utility keeps its cache under /data/vendor/snap + probes GPU/ion/props
+allow snap_utility vendor_data_file:dir create_dir_perms;
+allow snap_utility vendor_data_file:file create_file_perms;
+allow snap_utility gpu_device:chr_file rw_file_perms;
+allow snap_utility ion_device:chr_file rw_file_perms;
+allow snap_utility property_socket:sock_file write;
+unix_socket_connect(snap_utility, property, init)
+set_prop(snap_utility, vendor_snap_prop)
 
 # emservice enumerates /dev/block during em checks
 allow emservice block_device:dir search;
@@ -91,6 +99,11 @@ allow vaultkeeperd steady_block_device:blk_file r_file_perms;
 allow vaultkeeperd tee_device:chr_file rw_file_perms;
 allow vaultkeeperd ion_device:chr_file rw_file_perms;
 # vaultkeeperd keeps its own socket dir, sets props, writes steady partition
-allow vaultkeeperd vaultkeeper_socket:dir r_dir_perms;
+allow vaultkeeperd vaultkeeper_socket:dir create_dir_perms;
 unix_socket_connect(vaultkeeperd, property, init)
 allow vaultkeeperd steady_block_device:blk_file rw_file_perms;
+# find() before add() on its own hwservice + vaultkeeper props
+allow vaultkeeperd hal_vaultkeeper_server_hwservice:hwservice_manager find;
+set_prop(vaultkeeperd, vendor_vaultkeeper_prop)
+# ro.em.version lives outside the vendor prop namespace; keep denied + quiet
+dontaudit emservice default_prop:property_service set;

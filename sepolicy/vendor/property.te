@@ -8,3 +8,10 @@ vendor_internal_prop(vendor_qseecomd_prop)
 vendor_internal_prop(vendor_gnss_psds_prop)
 
 # NFC
+
+# Vaultkeeper
+vendor_internal_prop(vendor_vaultkeeper_prop)
+
+
+# Snaplite cache
+vendor_internal_prop(vendor_snap_prop)

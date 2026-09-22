@@ -70,6 +70,8 @@ genfscon sysfs /devices/virtual/sec/tsp/ear_detect_enable                       
 genfscon sysfs /devices/virtual/sec/tsp/cmd                                                                 u:object_r:sysfs_touchscreen_writable:s0
 genfscon sysfs /devices/virtual/sec/tsp/prox_power_off                                                      u:object_r:sysfs_touchscreen_writable:s0
 genfscon sysfs /devices/virtual/sec/tsp/input/enabled                                                       u:object_r:sysfs_touchscreen_writable:s0
+# tsp/input is a symlink to the spi digitizer input dir; genfs labels only real paths
+genfscon sysfs /devices/platform/soc/980000.spi/spi_master/spi1/spi1.0/input/input7/enabled                 u:object_r:sysfs_touchscreen_writable:s0
 genfscon sysfs /devices/virtual/sec/switch                                                                  u:object_r:sysfs_sec_switch:s0
 genfscon sysfs /devices/virtual/sec/switch/afc_disable                                                      u:object_r:sysfs_sec_switch_writable:s0
 genfscon sysfs /devices/virtual/camera/                                                                     u:object_r:sysfs_camera:s0

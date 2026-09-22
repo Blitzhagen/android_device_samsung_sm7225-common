@@ -10,3 +10,6 @@ set_prop(tee, vendor_qseecomd_prop)
 # Without this, lockscreen PIN verify aborts and LockSettingsService crashes.
 allow tee vendor_data_file:dir create_dir_perms;
 allow tee vendor_data_file:file create_file_perms;
+
+# gatekeeper@1.0-service enumerates the same data dir (per-user handles)
+r_dir_file(hal_gatekeeper_default, vendor_data_file)

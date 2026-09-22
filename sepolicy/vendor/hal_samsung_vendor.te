@@ -1,67 +1,84 @@
+# Every HIDL service registration also registers the IBase parent
+# interface; all custom HAL domains below need add on hidl_base_hwservice.
+define(`samsung_hal_hwservice', `
+allow $1 $2:hwservice_manager { add find };
+allow $1 hidl_base_hwservice:hwservice_manager add;
+')
+
 type hal_authfw_default, domain, halserverdomain;
 type hal_authfw_default_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_authfw_default)
-allow hal_authfw_default hal_authfw_hwservice:hwservice_manager add;
+samsung_hal_hwservice(hal_authfw_default, hal_authfw_hwservice)
 
 type hal_drk_default, domain, halserverdomain;
 type hal_drk_default_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_drk_default)
-allow hal_drk_default hal_drk_hwservice:hwservice_manager add;
+samsung_hal_hwservice(hal_drk_default, hal_drk_hwservice)
 
 type hal_engmode_default, domain, halserverdomain;
 type hal_engmode_default_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_engmode_default)
-allow hal_engmode_default hal_engmode_hwservice:hwservice_manager add;
+samsung_hal_hwservice(hal_engmode_default, hal_engmode_hwservice)
 
 type hal_hdm_default, domain, halserverdomain;
 type hal_hdm_default_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_hdm_default)
-allow hal_hdm_default hal_hdm_hwservice:hwservice_manager add;
+samsung_hal_hwservice(hal_hdm_default, hal_hdm_hwservice)
 
 type hal_hqm_default, domain, halserverdomain;
 type hal_hqm_default_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_hqm_default)
-allow hal_hqm_default hal_hqm_hwservice:hwservice_manager add;
+samsung_hal_hwservice(hal_hqm_default, hal_hqm_hwservice)
 
 type hal_iccc_default, domain, halserverdomain;
 type hal_iccc_default_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_iccc_default)
-allow hal_iccc_default hal_iccc_hwservice:hwservice_manager add;
+samsung_hal_hwservice(hal_iccc_default, hal_iccc_hwservice)
 
 type hal_kgta_default, domain, halserverdomain;
 type hal_kgta_default_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_kgta_default)
-allow hal_kgta_default hal_kgta_hwservice:hwservice_manager add;
+samsung_hal_hwservice(hal_kgta_default, hal_kgta_hwservice)
 
 type hal_proca_default, domain, halserverdomain;
 type hal_proca_default_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_proca_default)
-allow hal_proca_default hal_proca_hwservice:hwservice_manager add;
+samsung_hal_hwservice(hal_proca_default, hal_proca_hwservice)
 
 type hal_qchdcpkprov_default, domain, halserverdomain;
 type hal_qchdcpkprov_default_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_qchdcpkprov_default)
 add_hwservice(hal_qchdcpkprov_default, hal_qchdcpkprov_hwservice)
+allow hal_qchdcpkprov_default hidl_base_hwservice:hwservice_manager add;
 
 type hal_sec_inputdev_default, domain, halserverdomain;
 type hal_sec_inputdev_default_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_sec_inputdev_default)
-allow hal_sec_inputdev_default hal_sec_inputdev_hwservice:hwservice_manager add;
+samsung_hal_hwservice(hal_sec_inputdev_default, hal_sec_inputdev_hwservice)
+
+# sec_inputdev HAL probes tsp sysfs, /dev/input and /efs for panel data
+r_dir_file(hal_sec_inputdev_default, sysfs_sec_touchscreen)
+allow hal_sec_inputdev_default input_device:dir r_dir_perms;
+allow hal_sec_inputdev_default input_device:chr_file r_file_perms;
+allow hal_sec_inputdev_default mnt_vendor_file:dir search;
+allow hal_sec_inputdev_default efs_file:dir search;
+# writes its own taaslog file under /efs
+allow hal_sec_inputdev_default efs_file:file { rw_file_perms create setattr };
 
 type hal_skpm_default, domain, halserverdomain;
 type hal_skpm_default_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_skpm_default)
-allow hal_skpm_default hal_skpm_hwservice:hwservice_manager add;
+samsung_hal_hwservice(hal_skpm_default, hal_skpm_hwservice)
 
 type hal_ucmtlc_default, domain, halserverdomain;
 type hal_ucmtlc_default_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_ucmtlc_default)
-allow hal_ucmtlc_default hal_ucmtlc_hwservice:hwservice_manager add;
+samsung_hal_hwservice(hal_ucmtlc_default, hal_ucmtlc_hwservice)
 
 type hal_hyper_default, domain, halserverdomain;
 type hal_hyper_default_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_hyper_default)
-allow hal_hyper_default hal_hyper_hwservice:hwservice_manager add;
+samsung_hal_hwservice(hal_hyper_default, hal_hyper_hwservice)
 allow hal_hyper_default hal_hyper_service:service_manager add;
 
 type hal_fkey_default, domain, halserverdomain;
@@ -72,22 +89,23 @@ allow hal_fkey_default hal_fkey_service:service_manager add;
 type hal_wvkprov_default, domain, halserverdomain;
 type hal_wvkprov_default_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_wvkprov_default)
-allow hal_wvkprov_default hal_wvkprov_hwservice:hwservice_manager add;
+samsung_hal_hwservice(hal_wvkprov_default, hal_wvkprov_hwservice)
 allow hal_wvkprov_default hal_wvkprov_service:service_manager add;
 
 type hal_converter_default, domain, halserverdomain;
 type hal_converter_default_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_converter_default)
-allow hal_converter_default hal_converter_hwservice:hwservice_manager add;
+samsung_hal_hwservice(hal_converter_default, hal_converter_hwservice)
 allow hal_converter_default hal_converter_service:service_manager add;
 
-allow hal_power_default hal_miscpower_hwservice:hwservice_manager add;
+samsung_hal_hwservice(hal_power_default, hal_miscpower_hwservice)
 
 type hal_samsung_c2_default, domain;
 type hal_samsung_c2_default_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_samsung_c2_default)
 hal_server_domain(hal_samsung_c2_default, hal_codec2)
-allow hal_samsung_c2_default hal_codec2_hwservice:hwservice_manager add;
+samsung_hal_hwservice(hal_samsung_c2_default, hal_codec2_hwservice)
+vndbinder_use(hal_samsung_c2_default)
 
 # fkey/proca TEE + ion access (observed denials: qseecom ioctls, ion alloc)
 allow hal_fkey_default tee_device:chr_file rw_file_perms;
@@ -98,6 +116,7 @@ allow hal_proca_default tee_device:chr_file rw_file_perms;
 allow hal_proca_default ion_device:chr_file rw_file_perms;
 
 # HYPER HAL: perf/devfreq/kgsl sysfs + schedtune boost + aidl service
+allow hal_hyper_default vendor_sysfs_gpu_max_clock:lnk_file read;
 allow hal_hyper_default sysfs_power_writable:file rw_file_perms;
 allow hal_hyper_default vendor_sysfs_devfreq:dir r_dir_perms;
 allow hal_hyper_default vendor_sysfs_devfreq:file r_file_perms;

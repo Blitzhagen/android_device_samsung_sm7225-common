@@ -1,0 +1,7 @@
+# dontaudit rules: suppress non-functional audit noise only.
+# These denials are benign probes; the access stays denied.
+
+# The dynamic linker resolves lib paths through the sphal/vndk namespaces
+# for every process; each domain probes the same handful of vendor libs
+# once at startup. Denied + harmless - do not grant read (VNDK isolation).
+dontaudit domain vendor_file:file read;
