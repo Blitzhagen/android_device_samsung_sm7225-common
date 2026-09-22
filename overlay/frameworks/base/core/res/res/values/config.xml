@@ -249,8 +249,8 @@
 
     <!-- Whether the always on display mode is available. This should only be enabled
          on devices where the display has been tuned to be power efficient in DOZE and/or
-         DOZE_SUSPEND states. -->
-    <bool name="config_dozeAlwaysOnDisplayAvailable">true</bool>
+         DOZE_SUSPEND states. Disabled: LCD panel, stock ships no AOD. -->
+    <bool name="config_dozeAlwaysOnDisplayAvailable">false</bool>
 
     <!-- ComponentName of a dream to show whenever the system would otherwise have
          gone to sleep.  When the PowerManager is asked to go to sleep, it will instead
@@ -259,8 +259,12 @@
          to be suspended.  When the dream ends, the system will go to sleep as usual.
          Specify the component name or an empty string if none.
          Note that doze dreams are not subject to the same start conditions as ordinary dreams.
-         Doze dreams will run whenever the power manager is in a dozing state. -->
-    <string name="config_dozeComponent">com.android.systemui/com.android.systemui.doze.DozeService</string>
+         Doze dreams will run whenever the power manager is in a dozing state.
+         Left empty (AOSP default): without it, DreamManagerService never starts the
+         doze dream, so KeyguardViewMediator never enters the mAodShowing path where
+         hiding the (disabled) lockscreen after DELAYED_KEYGUARD wakes the device
+         with reason BOUNCER_DOZING ~5s after every screen off. -->
+    <string name="config_dozeComponent" translatable="false"></string>
 
     <!-- If true, the doze component is not started until after the screen has been
          turned off and the screen off animation has been performed.
