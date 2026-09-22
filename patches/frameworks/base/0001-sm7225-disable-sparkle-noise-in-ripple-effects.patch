@@ -1,0 +1,61 @@
+From 48e5eabbbc0c9713f5dd9f27a5c012863a88a6da Mon Sep 17 00:00:00 2001
+From: Blitzhagen <matritt1985@gmail.com>
+Date: Tue, 22 Sep 2026 16:51:40 +0200
+Subject: [PATCH 1/2] sm7225: disable sparkle noise in ripple effects
+
+The Android 12+ sparkle effect renders as dense white grain on the
+gts7xllite panel, looking like a rendering defect rather than a
+subtle twinkle. Zero out the effect color alpha for framework
+ripples and the sparkle strength for SystemUI surface-effect
+ripples (charging, fingerprint unlock), keeping the plain ripple
+animation intact.
+
+Change-Id: I4921c92cc716aa2915d8c2fcf8b51ef128e2f897
+---
+ graphics/java/android/graphics/drawable/RippleDrawable.java     | 2 +-
+ .../com/android/systemui/surfaceeffects/ripple/RippleShader.kt  | 2 +-
+ .../src/com/android/systemui/biometrics/AuthRippleView.kt       | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/graphics/java/android/graphics/drawable/RippleDrawable.java b/graphics/java/android/graphics/drawable/RippleDrawable.java
+index 641a2ae7b2c3..19079f88c75f 100644
+--- a/graphics/java/android/graphics/drawable/RippleDrawable.java
++++ b/graphics/java/android/graphics/drawable/RippleDrawable.java
+@@ -156,7 +156,7 @@ public class RippleDrawable extends LayerDrawable {
+     /** The maximum number of ripples supported. */
+     private static final int MAX_RIPPLES = 10;
+     private static final LinearInterpolator LINEAR_INTERPOLATOR = new LinearInterpolator();
+-    private static final int DEFAULT_EFFECT_COLOR = 0x8dffffff;
++    private static final int DEFAULT_EFFECT_COLOR = 0x00ffffff;
+     /** Temporary flag for teamfood. **/
+     private static final boolean FORCE_PATTERNED_STYLE = true;
+ 
+diff --git a/packages/SystemUI/animation/src/com/android/systemui/surfaceeffects/ripple/RippleShader.kt b/packages/SystemUI/animation/src/com/android/systemui/surfaceeffects/ripple/RippleShader.kt
+index 7e56f4b3d2b2..844f1358f7c8 100644
+--- a/packages/SystemUI/animation/src/com/android/systemui/surfaceeffects/ripple/RippleShader.kt
++++ b/packages/SystemUI/animation/src/com/android/systemui/surfaceeffects/ripple/RippleShader.kt
+@@ -60,7 +60,7 @@ class RippleShader(rippleShape: RippleShape = RippleShape.CIRCLE) :
+         const val DEFAULT_CENTER_FILL_FADE_OUT_START = 0f
+         const val DEFAULT_CENTER_FILL_FADE_OUT_END = 0.6f
+ 
+-        const val RIPPLE_SPARKLE_STRENGTH: Float = 0.3f
++        const val RIPPLE_SPARKLE_STRENGTH: Float = 0f
+         const val RIPPLE_DEFAULT_COLOR: Int = 0xffffffff.toInt()
+         const val RIPPLE_DEFAULT_ALPHA: Int = 115 // full opacity is 255.
+ 
+diff --git a/packages/SystemUI/src/com/android/systemui/biometrics/AuthRippleView.kt b/packages/SystemUI/src/com/android/systemui/biometrics/AuthRippleView.kt
+index e2be047b8485..a6b9fe749712 100644
+--- a/packages/SystemUI/src/com/android/systemui/biometrics/AuthRippleView.kt
++++ b/packages/SystemUI/src/com/android/systemui/biometrics/AuthRippleView.kt
+@@ -32,7 +32,7 @@ import com.android.app.animation.Interpolators
+ import com.android.settingslib.Utils
+ import com.android.systemui.surfaceeffects.ripple.RippleShader
+ 
+-private const val RIPPLE_SPARKLE_STRENGTH: Float = 0.3f
++private const val RIPPLE_SPARKLE_STRENGTH: Float = 0f
+ 
+ /**
+  * Handles two ripple effects: dwell ripple and unlocked ripple
+-- 
+2.53.0
+

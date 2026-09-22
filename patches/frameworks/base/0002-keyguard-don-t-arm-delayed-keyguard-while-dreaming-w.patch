@@ -1,0 +1,38 @@
+From 950ab977bd3f94b0b581a27f41707c99eacc5f5b Mon Sep 17 00:00:00 2001
+From: Blitzhagen <matritt1985@gmail.com>
+Date: Tue, 22 Sep 2026 21:12:10 +0200
+Subject: [PATCH 2/2] keyguard: don't arm delayed keyguard while dreaming with
+ disabled lockscreen
+
+With no lockscreen configured, the DELAYED_KEYGUARD alarm fired ~5s
+after the screensaver dream started; the suppressed keyguard hid
+immediately and handleHide() woke the device via UNLOCK_DREAMING.
+The screensaver then dimmed and re-entered the dream, looping
+indefinitely on charger-connected idle.
+
+Change-Id: I5c43a624f7d2b8a17277b1a8aa25e39b700038ab
+---
+ .../android/systemui/keyguard/KeyguardViewMediator.java    | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/packages/SystemUI/src/com/android/systemui/keyguard/KeyguardViewMediator.java b/packages/SystemUI/src/com/android/systemui/keyguard/KeyguardViewMediator.java
+index 2aee0f6b6649..e509b0257554 100644
+--- a/packages/SystemUI/src/com/android/systemui/keyguard/KeyguardViewMediator.java
++++ b/packages/SystemUI/src/com/android/systemui/keyguard/KeyguardViewMediator.java
+@@ -1983,7 +1983,12 @@ public class KeyguardViewMediator implements CoreStartable, Dumpable,
+     public void onDreamingStarted() {
+         mUpdateMonitor.dispatchDreamingStarted();
+         synchronized (this) {
+-            if (mDeviceInteractive) {
++            // Skip arming the delayed keyguard when the lockscreen is disabled:
++            // the pending keyguard would immediately hide again while dreaming and
++            // handleHide() would wake the device via UNLOCK_DREAMING, looping the
++            // screensaver indefinitely.
++            if (mDeviceInteractive && !mLockPatternUtils.isLockScreenDisabled(
++                    mSelectedUserInteractor.getSelectedUserId())) {
+                 doKeyguardLaterLocked();
+             }
+         }
+-- 
+2.53.0
+
