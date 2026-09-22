@@ -113,10 +113,17 @@
          and one pSIM) -->
     <integer name="config_num_physical_slots">2</integer>
 
+    <!-- Whether color transform is accelerated (applied via SurfaceFlinger /
+         DisplayTransformManager color matrix instead of forcing client-side
+         composition). Required for LiveDisplay color calibration, Night Display
+         and Reduce Bright Colors on devices without a livedisplay HAL. -->
+    <bool name="config_setColorTransformAccelerated">true</bool>
+
     <!-- Control whether Night display is available. This should only be enabled on devices
          that have a HWC implementation that can apply the matrix passed to setColorTransform
-         without impacting power, performance, and app compatibility (e.g. protected content). -->
-    <bool name="config_nightDisplayAvailable">false</bool>
+         without impacting power, performance, and app compatibility (e.g. protected content).
+         Verified working on SDE composer (daltonizer matrix reaches SurfaceFlinger). -->
+    <bool name="config_nightDisplayAvailable">true</bool>
     
     <!-- Flag specifying whether VoLTE should be available for carrier: independent of
          carrier provisioning. If false: hard disabled. If true: then depends on carrier
