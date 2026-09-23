@@ -337,6 +337,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libqti_vndfwk_detect \
     libqti_vndfwk_detect.vendor \
+    libqti_vndfwk_detect.vendor_32 \
     libvndfwk_detect_jni.qti
 
 # RIL
@@ -390,7 +391,7 @@ PRODUCT_PACKAGES += \
 
 # USB
 PRODUCT_PACKAGES += \
-    android.hardware.usb@1.3-service-qti
+    android.hardware.usb-service.qti
 
 # Vibrator
 PRODUCT_PACKAGES += \
@@ -429,6 +430,7 @@ PRODUCT_PACKAGES += \
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(COMMON_PATH) \
+    bootable/deprecated-ota \
     hardware/google/interfaces \
     hardware/google/pixel \
     hardware/samsung \

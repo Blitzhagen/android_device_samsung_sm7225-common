@@ -96,19 +96,9 @@
         <fqname>@4.0::IKeymasterDevice/default</fqname>
     </hal>
     <hal format="hidl">
-        <name>android.hardware.media.omx</name>
+        <name>android.hardware.media.c2</name>
         <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IOmx</name>
-            <instance>default</instance>
-        </interface>
-        <interface>
-            <name>IOmxStore</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@1.0::IOmx/default</fqname>
-        <fqname>@1.0::IOmxStore/default</fqname>
+        <fqname>@1.0::IComponentStore/default</fqname>
     </hal>
     <!-- android.hardware.memtrack (AIDL IMemtrack) is provided by the
          source-built vendor.qti.hardware.memtrack-service; see
@@ -131,16 +121,6 @@
             <instance>default</instance>
         </interface>
         <fqname>@1.1::IRadioConfig/default</fqname>
-    </hal>
-    <hal format="hidl">
-        <name>android.hardware.renderscript</name>
-        <transport arch="32+64">passthrough</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IDevice</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@1.0::IDevice/default</fqname>
     </hal>
     <hal format="hidl">
         <name>android.hardware.soundtrigger</name>

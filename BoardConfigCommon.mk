@@ -63,9 +63,9 @@ TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a55
 TARGET_KERNEL_SOURCE        := kernel/samsung/sm7225
 # Stock Samsung defconfig from the opensource release (T736BXXS9DYF1)
 TARGET_KERNEL_CONFIG := vendor/gts7xllite_eur_openx_defconfig
-# Stock kernel was built with clang 10.0.7; r450784e (clang 14) is the
-# closest version available in tree (clang-3289846 needs libtinfo.so.5)
-TARGET_KERNEL_CLANG_VERSION := r450784e
+# Stock kernel was built with clang 10.0.7; r416183b (clang 12) is the
+# closest version shipped in the lineage-22.2 manifest
+TARGET_KERNEL_CLANG_VERSION := r416183b
 TARGET_KERNEL_ARCH          := arm64
 TARGET_KERNEL_HEADER_ARCH   := arm64
 TARGET_LINUX_KERNEL_VERSION := 4.19
@@ -173,10 +173,10 @@ $(call soong_config_set,lineage_health,fast_charge_value_none,1)
 $(call soong_config_set,lineage_health,fast_charge_value_fast_charge,0)
 
 # Charging control via batt_slate_mode (0 = charging on, 1 = slate/charging off)
-TARGET_HEALTH_CHARGING_CONTROL_CHARGING_PATH := /sys/class/power_supply/battery/batt_slate_mode
-TARGET_HEALTH_CHARGING_CONTROL_CHARGING_ENABLED := 0
-TARGET_HEALTH_CHARGING_CONTROL_CHARGING_DISABLED := 1
-TARGET_HEALTH_CHARGING_CONTROL_SUPPORTS_BYPASS := false
+$(call soong_config_set,lineage_health,charging_control_charging_path,/sys/class/power_supply/battery/batt_slate_mode)
+$(call soong_config_set,lineage_health,charging_control_charging_enabled,0)
+$(call soong_config_set,lineage_health,charging_control_charging_disabled,1)
+$(call soong_config_set,lineage_health,charging_control_supports_bypass,false)
 
 # DRM
 TARGET_ENABLE_MEDIADRM_64 := true
@@ -221,9 +221,7 @@ TARGET_USES_C2D_COMPOSITION := true
 TARGET_USES_COLOR_METADATA := true
 TARGET_USES_DISPLAY_RENDER_INTENTS := true
 TARGET_USES_DRM_PP := true
-TARGET_USES_GRALLOC1 := true
 TARGET_USES_GRALLOC4 := true
-TARGET_USES_HWC2 := true
 USE_OPENGL_RENDERER := true
 VSYNC_EVENT_PHASE_OFFSET_NS := 2000000
 
@@ -247,9 +245,6 @@ DEVICE_MATRIX_FILE := $(COMMON_PATH)/configs/compatibility_matrix.xml
 
 # Lights
 $(call soong_config_set,samsungVars,target_specific_header_path,$(COMMON_PATH)/include)
-
-# Keymaster
-TARGET_KEYMASTER_VARIANT := samsung
 
 # Media
 TARGET_USES_ION := true

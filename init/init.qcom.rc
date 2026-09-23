@@ -61,6 +61,10 @@ on early-init
 
     chown root system /dev/kmsg
     chmod 0620 /dev/kmsg
+
+    # AFC permissions for fast charge
+    chown system radio /sys/class/sec/switch/afc_disable
+
     # Load WIGIG platform driver
     exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules msm_11ad_proxy
 
@@ -811,13 +815,6 @@ service profiler_daemon /system/bin/profiler_daemon
     user root
     group root
     disabled
-
-service charger /system/bin/charger
-    class charger
-    user system
-    group system graphics input
-    capabilities SYS_BOOT
-    seclabel u:r:charger:s0
 
 service vendor.ssr_diag /system/vendor/bin/ssr_diag
     class late_start
