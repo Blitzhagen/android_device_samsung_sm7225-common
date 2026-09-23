@@ -423,6 +423,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     firmware_wlan_WCNSS_qcom_cfg.ini_symlink
 
+# rfsa lib64 symlinks (see Android.bp)
+PRODUCT_PACKAGES += \
+    libsns_device_mode_skel_lib64_symlink \
+    libsns_low_lat_stream_skel_lib64_symlink
+
 # Wifi Display
 PRODUCT_PACKAGES += \
     android.media.audio.common.types-V2-cpp
