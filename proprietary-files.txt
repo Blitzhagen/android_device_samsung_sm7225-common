@@ -95,7 +95,7 @@ vendor/bin/vendor.samsung.hardware.security.proca@2.0-service
 vendor/bin/vendor.samsung.hardware.security.vaultkeeper@2.0-service
 vendor/bin/wifilearner
 vendor/bin/xtra-daemon
-vendor/etc/IPACM_cfg.xml
+# IPACM_cfg.xml is built from source (data-ipa-cfg-mgr-legacy-um)
 vendor/etc/acdbdata/adsp_avs_config.acdb
 vendor/etc/audconf/OPEN/Bluetooth_cal.acdb
 vendor/etc/audconf/OPEN/General_cal.acdb
@@ -1485,7 +1485,7 @@ vendor/lib64/libidl.so
 vendor/lib64/libimage_enhancement.arcsoft.so
 vendor/lib64/libimagecodec_native.quram.so
 vendor/lib64/libimgproc_sw.unifunc.so
-vendor/lib64/libipanat.so
+# libipanat is built from source (vendor/qcom/opensource/data-ipa-cfg-mgr-legacy-um)
 vendor/lib64/libipebpsstriping.so
 vendor/lib64/libizat_client_api.so
 vendor/lib64/libizat_core.so
@@ -1536,7 +1536,7 @@ vendor/lib64/libnpu.so
 vendor/lib64/liboemaids_vendor.so
 vendor/lib64/liboemcrypto.so
 vendor/lib64/libofflinelog.so
-vendor/lib64/liboffloadhal.so
+# liboffloadhal is built from source (vendor/qcom/opensource/data-ipa-cfg-mgr-legacy-um)
 vendor/lib64/libopenvx.so
 vendor/lib64/libops.so
 vendor/lib64/libpadm.so
