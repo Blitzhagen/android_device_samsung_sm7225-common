@@ -11,3 +11,16 @@ install_symlink {
     installed_location: "firmware/wlan/qca_cld/wlan/WCNSS_qcom_cfg.ini",
     symlink_target: "/vendor/etc/wifi/WCNSS_qcom_cfg.ini",
 }
+install_symlink {
+    name: "libsns_device_mode_skel_lib64_symlink",
+    soc_specific: true,
+    installed_location: "lib64/rfsa/adsp/libsns_device_mode_skel.so",
+    symlink_target: "/vendor/lib/rfsa/adsp/libsns_device_mode_skel.so",
+}
+
+install_symlink {
+    name: "libsns_low_lat_stream_skel_lib64_symlink",
+    soc_specific: true,
+    installed_location: "lib64/rfsa/adsp/libsns_low_lat_stream_skel.so",
+    symlink_target: "/vendor/lib/rfsa/adsp/libsns_low_lat_stream_skel.so",
+}
