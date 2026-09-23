@@ -64,8 +64,9 @@ TARGET_KERNEL_SOURCE        := kernel/samsung/sm7225
 # Stock Samsung defconfig from the opensource release (T736BXXS9DYF1)
 TARGET_KERNEL_CONFIG := vendor/gts7xllite_eur_openx_defconfig
 # Stock kernel was built with clang 10.0.7; r416183b (clang 12) is the
-# closest version shipped in the lineage-22.2 manifest
-TARGET_KERNEL_CLANG_VERSION := r416183b
+# closest version shipped in the lineage-22.2 manifest (kernel prebuilts,
+# not the host clang searched by default)
+TARGET_KERNEL_CLANG_PATH = $(BUILD_TOP)/prebuilts/clang/kernel/linux-x86/clang-r416183b
 TARGET_KERNEL_ARCH          := arm64
 TARGET_KERNEL_HEADER_ARCH   := arm64
 TARGET_LINUX_KERNEL_VERSION := 4.19
@@ -162,7 +163,6 @@ AUDIO_FEATURE_ENABLED_INSTANCE_ID := true
 AUDIO_FEATURE_ENABLED_PROXY_DEVICE := true
 AUDIO_FEATURE_ENABLED_SSR := true
 BOARD_SUPPORTS_SOUND_TRIGGER := true
-BOARD_SUPPORTS_OPENSOURCE_STHAL := true
 
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "qualcomm-hidl"

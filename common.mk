@@ -331,7 +331,10 @@ PRODUCT_COPY_FILES += \
 TARGET_FWK_SUPPORTS_FULL_VALUEADDS := true
 
 PRODUCT_PACKAGES += \
-    libjson
+    libjson \
+    libprotobuf-cpp-lite-3.9.1-vendorcompat \
+    libprotobuf-cpp-full-3.9.1-vendorcompat \
+    libsqlite.vendor
 
 # QTI fwk-detect
 PRODUCT_PACKAGES += \

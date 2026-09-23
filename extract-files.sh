@@ -84,6 +84,41 @@ function blob_fixup() {
             [ "$2" = "" ] && return 0
             python3 "${MY_DIR}/patches/patch_audio_primary_lito.py" "${2}"
             ;;
+        # A11-era NDK blob: NativeHandle::readFromParcel/writeToParcel moved
+        # to android.hardware.common-V2-ndk; pull it in explicitly.
+        vendor/lib64/vendor.samsung.hardware.media.converter-V1-ndk_platform.so)
+            [ "$2" = "" ] && return 0
+            "${PATCHELF_0_18}" --add-needed "android.hardware.common-V2-ndk.so" "${2}"
+            ;;
+        # 32-bit SoundAlive blob uses __android_log_print but is missing
+        # the liblog DT_NEEDED (the 64-bit variant already has it).
+        vendor/lib/lib_SoundAlive_play_plus_ver400.so)
+            [ "$2" = "" ] && return 0
+            "${PATCHELF_0_18}" --add-needed "liblog.so" "${2}"
+            ;;
+        # These services declare HIDL interfaces that exist only as
+        # prebuilt blobs; host_init_verifier rejects the interface lines
+        # because no hidl_interface target provides them.
+        vendor/etc/init/vendor.qti.hardware.wifi.wifilearner@1.0-service.rc | \
+        vendor/etc/init/vendor.samsung.hardware.authfw@1.0-service.rc | \
+        vendor/etc/init/vendor.samsung.hardware.hqm@1.0-service.rc | \
+        vendor/etc/init/vendor.samsung.hardware.security.drk@2.0-service.rc | \
+        vendor/etc/init/vendor.samsung.hardware.security.skpm@1.0-service.rc | \
+        vendor/etc/init/vendor.samsung.hardware.tlc.hdm@1.1-service.rc | \
+        vendor/etc/init/vendor.samsung.hardware.tlc.iccc@1.0-service.rc | \
+        vendor/etc/init/vendor.samsung.hardware.tlc.kg@1.1-service.rc | \
+        vendor/etc/init/vendor.samsung.hardware.tlc.ucm@2.0-service.rc | \
+        vendor/etc/init/vendor.samsung.hardware.wifi@2.0-service.rc)
+            [ "$2" = "" ] && return 0
+            sed -i '/^[[:space:]]*interface /d' "${2}"
+            ;;
+        # Same problem, but only the Samsung interface is unknown - the
+        # android.hardware.camera.provider@2.x entries are real HIDL
+        # interfaces and must be kept.
+        vendor/etc/init/vendor.samsung.hardware.camera.provider@4.0-service_64.rc)
+            [ "$2" = "" ] && return 0
+            sed -i '/vendor\.samsung\.hardware\.camera\.provider@4\.0::ISehCameraProvider/d' "${2}"
+            ;;
         *)
             return 1
             ;;

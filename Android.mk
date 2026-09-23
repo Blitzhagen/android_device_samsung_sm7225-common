@@ -112,39 +112,4 @@ $(TOYBOX_BIN_LINKS): $(LOCAL_INSTALLED_MODULE) $(SM7225_COMMON_DIR)/vendor_bin_s
 
 ALL_DEFAULT_INSTALLED_MODULES += $(TOYBOX_BIN_LINKS)
 
-# Prebuilt vendor libs as linkable make modules (qcom-caf Android.mk deps)
-VND_PREB := ../../../vendor/samsung/sm7225-common/proprietary
-
-include $(CLEAR_VARS)
-LOCAL_MODULE        := libthermalclient
-LOCAL_MODULE_CLASS  := SHARED_LIBRARIES
-LOCAL_MODULE_SUFFIX := .so
-LOCAL_VENDOR_MODULE := true
-LOCAL_MULTILIB      := both
-LOCAL_SRC_FILES_32  := $(VND_PREB)/vendor/lib/libthermalclient.so
-LOCAL_SRC_FILES_64  := $(VND_PREB)/vendor/lib64/libthermalclient.so
-LOCAL_CHECK_ELF_FILES := false
-include $(BUILD_PREBUILT)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE        := libskeymaster4device
-LOCAL_MODULE_CLASS  := SHARED_LIBRARIES
-LOCAL_MODULE_SUFFIX := .so
-LOCAL_VENDOR_MODULE := true
-LOCAL_MULTILIB      := 64
-LOCAL_SRC_FILES_64  := $(VND_PREB)/vendor/lib64/libskeymaster4device.so
-LOCAL_CHECK_ELF_FILES := false
-include $(BUILD_PREBUILT)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE        := libfastcvopt
-LOCAL_MODULE_CLASS  := SHARED_LIBRARIES
-LOCAL_MODULE_SUFFIX := .so
-LOCAL_VENDOR_MODULE := true
-LOCAL_MULTILIB      := both
-LOCAL_SRC_FILES_32  := $(VND_PREB)/vendor/lib/libfastcvopt.so
-LOCAL_SRC_FILES_64  := $(VND_PREB)/vendor/lib64/libfastcvopt.so
-LOCAL_CHECK_ELF_FILES := false
-include $(BUILD_PREBUILT)
-
 endif

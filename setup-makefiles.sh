@@ -37,7 +37,7 @@ function lib_to_package_fixup_vendor_variants() {
     case "$1" in
         vendor.qti.hardware.fm@1.0 | libsndmonitor | libexthwplugin | libbatterylistener | \
         liba2dpoffload | libcomprcapture | libhdmiedid | libhdmipassthru | libhfp | \
-        libcirrusspkrprot | libspkrprot | libsecril-client)
+        libcirrusspkrprot | libspkrprot | libsecril-client | libhyper)
             echo "$1_vendor"
             ;;
         *)
