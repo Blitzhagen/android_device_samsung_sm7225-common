@@ -1718,8 +1718,8 @@ vendor/lib64/libxml.so
 vendor/lib64/libzoomroi.samsung.so
 vendor/lib64/mediacas/libclearkeycasplugin.so
 vendor/lib64/mediadrm/libdrmclearkeyplugin.so
-vendor/lib64/rfsa/adsp/libsns_device_mode_skel.so
-vendor/lib64/rfsa/adsp/libsns_low_lat_stream_skel.so
+# lib64/rfsa/adsp copies are identical to the lib/ ones; installed as
+# install_symlink modules in the vendor Android.bp instead.
 vendor/lib64/sensors.grip.so
 vendor/lib64/sensors.ssc.so
 vendor/lib64/soundfx/libasphere.so
