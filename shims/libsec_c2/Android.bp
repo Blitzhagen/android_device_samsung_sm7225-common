@@ -1,0 +1,13 @@
+cc_library_shared {
+    name: "libsec_c2_shim",
+    vendor: true,
+    compile_multilib: "both",
+    srcs: ["SecC2Shim.cpp"],
+    header_libs: ["libcodec2_headers"],
+    shared_libs: ["libcodec2_vndk"],
+    cflags: [
+        "-fexceptions",
+        "-Wall",
+        "-Werror",
+    ],
+}

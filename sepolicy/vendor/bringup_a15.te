@@ -1,0 +1,21 @@
+# Android 15 SELinux delta.
+# Denials observed under permissive bring-up (avc: denied in kmsg/dmesg).
+# Rules grant only functional HAL accesses; benign app-domain probes are
+# kept denied via dontaudit so they stop spamming the audit log.
+
+# hal_camera_default reads the audio DRC config prop. Restricted since
+# A15 (system_restricted_property_type); read is safe, only set is
+# neverallow'd upstream.
+get_prop(hal_camera_default, aac_drc_prop)
+
+# cameraserver reads the generic vendor prop bucket during camera bring-up.
+get_prop(cameraserver, vendor_default_prop)
+
+# isolated compute apps legitimately reach content_capture_service - it is
+# part of isolated_compute_allowed_service upstream.
+allow isolated_app content_capture_service:service_manager find;
+
+# Apps probe the audio DRC prop through the Samsung audio path. The read is
+# denied by design (restricted prop) and harmless - silence the audit noise
+# instead of widening app access to a restricted property.
+dontaudit untrusted_app aac_drc_prop:file r_file_perms;

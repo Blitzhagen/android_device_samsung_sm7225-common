@@ -55,6 +55,7 @@ vendor/bin/hw/vendor.samsung.hardware.tlc.iccc@1.0-service
 vendor/bin/hw/vendor.samsung.hardware.tlc.kg@1.1-service
 vendor/bin/hw/vendor.samsung.hardware.tlc.ucm@2.0-service
 vendor/bin/hw/vendor.samsung.hardware.wifi@2.0-service
+vendor/bin/init.qcom.usb.sh
 vendor/bin/init.qti.media.sh
 vendor/bin/init.qti.qcv.sh
 vendor/bin/install-recovery.sh
@@ -385,7 +386,6 @@ vendor/etc/vintf/manifest/android.hardware.dumpstate@1.1-service-lazy.xml
 vendor/etc/vintf/manifest/android.hardware.gnss@2.1-service-qti.xml
 vendor/etc/vintf/manifest/android.hardware.neuralnetworks@1.3-service-qti-hta.xml
 vendor/etc/vintf/manifest/android.hardware.neuralnetworks@1.3-service-qti.xml
-vendor/etc/vintf/manifest/manifest_android.hardware.drm@1.3-service.widevine.xml
 vendor/etc/vintf/manifest/vendor.samsung.hardware.radio.exclude.qcom.xml
 vendor/etc/vintf/manifest/vendor.samsung.hardware.thermal@1.0-manifest.xml
 vendor/etc/vramdiskd.xml
@@ -531,7 +531,7 @@ vendor/lib/hw/audio.sec_primary.default.so
 vendor/lib/hw/camera.qcom.so
 vendor/lib/hw/camera.unihal.default.so
 vendor/lib/hw/com.qti.chi.override.so
-vendor/lib/hw/gralloc.lito.so
+
 vendor/lib/hw/sound_trigger.primary.lito.so
 vendor/lib/hw/vendor.qti.hardware.bluetooth_audio@2.0-impl.so
 vendor/lib/hw/vendor.qti.hardware.bluetooth_sar@1.0-impl.so
@@ -822,7 +822,6 @@ vendor/lib/libsdm-color.so
 vendor/lib/libsdm-colormgr-algo.so
 vendor/lib/libsdm-diag.so
 vendor/lib/libsdm-disp-vndapis.so
-vendor/lib/libsdmextension.so
 vendor/lib/libsdedrm.so
 vendor/lib/libsdsprpc.so
 vendor/lib/libsec2qc_conversion.so
@@ -1079,6 +1078,13 @@ vendor/lib64/camera/t_tof_calibration.bin
 vendor/lib64/camera/uw_dual_calibration.bin
 vendor/lib64/camera/w_dual_calibration.bin
 vendor/lib64/camera/w_tof_calibration.bin
+vendor/lib64/camera/com.qti.tuned.default.bin
+vendor/lib64/camera/com.samsung.sensormodule.0_0_sony_imx355.bin
+vendor/lib64/camera/com.samsung.sensormodule.1_lsi_gc5035.bin
+vendor/lib64/camera/com.samsung.sensormodule.13_lsi_gc5035.bin
+vendor/lib64/camera/com.samsung.tuned.lsi_gc5035.bin
+vendor/lib64/camera/com.samsung.tuned.sony_imx355.bin
+vendor/lib64/camera/ois_mcu_stm32g_fw.bin
 vendor/lib64/carwatchdog_aidl_interface-V2-ndk_platform.so
 vendor/lib64/cdsp_face.so
 vendor/lib64/com.qti.feature2.anchorsync.so
@@ -1117,7 +1123,7 @@ vendor/lib64/camera.device@3.5-impl.so
 vendor/lib64/hw/camera.qcom.so
 vendor/lib64/hw/camera.unihal.default.so
 vendor/lib64/hw/com.qti.chi.override.so
-vendor/lib64/hw/gralloc.lito.so
+
 vendor/lib64/hw/gatekeeper.mdfpp.so
 vendor/lib64/hw/vendor.qti.hardware.bluetooth_audio@2.0-impl.so
 vendor/lib64/hw/vendor.qti.hardware.bluetooth_sar@1.0-impl.so
@@ -1423,7 +1429,6 @@ vendor/lib64/libsdm-color.so
 vendor/lib64/libsdm-colormgr-algo.so
 vendor/lib64/libsdm-diag.so
 vendor/lib64/libsdm-disp-vndapis.so
-vendor/lib64/libsdmextension.so
 vendor/lib64/libsdedrm.so
 vendor/lib64/libsdsprpc.so
 vendor/lib64/libsec-ril.so
@@ -1681,7 +1686,6 @@ vendor/tima_measurement_info
 
 vendor/etc/vintf/manifest/deviceManifest.xml
 vendor/etc/vintf/manifest/engmode_manifest.xml
-vendor/etc/vintf/manifest/hyper-default-sec.xml
 vendor/etc/vintf/manifest/sec_c2_manifest_default.xml
 vendor/etc/vintf/manifest/vaultkeeper_manifest.xml
 vendor/etc/vintf/manifest/vendor.samsung.hardware.authfw@1.0-manifest.xml

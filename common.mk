@@ -47,7 +47,9 @@ PRODUCT_PACKAGES += \
     init.target.rc \
     init.vendor.rilcommon.rc \
     vendor.samsung.rilchip.qcom.rc \
-    ueventd.qcom.rc
+    ueventd.qcom.rc \
+    init.bringup.rc \
+    bootwatchdog.sh
 
 # libapexsupport is LLNDK but missing from the v30 LLNDK list
 # (ro.vndk.version=30 -> linkerconfig uses the APEX list, Android 11 state).
@@ -78,6 +80,7 @@ PRODUCT_PACKAGES += \
     libaudiotypeconv_shim \
     libqcompostprocbundle \
     libui_compat_shim \
+    libsec_c2_shim \
     libvolumelistener
 
 PRODUCT_COPY_FILES += \

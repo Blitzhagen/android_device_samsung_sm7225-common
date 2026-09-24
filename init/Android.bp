@@ -106,3 +106,18 @@ prebuilt_etc {
     filename: "ueventd.rc",
     soc_specific: true,
 }
+
+// DEBUG-BRINGUP: boot watchdog + rc - vor produktivem Einsatz entfernen!
+prebuilt_etc {
+    name: "init.bringup.rc",
+    src: "init.bringup.rc",
+    sub_dir: "init/hw",
+    soc_specific: true,
+}
+
+prebuilt_etc {
+    name: "bootwatchdog.sh",
+    src: "bootwatchdog.sh",
+    sub_dir: "",
+    soc_specific: true,
+}
