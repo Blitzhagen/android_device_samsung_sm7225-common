@@ -9,11 +9,12 @@
 get_prop(hal_camera_default, aac_drc_prop)
 
 # cameraserver reads the generic vendor prop bucket during camera bring-up.
-get_prop(cameraserver, vendor_default_prop)
+# A16: neverallow'd (vendor_default_prop no longer readable by system
+# domains). Dropped - if a real denial shows up, give that prop a real type.
+#get_prop(cameraserver, vendor_default_prop)
 
-# isolated compute apps legitimately reach content_capture_service - it is
-# part of isolated_compute_allowed_service upstream.
-allow isolated_app content_capture_service:service_manager find;
+# A16: isolated_app_all may no longer find content_capture_service.
+#allow isolated_app content_capture_service:service_manager find;
 
 # Apps probe the audio DRC prop through the Samsung audio path. The read is
 # denied by design (restricted prop) and harmless - silence the audit noise

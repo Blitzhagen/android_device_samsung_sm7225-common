@@ -86,7 +86,12 @@ TARGET_KERNEL_ADDITIONAL_FLAGS := KCFLAGS="-fno-dwarf-directory-asm -gdwarf-4 -W
 # Kernel flags
 # SELinux: enforcing. panic-reboot + fatal->recovery bleiben vorerst als
 # Safety-Net; fuer ein reines Release-Image spaeter ebenfalls entfernen.
-BOARD_KERNEL_CMDLINE += console=null androidboot.hardware=qcom androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 androidboot.usbcontroller=a600000.dwc3 swiotlb=2048 cgroup.memory=nokmem,nosocket firmware_class.path=/vendor/firmware_mnt/image loop.max_part=7 androidboot.bootdevice=1d84000.ufshc androidboot.fstab_suffix=default androidboot.boot_devices=soc/1d84000.ufshc panic=10 androidboot.init_fatal_reboot_target=recovery
+# A16 bring-up: permissive + panic-reboot + fatal->recovery als Safety-Net.
+# Nach erfolgreicher Härtung permissive wieder entfernen.
+# WICHTIG: max 511 Zeichen (512-Byte-Feld im boot-header v2, Samsung-Bootloader
+# ignoriert extra_cmdline komplett!). bootdevice/boot_devices sind redundant
+# (Bootloader haengt sie selbst an) und wurden deshalb entfernt.
+BOARD_KERNEL_CMDLINE += console=null androidboot.hardware=qcom androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 androidboot.usbcontroller=a600000.dwc3 swiotlb=2048 cgroup.memory=nokmem,nosocket firmware_class.path=/vendor/firmware_mnt/image loop.max_part=7 androidboot.fstab_suffix=default androidboot.selinux=permissive panic=10 androidboot.init_fatal_reboot_target=recovery printk.devkmsg=on
 BOARD_BOOTIMG_HEADER_VERSION := 2
 
 BOARD_KERNEL_BASE            := 0x00000000
@@ -178,7 +183,7 @@ $(call soong_config_set,lineage_health,fast_charge_value_fast_charge,0)
 $(call soong_config_set,lineage_health,charging_control_charging_path,/sys/class/power_supply/battery/batt_slate_mode)
 $(call soong_config_set,lineage_health,charging_control_charging_enabled,0)
 $(call soong_config_set,lineage_health,charging_control_charging_disabled,1)
-$(call soong_config_set,lineage_health,charging_control_supports_bypass,false)
+$(call soong_config_set_bool,lineage_health,charging_control_supports_bypass,false)
 
 # DRM
 TARGET_ENABLE_MEDIADRM_64 := true

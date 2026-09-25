@@ -9,5 +9,6 @@ allow system_server {
     proc_last_kmsg
 }:file r_file_perms;
 
-allow system_server self:capability sys_module;
+# A16: neverallow'd - system_server may not load kernel modules.
+#allow system_server self:capability sys_module;
 get_prop(system_server, wifi_hal_prop)

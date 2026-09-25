@@ -23,12 +23,15 @@ PRODUCT_ENFORCE_RRO_TARGETS := *
 BOARD_SHIPPING_API_LEVEL := 30
 PRODUCT_SHIPPING_API_LEVEL := $(BOARD_SHIPPING_API_LEVEL)
 
-PRODUCT_PACKAGES += \
-    com.android.vndk.v30
-
-# VNDK
+# VNDK: ro.vndk.version=30 (stock vendor = Android 11). Kein
+# EXTRA_VNDK_VERSIONS / com.android.vndk.v30 mehr — die v30-APEX wurde
+# auf 22.2 nie von Vendor-Prozessen benutzt (alle mappen /system/libs
+# direkt), siehe gts7fewifi-Port (Bush-cat, lineage-23.2).
 PRODUCT_TARGET_VNDK_VERSION := 30
-PRODUCT_EXTRA_VNDK_VERSIONS := 30
+
+# Kernel 4.19.152 < FCM-6-Minimum (4.19.325) — Kernel-Runtime-Check
+# waere ohnehin nicht erfuellbar, also Build-Check abschalten.
+PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := false
 
 # Init files and fstab
 # (remaining init-*.rc and init-*.sh come as stock blobs from vendor/)
@@ -142,7 +145,7 @@ $(call soong_config_set,samsungCameraVars,extra_ids,54) # ID=54 is macro
 
 # CAS
 PRODUCT_PACKAGES += \
-    android.hardware.cas@1.2-service-lazy
+    android.hardware.cas@1.2-service
 
 # Charger
 PRODUCT_PACKAGES += \
