@@ -80,7 +80,7 @@ TARGET_KERNEL_LLVM_BINUTILS := false
 # techpack config (audio/display). Without it the empty filter() trick
 # resolves to lito_a42 (TAS2562) instead of lito_gts7plite (CS35L45)
 # -> sound card waits forever for tas2562.18-004c.
-TARGET_KERNEL_ADDITIONAL_FLAGS := KCFLAGS="-fno-dwarf-directory-asm -gdwarf-4 -Wno-unused-but-set-variable -Wno-unused-variable" \
+TARGET_KERNEL_ADDITIONAL_FLAGS := KCFLAGS="-fno-dwarf-directory-asm -gdwarf-4 -Wno-unused-variable" \
                                   PROJECT_NAME=gts7xllite
 
 # Kernel flags
