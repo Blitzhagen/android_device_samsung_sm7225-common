@@ -269,12 +269,17 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video_le.xml
 
-# Source-built replacement for the A11 vendor OMX BufferQueue bridge
-# (was: vendor/lib/libstagefright_bufferqueue_helper_vendor.so blob).
-# Rebuilt from AOSP GraphicBufferSource + the Samsung FrucFacade ABI;
-# fixes the A11->A14 framework ABI mismatches that broke video recording.
+# OMX (source-built from hardware/qcom-caf/sm8250/media for lito)
+# AOSP OMX service replaces the Samsung A14 blob stack
+# (libstagefright_omx_vendor/omx@1.0-service): the blob allocates
+# GraphicBuffer with the old sizeof and overflows into the new
+# DependencyMonitor member — heap corruption + SIGBUS in freeBuffer.
 PRODUCT_PACKAGES += \
-    libstagefright_bufferqueue_helper_vendor
+    android.hardware.media.omx@1.0-service \
+    libOmxCore \
+    libOmxVdec \
+    libOmxVenc \
+    libstagefrighthw
 
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/task_profiles.json:$(TARGET_COPY_OUT_VENDOR)/etc/task_profiles.json
