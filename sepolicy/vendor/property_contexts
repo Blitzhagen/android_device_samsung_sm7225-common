@@ -41,3 +41,6 @@ ro.vendor.security.vaultkeeper.                u:object_r:vendor_vaultkeeper_pro
 
 # Snaplite cache
 persist.vendor.snaplite                        u:object_r:vendor_snap_prop:s0
+
+# install-recovery.sh result status
+vendor.ota.recovery.status                     u:object_r:vendor_install_recovery_prop:s0

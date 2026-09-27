@@ -1,0 +1,5 @@
+# install-recovery.sh reports its result via vendor.ota.recovery.status
+# (property_service set -> vendor_install_recovery_prop)
+allow vendor_install_recovery property_socket:sock_file write;
+unix_socket_connect(vendor_install_recovery, property, init)
+set_prop(vendor_install_recovery, vendor_install_recovery_prop)

@@ -107,6 +107,11 @@ hal_server_domain(hal_samsung_c2_default, hal_codec2)
 samsung_hal_hwservice(hal_samsung_c2_default, hal_codec2_hwservice)
 vndbinder_use(hal_samsung_c2_default)
 
+# C2 HAL hands crash dumps to tombstoned
+crash_dump_fallback(hal_samsung_c2_default)
+# reads ro.lineage.* (system_internal_prop): neverallow'd for vendor, cosmetic probe
+dontaudit hal_samsung_c2_default custom_version_prop:file r_file_perms;
+
 # fkey/proca TEE + ion access (observed denials: qseecom ioctls, ion alloc)
 allow hal_fkey_default tee_device:chr_file rw_file_perms;
 allow hal_fkey_default ion_device:chr_file rw_file_perms;

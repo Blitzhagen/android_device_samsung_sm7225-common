@@ -7,6 +7,10 @@ allow vendor_init system_file:file { read getattr open };
 
 allow vendor_init block_device:lnk_file { setattr };
 
+# init chmods the rawdump symlink + a debugfs dump node from init.rc
+allow vendor_init vendor_rawdump_block_device:lnk_file { setattr };
+allow vendor_init debugfs:file { setattr };
+
 set_prop(vendor_init, vendor_ssr_prop)
 set_prop(vendor_init, vendor_power_prop)
 
@@ -22,4 +26,6 @@ dontaudit vendor_init default_prop:property_service set;
 dontaudit vendor_init build_prop:property_service set;
 dontaudit vendor_init shell_prop:property_service set;
 dontaudit vendor_init config_prop:property_service set;
+# ro.debuggable is already set by the time vendor_init tries; keep denied
+dontaudit vendor_init userdebug_or_eng_prop:property_service set;
 allow vendor_init vts_status_prop:file read;

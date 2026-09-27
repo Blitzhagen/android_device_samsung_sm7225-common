@@ -12,3 +12,6 @@ vendor_internal_prop(vendor_vaultkeeper_prop)
 
 # Snaplite cache
 vendor_internal_prop(vendor_snap_prop)
+
+# install-recovery.sh result status (vendor.ota.recovery.status)
+vendor_internal_prop(vendor_install_recovery_prop)

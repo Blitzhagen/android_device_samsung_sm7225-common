@@ -20,3 +20,7 @@ get_prop(hal_camera_default, aac_drc_prop)
 # denied by design (restricted prop) and harmless - silence the audit noise
 # instead of widening app access to a restricted property.
 dontaudit untrusted_app aac_drc_prop:file r_file_perms;
+
+# apexd writes a one-shot early-boot line to /dev/kmsg_debug; a failed write
+# is harmless, silence the audit noise.
+dontaudit apexd kmsg_debug_device:chr_file write;
