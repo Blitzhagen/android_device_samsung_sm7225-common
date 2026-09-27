@@ -1,8 +1,0 @@
-# DEBUG-BRINGUP: Watchdog -> Recovery wenn Boot nicht abschliesst
-# vor produktivem Einsatz entfernen!
-
-service vendor.bootwatchdog /vendor/bin/sh /vendor/etc/bootwatchdog.sh
-    class main
-    user root
-    group root
-    oneshot
