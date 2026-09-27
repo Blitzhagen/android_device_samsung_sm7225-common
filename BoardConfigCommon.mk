@@ -84,11 +84,10 @@ TARGET_KERNEL_ADDITIONAL_FLAGS := KCFLAGS="-fno-dwarf-directory-asm -gdwarf-4 -W
                                   PROJECT_NAME=gts7xllite
 
 # Kernel flags
-# SELinux: enforcing. panic-reboot + fatal->recovery bleiben vorerst als
-# Safety-Net; fuer ein reines Release-Image spaeter ebenfalls entfernen.
-# A16 bring-up: panic-reboot + fatal->recovery als Safety-Net.
-# selinux=permissive wurde nach der AVC-Bereinigung (7 restliche kosmetische
-# cross-partition Denials) entfernt - laeuft jetzt enforcing.
+# SELinux laeuft enforcing (selinux=permissive wurde nach der AVC-Bereinigung
+# entfernt). panic=10 rebootet nach einem Kernel-Panic statt einzufrieren;
+# init_fatal_reboot_target=recovery leitet fatale init-Fehler in die Recovery
+# statt in den Download-Mode - beides bleibt bewusst als Release-Safety-Net.
 # WICHTIG: max 511 Zeichen (512-Byte-Feld im boot-header v2, Samsung-Bootloader
 # ignoriert extra_cmdline komplett!). bootdevice/boot_devices sind redundant
 # (Bootloader haengt sie selbst an) und wurden deshalb entfernt.
