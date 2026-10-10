@@ -76,6 +76,7 @@ PRODUCT_PACKAGES += \
     libqcomvisualizer \
     libqcomvoiceprocessing \
     libaudiotypeconv_shim \
+    libc2compat_shim \
     libqcompostprocbundle \
     libui_compat_shim \
     libvolumelistener
@@ -447,8 +448,6 @@ PRODUCT_PACKAGES += \
     libcamera2ndk_vendor \
     libcodec2_hidl@1.0.vendor \
     libcodec2_hidl@1.1.vendor \
-    libcodec2_simple_component.vendor \
-    libcodec2_soft_common.vendor \
     libcodec2_vndk.vendor \
     libhidltransport.vendor \
     libhwbinder.vendor \

@@ -1,4 +1,5 @@
 # Automatically generated from stock dump T736BXXS9DYF1: vendor/ complete.
+vendor/lib64/libcodec2_sec_.so
 # Excluded: selinux/permissions/build.prop/fs_config/passwd/group,
 # ueventd.rc, symlinks (recreated via Android.mk) and files that
 # device/samsung/{sm7225-common,gts7xllite} install themselves.
@@ -665,6 +666,8 @@ vendor/lib/libbthost_if.so
 vendor/lib/libbtnv.so
 vendor/lib/libc2d30_bltlib.so
 vendor/lib/libc2dcolorconvert.so
+vendor/lib/libcodec2_simple_component.so
+vendor/lib/libcodec2_soft_common.so
 vendor/lib/libcacertclient.so
 vendor/lib/libcamera_nn_stub.so
 vendor/lib/libcamerapostproc.so
@@ -1353,7 +1356,9 @@ vendor/lib64/libcodec2_sec_mp3dec.so
 vendor/lib64/libcodec2_sec_mp4vdec.so
 vendor/lib64/libcodec2_sec_soft_common.so
 vendor/lib64/libcodec2_sec_vc1dec.so
+vendor/lib64/libcodec2_simple_component.so
 vendor/lib64/libcodec2_soft_ac4dec.so
+vendor/lib64/libcodec2_soft_common.so
 vendor/lib64/libcodec2_soft_eac3dec.so
 vendor/lib64/libcodecsolutionhelper_vendor.so
 vendor/lib64/libcom.qti.chinodeutils.so

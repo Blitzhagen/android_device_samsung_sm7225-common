@@ -1,0 +1,26 @@
+cc_library_shared {
+    name: "libc2compat_shim",
+    vendor: true,
+    compile_multilib: "both",
+    srcs: [
+        "C2CompatShim.cpp",
+        "RealCodec2.cpp",
+    ],
+    shared_libs: [
+        "libbase",
+        "libcodec2_vndk",
+        "libgralloctypes",
+        "libnativewindow",
+        "libui",
+    ],
+    header_libs: [
+        "libcodec2_vndk_headers",
+        "libcodec2_headers",
+        "media_plugin_headers",
+    ],
+    cflags: [
+        "-fexceptions",
+        "-Wall",
+        "-Werror",
+    ],
+}
