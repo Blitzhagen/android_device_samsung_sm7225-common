@@ -440,5 +440,45 @@ TARGET_SYSTEM_EXT_PROP += $(COMMON_PATH)/system_ext.prop
 TARGET_PRODUCT_PROP += $(COMMON_PATH)/product.prop
 TARGET_ODM_PROP += $(COMMON_PATH)/odm.prop
 
+# Vendor libraries built from source (replaces prebuilt copies in the blob list)
+PRODUCT_PACKAGES += \
+    libavservices_minijail.vendor \
+    libavservices_minijail_vendor \
+    libcamera2ndk_vendor \
+    libcodec2_hidl@1.0.vendor \
+    libcodec2_hidl@1.1.vendor \
+    libcodec2_simple_component.vendor \
+    libcodec2_soft_common.vendor \
+    libcodec2_vndk.vendor \
+    libhidltransport.vendor \
+    libhwbinder.vendor \
+    libprotobuf-cpp-full-3.9.1-vendorcompat \
+    libprotobuf-cpp-lite-3.9.1-vendorcompat \
+    libsfplugin_ccodec_utils.vendor \
+    libstagefright_amrnb_common.vendor \
+    libstagefright_bufferpool@2.0.1.vendor \
+    libstagefright_enc_common.vendor \
+    libstagefright_flacdec.vendor \
+    libstagefright_softomx.vendor \
+    libstagefright_softomx_plugin.vendor \
+    libstagefrighthw \
+    vendor.display.config@1.0.vendor \
+    vendor.display.config@1.1.vendor \
+    vendor.display.config@1.2.vendor \
+    vendor.display.config@1.3.vendor \
+    vendor.display.config@1.4.vendor \
+    vendor.display.config@1.5.vendor \
+    vendor.display.config@1.6.vendor \
+    vendor.display.config@1.7.vendor \
+    vendor.display.config@1.8.vendor \
+    vendor.display.config@1.9.vendor \
+    vendor.display.config@1.10.vendor \
+    vendor.display.config@1.11.vendor \
+    vendor.display.config@2.0.vendor \
+    vendor.qti.hardware.display.allocator@1.0.vendor \
+    vendor.qti.hardware.display.allocator@3.0.vendor \
+    vendor.qti.hardware.display.composer@1.0.vendor \
+    vendor.qti.hardware.display.composer@2.0.vendor
+
 # Inherit proprietary blobs
 $(call inherit-product, vendor/samsung/sm7225-common/sm7225-common-vendor.mk)
