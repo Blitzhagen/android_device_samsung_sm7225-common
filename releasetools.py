@@ -15,6 +15,8 @@ def AddImage(info, dir, basename, dest):
 def FullOTA_InstallEnd(info):
     AddImage(info, "IMAGES", "dtbo.img", "/dev/block/bootdevice/by-name/dtbo")
     AddImage(info, "IMAGES", "vbmeta.img", "/dev/block/bootdevice/by-name/vbmeta")
+    if "RADIO/apnhlos.img" in info.input_zip.namelist():
+        AddImage(info, "RADIO", "apnhlos.img", "/dev/block/bootdevice/by-name/apnhlos")
 
 
 def IncrementalOTA_InstallEnd(info):
