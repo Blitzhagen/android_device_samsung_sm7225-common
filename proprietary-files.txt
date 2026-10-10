@@ -546,7 +546,6 @@ vendor/lib/hw/audio.a2dpsink.default.so
 vendor/lib/hw/audio.bluetooth_qti.default.so
 vendor/lib/hw/audio.primary.default.so
 vendor/lib/hw/audio.primary.lito.so
-vendor/lib/hw/audio.r_submix.default.so
 vendor/lib/hw/audio.sec_primary.default.so
 vendor/lib/hw/audio.usb.default.so
 vendor/lib/hw/camera.qcom.so
@@ -788,7 +787,6 @@ vendor/lib/libmpbase.so
 vendor/lib/libmulawdec.so
 vendor/lib/libmultiobject_tracker.so
 vendor/lib/libnative-api.so
-vendor/lib/libnbaio_mono.so
 vendor/lib/libnetmgr.so
 vendor/lib/libnetmgr_common.so
 vendor/lib/libnpu.so
@@ -1210,7 +1208,6 @@ vendor/lib64/hw/android.hardware.soundtrigger@2.3-impl.so
 vendor/lib64/hw/audio.a2dpsink.default.so
 vendor/lib64/hw/audio.bluetooth_qti.default.so
 vendor/lib64/hw/audio.primary.default.so
-vendor/lib64/hw/audio.r_submix.default.so
 vendor/lib64/hw/audio.sec_primary.default.so
 vendor/lib64/hw/audio.usb.default.so
 vendor/lib64/hw/camera.qcom.so
@@ -1465,7 +1462,6 @@ vendor/lib64/libmulawdec.so
 vendor/lib64/libmultiobject_tracker.so
 vendor/lib64/libnanopb.so
 vendor/lib64/libnative-api.so
-vendor/lib64/libnbaio_mono.so
 vendor/lib64/libnetfilter_conntrack.so
 vendor/lib64/libnetmgr.so
 vendor/lib64/libnetmgr_common.so
