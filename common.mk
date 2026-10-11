@@ -477,7 +477,8 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.allocator@1.0.vendor \
     vendor.qti.hardware.display.allocator@3.0.vendor \
     vendor.qti.hardware.display.composer@1.0.vendor \
-    vendor.qti.hardware.display.composer@2.0.vendor
+    vendor.qti.hardware.display.composer@2.0.vendor \
+    libdisplayconfig.qti
 
 # Inherit proprietary blobs
 $(call inherit-product, vendor/samsung/sm7225-common/sm7225-common-vendor.mk)
