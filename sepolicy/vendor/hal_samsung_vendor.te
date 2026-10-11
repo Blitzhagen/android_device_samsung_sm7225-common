@@ -91,6 +91,8 @@ type hal_wvkprov_default_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_wvkprov_default)
 samsung_hal_hwservice(hal_wvkprov_default, hal_wvkprov_hwservice)
 allow hal_wvkprov_default hal_wvkprov_service:service_manager add;
+vndbinder_use(hal_wvkprov_default)
+binder_call(hal_wvkprov_default, servicemanager)
 
 type hal_converter_default, domain, halserverdomain;
 type hal_converter_default_exec, exec_type, vendor_file_type, file_type;
