@@ -480,5 +480,42 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.composer@2.0.vendor \
     libdisplayconfig.qti
 
+# Signing keys (private, not tracked by repo)
+PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/lineage-priv/keys/releasekey
+PRODUCT_OTA_PUBLIC_KEYS := vendor/lineage-priv/keys/releasekey
+PRODUCT_EXTRA_RECOVERY_KEYS := vendor/lineage-priv/keys/releasekey
+
+PRODUCT_CERTIFICATE_OVERRIDES := \
+    com.android.adbd:com.android.adbd.cert \
+    com.android.adservices:com.android.adservices.cert \
+    com.android.apex.cts.shim:com.android.apex.cts.shim.cert \
+    com.android.appsearch:com.android.appsearch.cert \
+    com.android.art:com.android.art.cert \
+    com.android.btservices:com.android.btservices.cert \
+    com.android.configinfrastructure:com.android.configinfrastructure.cert \
+    com.android.conscrypt:com.android.conscrypt.cert \
+    com.android.devicelock:com.android.devicelock.cert \
+    com.android.extservices:com.android.extservices.cert \
+    com.android.healthfitness:com.android.healthfitness.cert \
+    com.android.i18n:com.android.i18n.cert \
+    com.android.ipsec:com.android.ipsec.cert \
+    com.android.media:com.android.media.cert \
+    com.android.mediaprovider:com.android.mediaprovider.cert \
+    com.android.media.swcodec:com.android.media.swcodec.cert \
+    com.android.neuralnetworks:com.android.neuralnetworks.cert \
+    com.android.ondevicepersonalization:com.android.ondevicepersonalization.cert \
+    com.android.os.statsd:com.android.os.statsd.cert \
+    com.android.permission:com.android.permission.cert \
+    com.android.resolv:com.android.resolv.cert \
+    com.android.rkpd:com.android.rkpd.cert \
+    com.android.runtime:com.android.runtime.cert \
+    com.android.scheduling:com.android.scheduling.cert \
+    com.android.sdkext:com.android.sdkext.cert \
+    com.android.tethering:com.android.tethering.cert \
+    com.android.tzdata:com.android.tzdata.cert \
+    com.android.uwb:com.android.uwb.cert \
+    com.android.virt:com.android.virt.cert \
+    com.android.wifi:com.android.wifi.cert
+
 # Inherit proprietary blobs
 $(call inherit-product, vendor/samsung/sm7225-common/sm7225-common-vendor.mk)
