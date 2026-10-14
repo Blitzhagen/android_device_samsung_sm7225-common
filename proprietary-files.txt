@@ -544,14 +544,12 @@ vendor/lib/hw/android.hardware.soundtrigger@2.0-impl.so
 vendor/lib/hw/android.hardware.soundtrigger@2.3-impl.so
 vendor/lib/hw/audio.a2dpsink.default.so
 vendor/lib/hw/audio.bluetooth_qti.default.so
-vendor/lib/hw/audio.primary.default.so
 vendor/lib/hw/audio.primary.lito.so
 vendor/lib/hw/audio.sec_primary.default.so
 vendor/lib/hw/audio.usb.default.so
 vendor/lib/hw/camera.qcom.so
 vendor/lib/hw/camera.unihal.default.so
 vendor/lib/hw/com.qti.chi.override.so
-vendor/lib/hw/local_time.default.so
 vendor/lib/hw/sound_trigger.primary.lito.so
 vendor/lib/hw/vendor.qti.hardware.bluetooth_audio@2.0-impl.so
 vendor/lib/hw/vendor.qti.hardware.bluetooth_sar@1.0-impl.so
@@ -637,7 +635,6 @@ vendor/lib/libadreno_utils.so
 vendor/lib/libadsp_default_listener.so
 vendor/lib/libadsprpc.so
 vendor/lib/libaivideocentral.arcsoft.so
-vendor/lib/libalsautils.so
 vendor/lib/libapex_cmn.so
 vendor/lib/libapex_utils.so
 vendor/lib/libarcsoft_multi_frame_video_hdr.so
@@ -649,7 +646,6 @@ vendor/lib/libaudio_log_utils.so
 vendor/lib/libaudio_soundtrigger.so
 vendor/lib/libaudioalsa.so
 vendor/lib/libaudioconfigstore.so
-vendor/lib/libaudiofoundation.so
 vendor/lib/libaudioparsers.so
 vendor/lib/libauto_framing_arcsoft.uniplugin@1.0.so
 vendor/lib/libautotracking_interface.so
@@ -665,8 +661,6 @@ vendor/lib/libbthost_if.so
 vendor/lib/libbtnv.so
 vendor/lib/libc2d30_bltlib.so
 vendor/lib/libc2dcolorconvert.so
-vendor/lib/libcodec2_simple_component.so
-vendor/lib/libcodec2_soft_common.so
 vendor/lib/libcacertclient.so
 vendor/lib/libcamera_nn_stub.so
 vendor/lib/libcamerapostproc.so
@@ -692,6 +686,8 @@ vendor/lib/libcirrusspkrprot.so
 vendor/lib/libcld80211.so
 vendor/lib/libcneoplookup.so
 vendor/lib/libcneqmiutils.so
+vendor/lib/libcodec2_simple_component.so
+vendor/lib/libcodec2_soft_common.so
 vendor/lib/libcodecsolutionhelper_vendor.so
 vendor/lib/libcom.qti.chinodeutils.so
 vendor/lib/libcomprcapture.so
@@ -706,14 +702,11 @@ vendor/lib/libdiagjni.so
 vendor/lib/libdisplayqos.so
 vendor/lib/libdisplayskuutils.so
 vendor/lib/libdrc.so
-vendor/lib/libdrm.so
 vendor/lib/libdrmfs.so
 vendor/lib/libdrmtime.so
 vendor/lib/libdsd2pcm.so
 vendor/lib/libdsi_netctrl.so
 vendor/lib/libdsutils.so
-vendor/lib/libeffects.so
-vendor/lib/libeffectsconfig.so
 vendor/lib/libengine_did.so
 vendor/lib/libevent_finder.uniplugin@1.0.so
 vendor/lib/libexifa.camera.samsung.so
@@ -736,7 +729,6 @@ vendor/lib/libgnsspps.so
 vendor/lib/libgps.utils.so
 vendor/lib/libgpudataproducer.so
 vendor/lib/libgsl.so
-vendor/lib/libgui_vendor.so
 vendor/lib/libhand_interaction.uniplugin@1.0.so
 vendor/lib/libhandgesture.arcsoft.so
 vendor/lib/libhdcp1prov.so
@@ -795,7 +787,6 @@ vendor/lib/liboemcrypto.so
 vendor/lib/libofflinelog.so
 vendor/lib/libopenvx.so
 vendor/lib/libops.so
-vendor/lib/libopus.so
 vendor/lib/libpadm.so
 vendor/lib/libpdmapper.so
 vendor/lib/libpdnotifier.so
@@ -939,8 +930,6 @@ vendor/lib/libtad.so
 vendor/lib/libthermalclient.so
 vendor/lib/libthirdparty_zoomtranslator_imp.so
 vendor/lib/libtime_genoff.so
-vendor/lib/libtinycompress.so
-vendor/lib/libtinyxml.so
 vendor/lib/libtinyxml2_1.so
 vendor/lib/libtriplecam_image_optical_zoom.so
 vendor/lib/libtriplecam_optical_zoom_control.so
@@ -958,13 +947,11 @@ vendor/lib/libvideobeauty.uniplugin@1.0.so
 vendor/lib/libvideobeauty_capture.uniplugin@1.0.so
 vendor/lib/libvideobeauty_interface.so
 vendor/lib/libvideoutils.so
-vendor/lib/libvorbisidec.so
 vendor/lib/libvppclient.so
 vendor/lib/libvpphcp.so
 vendor/lib/libvpphvx.so
 vendor/lib/libvpplibrary.so
 vendor/lib/libvpptestutils.so
-vendor/lib/libvpx.so
 vendor/lib/libwebrtc_audio_preprocessing.so
 vendor/lib/libwfdaac_vendor.so
 vendor/lib/libwifi-hal.so
@@ -1095,8 +1082,6 @@ vendor/lib/vendor.samsung.hardware.tlc.hdm@1.1.so
 vendor/lib/vendor.samsung.hardware.tlc.ucm@2.0-impl.so
 vendor/lib/vendor.samsung.hardware.tlc.ucm@2.0.so
 vendor/lib/vintf-codecsolution-V2-ndk_platform.so
-vendor/lib/vndk/libstagefright_omx_utils.so
-vendor/lib/vndk/libstagefright_xmlparser.so
 vendor/lib64/android.hardware.audio.common-util.so
 vendor/lib64/android.hardware.audio.common@2.0-util.so
 vendor/lib64/android.hardware.audio.common@4.0-util.so
@@ -1207,14 +1192,12 @@ vendor/lib64/hw/android.hardware.renderscript@1.0-impl.so
 vendor/lib64/hw/android.hardware.soundtrigger@2.3-impl.so
 vendor/lib64/hw/audio.a2dpsink.default.so
 vendor/lib64/hw/audio.bluetooth_qti.default.so
-vendor/lib64/hw/audio.primary.default.so
 vendor/lib64/hw/audio.sec_primary.default.so
 vendor/lib64/hw/audio.usb.default.so
 vendor/lib64/hw/camera.qcom.so
 vendor/lib64/hw/camera.unihal.default.so
 vendor/lib64/hw/com.qti.chi.override.so
 vendor/lib64/hw/gatekeeper.mdfpp.so
-vendor/lib64/hw/local_time.default.so
 vendor/lib64/hw/vendor.qti.hardware.bluetooth_audio@2.0-impl.so
 vendor/lib64/hw/vendor.qti.hardware.bluetooth_sar@1.0-impl.so
 vendor/lib64/hw/vendor.qti.hardware.capabilityconfigstore@1.0-impl.so
@@ -1295,7 +1278,6 @@ vendor/lib64/libadreno_utils.so
 vendor/lib64/libadsp_default_listener.so
 vendor/lib64/libadsprpc.so
 vendor/lib64/libaivideocentral.arcsoft.so
-vendor/lib64/libalsautils.so
 vendor/lib64/libarcsoft_multi_frame_video_hdr.so
 vendor/lib64/libarcsoft_object_tracking.so
 vendor/lib64/libarcsoft_picportrait_video.so
@@ -1303,7 +1285,6 @@ vendor/lib64/libarcsoft_super_night_raw.so
 vendor/lib64/libaudcal.so
 vendor/lib64/libaudioalsa.so
 vendor/lib64/libaudioconfigstore.so
-vendor/lib64/libaudiofoundation.so
 vendor/lib64/libaudioparsers.so
 vendor/lib64/libauto_framing_arcsoft.uniplugin@1.0.so
 vendor/lib64/libautotracking_interface.so
@@ -1370,14 +1351,11 @@ vendor/lib64/libdiagjni.so
 vendor/lib64/libdisplayqos.so
 vendor/lib64/libdisplayskuutils.so
 vendor/lib64/libdk_vnd_service_core.so
-vendor/lib64/libdrm.so
 vendor/lib64/libdrmfs.so
 vendor/lib64/libdrmtime.so
 vendor/lib64/libdsi_netctrl.so
 vendor/lib64/libdsms_vendor.so
 vendor/lib64/libdsutils.so
-vendor/lib64/libeffects.so
-vendor/lib64/libeffectsconfig.so
 vendor/lib64/libengine_did.so
 vendor/lib64/libengmode15.so
 vendor/lib64/libengmode2lite.so
@@ -1430,8 +1408,6 @@ vendor/lib64/libjpegQtable_interface.so
 vendor/lib64/libjpegencoder_sw.unifunc.so
 vendor/lib64/libjson.so
 vendor/lib64/libkeymaster_helper.so
-vendor/lib64/libkeystore-engine-wifi-hidl.so
-vendor/lib64/libkeystore-wifi-hidl.so
 vendor/lib64/liblbs_core.so
 vendor/lib64/liblearningmodule.so
 vendor/lib64/libllvm-glnext.so
@@ -1462,10 +1438,8 @@ vendor/lib64/libmulawdec.so
 vendor/lib64/libmultiobject_tracker.so
 vendor/lib64/libnanopb.so
 vendor/lib64/libnative-api.so
-vendor/lib64/libnetfilter_conntrack.so
 vendor/lib64/libnetmgr.so
 vendor/lib64/libnetmgr_common.so
-vendor/lib64/libnfnetlink.so
 vendor/lib64/libnlnetmgr.so
 vendor/lib64/libnpu.so
 vendor/lib64/liboemaids_vendor.so
@@ -1518,7 +1492,6 @@ vendor/lib64/librecovery_updater_msm.so
 vendor/lib64/libreffeature.so
 vendor/lib64/libremosaiclib.so
 vendor/lib64/libril_sem.so
-vendor/lib64/librilutils.so
 vendor/lib64/librmp.so
 vendor/lib64/librpmb.so
 vendor/lib64/libsaiv_BeautySolutionVideo.so
@@ -1581,7 +1554,6 @@ vendor/lib64/libsnsdiaglog.so
 vendor/lib64/libsoc_helper.so
 vendor/lib64/libsoc_helper_jni.so
 vendor/lib64/libsocial_image_enhancement.uniplugin@1.0.so
-vendor/lib64/libsoft_attestation_cert.so
 vendor/lib64/libsomxcmn.so
 vendor/lib64/libspatializerparamstorage.so
 vendor/lib64/libspeakercalibration.so
@@ -1604,8 +1576,6 @@ vendor/lib64/libtad.so
 vendor/lib64/libthermalclient.so
 vendor/lib64/libthirdparty_zoomtranslator_imp.so
 vendor/lib64/libtime_genoff.so
-vendor/lib64/libtinycompress.so
-vendor/lib64/libtinyxml.so
 vendor/lib64/libtinyxml2_1.so
 vendor/lib64/libtlc_comm_iccc.so
 vendor/lib64/libtlc_direct_comm_iccc.so

@@ -443,24 +443,45 @@ TARGET_ODM_PROP += $(COMMON_PATH)/odm.prop
 
 # Vendor libraries built from source (replaces prebuilt copies in the blob list)
 PRODUCT_PACKAGES += \
+    audio.primary.default \
+    libalsautils \
+    libaudiofoundation.vendor \
     libavservices_minijail.vendor \
     libavservices_minijail_vendor \
     libcamera2ndk_vendor \
     libcodec2_hidl@1.0.vendor \
     libcodec2_hidl@1.1.vendor \
     libcodec2_vndk.vendor \
+    libdrm.vendor \
+    libeffects \
+    libeffectsconfig.vendor \
+    libgui_vendor \
     libhidltransport.vendor \
     libhwbinder.vendor \
+    libkeystore-engine-wifi-hidl \
+    libkeystore-wifi-hidl \
+    libnetfilter_conntrack \
+    libnfnetlink \
+    libopus.vendor \
     libprotobuf-cpp-full-3.9.1-vendorcompat \
     libprotobuf-cpp-lite-3.9.1-vendorcompat \
+    librilutils \
     libsfplugin_ccodec_utils.vendor \
+    libsoft_attestation_cert.vendor \
     libstagefright_amrnb_common.vendor \
     libstagefright_bufferpool@2.0.1.vendor \
     libstagefright_enc_common.vendor \
     libstagefright_flacdec.vendor \
+    libstagefright_omx_utils.vendor \
     libstagefright_softomx.vendor \
     libstagefright_softomx_plugin.vendor \
+    libstagefright_xmlparser.vendor \
     libstagefrighthw \
+    libtinycompress \
+    libtinyxml \
+    libvorbisidec.vendor \
+    libvpx.vendor \
+    local_time.default \
     vendor.display.config@1.0.vendor \
     vendor.display.config@1.1.vendor \
     vendor.display.config@1.2.vendor \
