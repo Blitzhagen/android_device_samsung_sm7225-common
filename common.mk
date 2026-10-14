@@ -345,6 +345,15 @@ PRODUCT_PACKAGES += \
     secril_config_svc \
     sehradiomanager
 
+# RenderScript
+# Qualcomm's /vendor/lib64/libRS_internal.so needs libft2.so, which only
+# exists on /system and is invisible to the isolated sphal linker namespace
+# -> legacy RenderScript apps abort at RenderScript.create()
+# (e.g. de.dwd.warnapp, tombstone: dlopen libft2.so in ns sphal).
+# libft2 is vendor_available, so ship the vendor variant.
+PRODUCT_PACKAGES += \
+    libft2.vendor
+
 # Sensors
 PRODUCT_PACKAGES += \
     android.hardware.sensors-service.samsung-multihal \
