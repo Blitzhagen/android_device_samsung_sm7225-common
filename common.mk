@@ -350,9 +350,11 @@ PRODUCT_PACKAGES += \
 # exists on /system and is invisible to the isolated sphal linker namespace
 # -> legacy RenderScript apps abort at RenderScript.create()
 # (e.g. de.dwd.warnapp, tombstone: dlopen libft2.so in ns sphal).
-# libft2 is vendor_available, so ship the vendor variant.
-PRODUCT_PACKAGES += \
-    libft2.vendor
+# libft2 is LLNDK-only (its .vendor variant is a link-time stub, not an
+# installable lib), so ship the source-built lib as a vendor blob.
+PRODUCT_COPY_FILES += \
+    vendor/samsung/sm7225-common/proprietary/vendor/lib64/libft2.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libft2.so \
+    vendor/samsung/sm7225-common/proprietary/vendor/lib/libft2.so:$(TARGET_COPY_OUT_VENDOR)/lib/libft2.so
 
 # Sensors
 PRODUCT_PACKAGES += \
