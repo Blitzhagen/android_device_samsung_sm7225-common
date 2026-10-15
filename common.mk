@@ -346,18 +346,22 @@ PRODUCT_PACKAGES += \
     sehradiomanager
 
 # RenderScript
-# Legacy RenderScript apps (e.g. de.dwd.warnapp) abort at
-# RenderScript.create() if libRS_internal.so gets loaded inside the sphal
-# namespace: its libft2.so dependency is a private LLNDK lib and only
-# reachable from the dedicated "rs" namespace.
-# That only ever happens when a physical libRS_internal.so copy sits in
-# /vendor/lib64 (sphal's own search path hits first). The vendor image
-# must therefore NOT contain libRS_internal.so -- it has to resolve via
-# the sphal->rs link so it is loaded into the rs namespace where
-# libft2.so is permitted (resolved from /system/lib64).
-# For the same reason shipping a libft2.so copy in /vendor is NOT an
-# option: libft2 is LLNDK and linkerconfig aborts on
-# "duplicate: provided by default and system".
+# No android.hardware.renderscript@1.0-impl blob and no manifest entry on
+# purpose: the source-built impl module carries
+# runtime_libs = [libRS_internal, libRSDriver], so installing the impl (the
+# blob copy merges into the module's install path and activates its deps)
+# also installs /vendor/lib*/libRS_internal.so + libRSCpuRef/libRSDriver.
+# A physical libRS_internal.so in /vendor/lib64 is found by the sphal
+# namespace before the sphal->rs link applies; loading it in sphal fails
+# because its libft2.so dependency is LLNDK-private and only reachable via
+# the dedicated "rs" namespace. Legacy RenderScript apps (e.g.
+# de.dwd.warnapp) abort in RenderScript.create() that way.
+# Without the impl there is no RS hidl service; libRS falls back to its
+# legacy path and dlopens libRS_internal/libRSCpuRef from the rs namespace
+# (prebuilt com.android.vndk.v30 apex), where libft2 resolves fine.
+# Shipping a libft2.so copy in /vendor is NOT an option either: libft2 is
+# LLNDK and linkerconfig aborts on "duplicate: provided by default and
+# system".
 
 # Sensors
 PRODUCT_PACKAGES += \
