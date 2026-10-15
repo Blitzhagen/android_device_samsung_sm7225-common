@@ -1016,6 +1016,7 @@ vendor/lib/vendor.qti.hardware.automotive.vehicle@1.0.so
 vendor/lib/vendor.qti.hardware.bluetooth_sar@1.0.so
 vendor/lib/vendor.qti.hardware.bluetooth_sar@1.1.so
 vendor/lib/vendor.qti.hardware.cacert@1.0.so
+vendor/lib/vendor.qti.hardware.capabilityconfigstore@1.0.so
 vendor/lib/vendor.qti.hardware.camera.postproc@1.0-service-impl.so
 vendor/lib/vendor.qti.hardware.cvp@1.0.so
 vendor/lib/vendor.qti.hardware.data.connection@1.0.so
@@ -1624,6 +1625,7 @@ vendor/lib64/vendor.qti.hardware.automotive.vehicle@1.0.so
 vendor/lib64/vendor.qti.hardware.bluetooth_sar@1.0.so
 vendor/lib64/vendor.qti.hardware.bluetooth_sar@1.1.so
 vendor/lib64/vendor.qti.hardware.cacert@1.0.so
+vendor/lib64/vendor.qti.hardware.capabilityconfigstore@1.0.so
 vendor/lib64/vendor.qti.hardware.camera.postproc@1.0-service-impl.so
 vendor/lib64/vendor.qti.hardware.cvp@1.0.so
 vendor/lib64/vendor.qti.hardware.data.connection@1.0.so
