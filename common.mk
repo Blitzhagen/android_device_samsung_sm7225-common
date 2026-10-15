@@ -346,13 +346,18 @@ PRODUCT_PACKAGES += \
     sehradiomanager
 
 # RenderScript
-# Qualcomm's /vendor/lib64/libRS_internal.so needs libft2.so, which only
-# exists on /system and is invisible to the isolated sphal linker namespace
-# -> legacy RenderScript apps abort at RenderScript.create()
-# (e.g. de.dwd.warnapp, tombstone: dlopen libft2.so in ns sphal).
-# NOTE: shipping a libft2.so copy in /vendor is NOT possible -- libft2 is
-# LLNDK, and linkerconfig aborts on "duplicate: provided by default and
-# system". The correct fix is to add libft2 to the sphal->vndk link list.
+# Legacy RenderScript apps (e.g. de.dwd.warnapp) abort at
+# RenderScript.create() if libRS_internal.so gets loaded inside the sphal
+# namespace: its libft2.so dependency is a private LLNDK lib and only
+# reachable from the dedicated "rs" namespace.
+# That only ever happens when a physical libRS_internal.so copy sits in
+# /vendor/lib64 (sphal's own search path hits first). The vendor image
+# must therefore NOT contain libRS_internal.so -- it has to resolve via
+# the sphal->rs link so it is loaded into the rs namespace where
+# libft2.so is permitted (resolved from /system/lib64).
+# For the same reason shipping a libft2.so copy in /vendor is NOT an
+# option: libft2 is LLNDK and linkerconfig aborts on
+# "duplicate: provided by default and system".
 
 # Sensors
 PRODUCT_PACKAGES += \
