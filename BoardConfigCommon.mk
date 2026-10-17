@@ -245,6 +245,7 @@ DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
     hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml \
     hardware/qcom-caf/common/vendor_framework_compatibility_matrix_legacy.xml \
     hardware/samsung/vintf/samsung_framework_compatibility_matrix.xml \
+    vendor/lineage/config/device_framework_matrix.xml \
     $(COMMON_PATH)/configs/framework_compatibility_matrix.xml
 
 DEVICE_MATRIX_FILE := $(COMMON_PATH)/configs/compatibility_matrix.xml
@@ -292,6 +293,9 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB_EVENT := "ON"
 WIFI_DRIVER_STATE_CTRL_PARAM := "/dev/wlan"
 WIFI_DRIVER_STATE_OFF := "OFF"
 WIFI_DRIVER_STATE_ON := "ON"
+# AIDL wifi-service (22.x): default driver + dual AP for qcwcn/qcacld
+WIFI_DRIVER_DEFAULT := qca_cld3
+QC_WIFI_HIDL_FEATURE_DUAL_AP := true
 WIFI_HIDL_FEATURE_AWARE := true
 WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true

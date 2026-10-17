@@ -420,6 +420,7 @@ $(call soong_config_set_bool,samsungVibratorVars,duration_amplitude,true)
 
 # Wifi
 PRODUCT_PACKAGES += \
+    android.hardware.wifi-service \
     hostapd \
     libwifi-hal-ctrl \
     libwifi-hal-qcom \
