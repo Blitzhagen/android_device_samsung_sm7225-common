@@ -1,5 +1,4 @@
 # Automatically generated from stock dump T736BXXS9DYF1: vendor/ complete.
-vendor/lib64/libcodec2_sec_.so
 # Excluded: selinux/permissions/build.prop/fs_config/passwd/group,
 # ueventd.rc, symlinks (recreated via Android.mk) and files that
 # device/samsung/{sm7225-common,gts7xllite} install themselves.
@@ -39,7 +38,6 @@ vendor/bin/hw/android.hardware.wifi@1.0-service
 vendor/bin/hw/macloader
 vendor/bin/hw/mfgloader
 vendor/bin/hw/rild
-vendor/bin/hw/samsung.software.media.c2@1.0-service
 vendor/bin/hw/vendor.qti.hardware.capabilityconfigstore@1.0-service
 vendor/bin/hw/vendor.qti.hardware.iop@2.0-service
 vendor/bin/hw/vendor.qti.hardware.perf@2.2-service
@@ -201,7 +199,6 @@ vendor/etc/init/qdcmss.rc
 vendor/etc/init/qmipriod.debug.rc
 vendor/etc/init/qmipriod.rc
 vendor/etc/init/qseecomd.rc
-vendor/etc/init/samsung.software.media.c2@1.0-service.rc
 vendor/etc/init/shsusrd.rc
 vendor/etc/init/snaplite_utility.rc
 vendor/etc/init/ssgtzd.rc
@@ -319,8 +316,6 @@ vendor/etc/seccomp_policy/mediacodec.policy
 vendor/etc/seccomp_policy/mediaextractor_sec.policy
 vendor/etc/seccomp_policy/qspm.policy
 vendor/etc/seccomp_policy/qti-systemd.policy
-vendor/etc/seccomp_policy/samsung.software.media.c2-base-policy
-vendor/etc/seccomp_policy/samsung.software.media.c2-ext-policy
 vendor/etc/seccomp_policy/vendor.qti.hardware.dsp.policy
 vendor/etc/sensors/config/atoll_default_sensors.json
 vendor/etc/sensors/config/atoll_lsm6dso_0.json
@@ -462,7 +457,6 @@ vendor/firmware/wlan/qca_cld/regdb.bin
 vendor/firmware/wlanmdsp.mbn
 vendor/lib/android.hardware.audio.common-util.so
 vendor/lib/android.hardware.audio.common@6.0-util.so
-vendor/lib/android.hardware.gatekeeper@1.0-impl.so
 vendor/lib/btaudio_offload_if.so
 vendor/lib/camera/com.qti.eeprom.sec2qcconversion.so
 vendor/lib/camera/com.qti.tuned.default.bin
@@ -1053,7 +1047,6 @@ vendor/lib/vendor.samsung.hardware.tlc.ucm@2.0.so
 vendor/lib/vintf-codecsolution-V2-ndk_platform.so
 vendor/lib64/android.hardware.audio.common-util.so
 vendor/lib64/android.hardware.audio.common@6.0-util.so
-vendor/lib64/android.hardware.gatekeeper@1.0-impl.so
 vendor/lib64/btaudio_offload_if.so
 vendor/lib64/camera.device@1.0-impl.so
 vendor/lib64/camera.device@3.2-impl.so
@@ -1211,7 +1204,6 @@ vendor/lib64/libQSEEComAPI.so
 vendor/lib64/libQTEEConnector_vendor.so
 vendor/lib64/libSNPE.so
 vendor/lib64/libSceneDetector_v1.camera.samsung.so
-vendor/lib64/libSecC2ComponentStore.so
 vendor/lib64/libSecureUILib.so
 vendor/lib64/libSemDataProps.so
 vendor/lib64/libSemTelephonyProps.so
@@ -1274,20 +1266,8 @@ vendor/lib64/libcdsprpc.so
 vendor/lib64/libchilog.so
 vendor/lib64/libcneoplookup.so
 vendor/lib64/libcneqmiutils.so
-vendor/lib64/libcodec2_sec_aacdec.so
-vendor/lib64/libcodec2_sec_aacenc.so
-vendor/lib64/libcodec2_sec_amrnbdec.so
-vendor/lib64/libcodec2_sec_amrwbdec.so
-vendor/lib64/libcodec2_sec_flacdec.so
-vendor/lib64/libcodec2_sec_imadec.so
-vendor/lib64/libcodec2_sec_mp3dec.so
-vendor/lib64/libcodec2_sec_mp4vdec.so
-vendor/lib64/libcodec2_sec_soft_common.so
-vendor/lib64/libcodec2_sec_vc1dec.so
 vendor/lib64/libcodec2_simple_component.so
-vendor/lib64/libcodec2_soft_ac4dec.so
 vendor/lib64/libcodec2_soft_common.so
-vendor/lib64/libcodec2_soft_eac3dec.so
 vendor/lib64/libcodecsolutionhelper_vendor.so
 vendor/lib64/libcom.qti.chinodeutils.so
 vendor/lib64/libconfigdb.so

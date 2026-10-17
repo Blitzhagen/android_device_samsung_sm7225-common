@@ -77,6 +77,16 @@ function blob_fixup() {
         vendor/lib/hw/audio.primary.lito.so)
             python3 "${MY_DIR}/patches/patch_audio_primary_lito.py" "${2}"
             ;;
+        # These blobs call the old BoringSSL CBS/CBB helpers that current
+        # libcrypto no longer exports. Redirect them to libcrypto-v33
+        # (hardware/lineage/compat, v33 BoringSSL snapshot).
+        vendor/lib64/hw/gatekeeper.mdfpp.so | \
+        vendor/lib64/libskeymaster4device.so | \
+        vendor/lib64/libkeymaster_helper.so | \
+        vendor/lib/libwvhidl.so | \
+        vendor/lib/mediadrm/libwvdrmengine.so)
+            "${PATCHELF_0_18}" --replace-needed "libcrypto.so" "libcrypto-v33.so" "${2}"
+            ;;
     esac
 }
 

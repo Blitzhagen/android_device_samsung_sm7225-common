@@ -76,7 +76,6 @@ PRODUCT_PACKAGES += \
     libqcomvisualizer \
     libqcomvoiceprocessing \
     libaudiotypeconv_shim \
-    libc2compat_shim \
     libqcompostprocbundle \
     libui_compat_shim \
     libvolumelistener
@@ -192,7 +191,7 @@ TARGET_FS_CONFIG_GEN := $(COMMON_PATH)/config.fs
 
 # Gatekeeper
 PRODUCT_PACKAGES += \
-    android.hardware.gatekeeper@1.0-impl_vendor \
+    android.hardware.gatekeeper@1.0-impl \
     android.hardware.gatekeeper@1.0-service
 
 # Health

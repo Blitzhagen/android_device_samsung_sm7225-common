@@ -199,7 +199,6 @@ TARGET_LD_SHIM_LIBS := \
     /vendor/lib/libscaler_sw.unifunc.so|/vendor/lib/libui_compat_shim.so \
     /vendor/lib/libstagefright_softomx.so|/vendor/lib/libui_compat_shim.so \
     /vendor/lib/unihal_main@2.15.so|/vendor/lib/libui_compat_shim.so \
-    /vendor/lib64/libSecC2ComponentStore.so|/vendor/lib64/libc2compat_shim.so \
     /vendor/lib64/libskeymaster4device.so|/vendor/lib64/libkeymaster41.so
 
 # FOD
