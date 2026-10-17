@@ -68,11 +68,11 @@ PRODUCT_PACKAGES += \
     android.hardware.audio.service \
     android.hardware.audio@7.0-impl.samsung-sm7225 \
     android.hardware.audio.effect@7.0-impl \
-    android.hardware.soundtrigger@2.3-impl \
+    android.hardware.soundtrigger@2.3-impl_vendor \
     sound_trigger.primary.lito \
     audio.bluetooth.default \
     audio.r_submix.default \
-    audio.usb.default \
+    audio.usb.default_vendor \
     libqcomvisualizer \
     libqcomvoiceprocessing \
     libaudiotypeconv_shim \
@@ -166,7 +166,7 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.allocator-service \
     vendor.qti.hardware.display.composer-service \
     vendor.qti.hardware.memtrack-service \
-    gralloc.lito \
+    gralloc.qcom \
     libsdmcore \
     libsdmextension \
     libsdedrm
@@ -192,7 +192,7 @@ TARGET_FS_CONFIG_GEN := $(COMMON_PATH)/config.fs
 
 # Gatekeeper
 PRODUCT_PACKAGES += \
-    android.hardware.gatekeeper@1.0-impl \
+    android.hardware.gatekeeper@1.0-impl_vendor \
     android.hardware.gatekeeper@1.0-service
 
 # Health
@@ -332,7 +332,7 @@ PRODUCT_COPY_FILES += \
 TARGET_FWK_SUPPORTS_FULL_VALUEADDS := true
 
 PRODUCT_PACKAGES += \
-    libjson
+    libjson_vendor
 
 # QTI fwk-detect
 PRODUCT_PACKAGES += \
@@ -366,7 +366,7 @@ PRODUCT_PACKAGES += \
 # Sensors
 PRODUCT_PACKAGES += \
     android.hardware.sensors-service.samsung-multihal \
-    libsensorndkbridge
+    libsensorndkbridge_vendor
 
 # Telephony
 $(call inherit-product, vendor/qcom/opensource/dataservices/dataservices_vendor_product.mk)
@@ -424,8 +424,8 @@ PRODUCT_PACKAGES += \
     hostapd \
     libwifi-hal-ctrl \
     libwifi-hal-qcom \
-    libwfdaac_vendor \
-    libwpa_client \
+    libwfdaac_vendor_vendor \
+    libwpa_client_vendor \
     WifiOverlay \
     wpa_cli \
     wpa_supplicant \

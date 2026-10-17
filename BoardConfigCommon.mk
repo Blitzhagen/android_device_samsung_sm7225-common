@@ -63,9 +63,9 @@ TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a55
 TARGET_KERNEL_SOURCE        := kernel/samsung/sm7225
 # Stock Samsung defconfig from the opensource release (T736BXXS9DYF1)
 TARGET_KERNEL_CONFIG := vendor/gts7xllite_eur_openx_defconfig
-# Stock kernel was built with clang 10.0.7; r475365b (clang 15) is the
-# closest version available in the LOS 22 tree (clang-3289846 needs libtinfo.so.5)
-TARGET_KERNEL_CLANG_VERSION := r475365b
+# Stock kernel was built with clang 10.0.7; r522817 (clang 18) is the
+# closest version available in the LOS 22.2 tree (r475365b was dropped)
+TARGET_KERNEL_CLANG_VERSION := r522817
 TARGET_KERNEL_ARCH          := arm64
 TARGET_KERNEL_HEADER_ARCH   := arm64
 TARGET_LINUX_KERNEL_VERSION := 4.19

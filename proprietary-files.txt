@@ -3,6 +3,15 @@ vendor/lib64/libcodec2_sec_.so
 # Excluded: selinux/permissions/build.prop/fs_config/passwd/group,
 # ueventd.rc, symlinks (recreated via Android.mk) and files that
 # device/samsung/{sm7225-common,gts7xllite} install themselves.
+#
+# Patched after extraction (host_init_verifier on 22.2 rejects init rc
+# files declaring interfaces with no hidl_interface module): the
+# "interface vendor.samsung.hardware.*" / "vendor.qti.hardware.{dsp,iop,
+# wifi.wifilearner}" lines were removed from these blobs -
+# authfw@1.0, camera.provider@4.0-service_64, hqm@1.0, security.drk@2.0,
+# security.skpm@1.0, tlc.hdm@1.1, tlc.iccc@1.0, tlc.kg@1.1, tlc.ucm@2.0,
+# wifi@2.0, dsp@1.0, iop@2.0, wifilearner@1.0 -service.rc
+# Keep that edit when re-extracting.
 vendor/apex/com.samsung.android.biometrics.face.signed.apex
 vendor/apex/com.samsung.android.camera.unihal.signed.apex
 vendor/apex/com.samsung.android.wifi.broadcom.signed.apex
@@ -881,28 +890,7 @@ vendor/lib/libssd.so
 vendor/lib/libssengine.uniplugin@1.0.so
 vendor/lib/libstagefright_foundation_vendor.so
 vendor/lib/libstagefright_omx_vendor.so
-vendor/lib/libstagefright_soft_aacdec.so
-vendor/lib/libstagefright_soft_aacenc.so
-vendor/lib/libstagefright_soft_amrdec.so
-vendor/lib/libstagefright_soft_amrnbenc.so
-vendor/lib/libstagefright_soft_amrwbenc.so
-vendor/lib/libstagefright_soft_avcdec.so
-vendor/lib/libstagefright_soft_avcenc.so
-vendor/lib/libstagefright_soft_flacdec.so
-vendor/lib/libstagefright_soft_flacenc.so
-vendor/lib/libstagefright_soft_g711dec.so
-vendor/lib/libstagefright_soft_gsmdec.so
-vendor/lib/libstagefright_soft_hevcdec.so
-vendor/lib/libstagefright_soft_mp3dec.so
-vendor/lib/libstagefright_soft_mpeg2dec.so
-vendor/lib/libstagefright_soft_mpeg4dec.so
-vendor/lib/libstagefright_soft_mpeg4enc.so
-vendor/lib/libstagefright_soft_opusdec.so
 vendor/lib/libstagefright_soft_qtiflacdec.so
-vendor/lib/libstagefright_soft_rawdec.so
-vendor/lib/libstagefright_soft_vorbisdec.so
-vendor/lib/libstagefright_soft_vpxdec.so
-vendor/lib/libstagefright_soft_vpxenc.so
 vendor/lib/libstork_shared.so
 vendor/lib/libstreamparser.so
 vendor/lib/libsubsystem_control.so
@@ -1073,14 +1061,8 @@ vendor/lib64/camera.device@3.3-impl.so
 vendor/lib64/camera.device@3.4-impl.so
 vendor/lib64/camera.device@3.5-impl.so
 vendor/lib64/camera/com.qti.eeprom.sec2qcconversion.so
-vendor/lib64/camera/com.qti.tuned.default.bin
 vendor/lib64/camera/com.samsung.sensor.gc5035.so
 vendor/lib64/camera/com.samsung.sensor.imx355.so
-vendor/lib64/camera/com.samsung.sensormodule.0_0_sony_imx355.bin
-vendor/lib64/camera/com.samsung.sensormodule.13_lsi_gc5035.bin
-vendor/lib64/camera/com.samsung.sensormodule.1_lsi_gc5035.bin
-vendor/lib64/camera/com.samsung.tuned.lsi_gc5035.bin
-vendor/lib64/camera/com.samsung.tuned.sony_imx355.bin
 vendor/lib64/camera/components/com.qti.camx.chiiqutils.so
 vendor/lib64/camera/components/com.qti.eisv2.so
 vendor/lib64/camera/components/com.qti.eisv3.so
@@ -1125,7 +1107,6 @@ vendor/lib64/camera/components/com.ss.stats.pdlib.so
 vendor/lib64/camera/components/libMOTION.so
 vendor/lib64/camera/components/libdepthmapwrapper.so
 vendor/lib64/camera/f_dual_calibration.bin
-vendor/lib64/camera/ois_mcu_stm32g_fw.bin
 vendor/lib64/camera/t_tof_calibration.bin
 vendor/lib64/camera/uw_dual_calibration.bin
 vendor/lib64/camera/w_dual_calibration.bin
@@ -1529,8 +1510,8 @@ vendor/lib64/libssc.so
 vendor/lib64/libssc_default_listener.so
 vendor/lib64/libssd.so
 vendor/lib64/libssengine.uniplugin@1.0.so
-vendor/lib64/libstagefright_foundation_vendor.so
 vendor/lib64/libstagefright_soft_qtiflacdec.so
+vendor/lib64/libstagefright_foundation_vendor.so
 vendor/lib64/libstork_shared.so
 vendor/lib64/libsubsystem_control.so
 vendor/lib64/libsuper_night_interface.so
@@ -1582,19 +1563,6 @@ vendor/lib64/rfsa/adsp/libsns_device_mode_skel.so
 vendor/lib64/rfsa/adsp/libsns_low_lat_stream_skel.so
 vendor/lib64/sensors.grip.so
 vendor/lib64/sensors.ssc.so
-vendor/lib64/soundfx/libasphere.so
-vendor/lib64/soundfx/libaudioeffectoffload.so
-vendor/lib64/soundfx/libaudiosaplus_sec.so
-vendor/lib64/soundfx/libmysound.so
-vendor/lib64/soundfx/libmyspace.so
-vendor/lib64/soundfx/libplaybackrecorder.so
-vendor/lib64/soundfx/libqcbassboost.so
-vendor/lib64/soundfx/libqcreverb.so
-vendor/lib64/soundfx/libqcvirt.so
-vendor/lib64/soundfx/libsamsungSoundbooster_plus.so
-vendor/lib64/soundfx/libshoebox.so
-vendor/lib64/soundfx/libswdap.so
-vendor/lib64/soundfx/libswspatializer.so
 vendor/lib64/spatializer-aidl-V1-cpp.so
 vendor/lib64/unihal_cutils@2.15.so
 vendor/lib64/unihal_main@2.15.so
