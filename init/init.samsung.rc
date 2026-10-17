@@ -91,7 +91,10 @@ on early-boot
     chown system system /sys/class/sec/tsp/virtual_prox
     chown system system /sys/class/sec/tsp/sensitivity_mode
     chown system system /sys/class/sec/tsp/prox_power_off
- 
+
+ # Fast charge control (vendor.lineage.health IFastCharge)
+    chown system system /sys/class/sec/switch/afc_disable
+
  # Permission for Securetouch
     chown system system /sys/class/sec/ss_touch/secure/secure_touch_enable
     chown system system /sys/class/sec/tsp1/input/secure_touch_enable
