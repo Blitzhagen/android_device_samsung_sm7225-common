@@ -63,9 +63,9 @@ TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a55
 TARGET_KERNEL_SOURCE        := kernel/samsung/sm7225
 # Stock Samsung defconfig from the opensource release (T736BXXS9DYF1)
 TARGET_KERNEL_CONFIG := vendor/gts7xllite_eur_openx_defconfig
-# Stock kernel was built with clang 10.0.7; r450784e (clang 14) is the
-# closest version available in tree (clang-3289846 needs libtinfo.so.5)
-TARGET_KERNEL_CLANG_VERSION := r450784e
+# Stock kernel was built with clang 10.0.7; r475365b (clang 15) is the
+# closest version available in the LOS 22 tree (clang-3289846 needs libtinfo.so.5)
+TARGET_KERNEL_CLANG_VERSION := r475365b
 TARGET_KERNEL_ARCH          := arm64
 TARGET_KERNEL_HEADER_ARCH   := arm64
 TARGET_LINUX_KERNEL_VERSION := 4.19
@@ -79,7 +79,10 @@ TARGET_KERNEL_LLVM_BINUTILS := false
 # techpack config (audio/display). Without it the empty filter() trick
 # resolves to lito_a42 (TAS2562) instead of lito_gts7plite (CS35L45)
 # -> sound card waits forever for tas2562.18-004c.
-TARGET_KERNEL_ADDITIONAL_FLAGS := KCFLAGS="-fno-dwarf-directory-asm -gdwarf-4 -Wno-unused-but-set-variable -Wno-unused-variable" \
+# clang>=15 promotes several warnings to errors; the 4.19 tree predates
+# that (strict-prototypes, implicit-int, array-parameter, int-conversion,
+# mismatched-parameter-types, deprecated-non-prototype)
+TARGET_KERNEL_ADDITIONAL_FLAGS := KCFLAGS="-fno-dwarf-directory-asm -gdwarf-4 -Wno-unused-but-set-variable -Wno-unused-variable -Wno-strict-prototypes -Wno-implicit-int -Wno-implicit-function-declaration -Wno-array-parameter -Wno-int-conversion -Wno-mismatched-parameter-types -Wno-deprecated-non-prototype" \
                                   PROJECT_NAME=gts7xllite
 
 # Kernel flags
