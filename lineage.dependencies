@@ -2,18 +2,18 @@
   {
     "repository": "android_hardware_samsung",
     "target_path": "hardware/samsung",
-    "branch": "lineage-22.0"
+    "branch": "lineage-22.2"
   },
   {
     "repository": "Blitzhagen/android_kernel_samsung_sm7225",
     "target_path": "kernel/samsung/sm7225",
     "remote": "github",
-    "branch": "lineage-22.0"
+    "branch": "lineage-22.2"
   },
   {
     "repository": "Blitzhagen/android_vendor_samsung_sm7225-common",
     "target_path": "vendor/samsung/sm7225-common",
     "remote": "github",
-    "branch": "lineage-22.0"
+    "branch": "lineage-22.2"
   }
 ]
