@@ -97,6 +97,9 @@ function blob_fixup() {
         vendor/lib64/libdpps.so)
             "${PATCHELF_0_18}" --replace-needed "libtinyxml2.so" "libtinyxml2-v34.so" "${2}"
             ;;
+        vendor/lib64/libsec-ril.so)
+            sed -i 's/ril\.dds\.call\.ongoing/vendor.calls.ongoing/g' "${2}"
+            ;;
         *)
             return 1
             ;;
