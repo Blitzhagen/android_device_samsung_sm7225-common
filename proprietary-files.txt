@@ -1684,7 +1684,6 @@ vendor/tima_measurement_info
 vendor/etc/vintf/manifest/deviceManifest.xml
 vendor/etc/vintf/manifest/engmode_manifest.xml
 vendor/etc/vintf/manifest/hyper-default-sec.xml
-vendor/etc/vintf/manifest/sec_c2_manifest_default.xml
 vendor/etc/vintf/manifest/vaultkeeper_manifest.xml
 vendor/etc/vintf/manifest/vendor.samsung.hardware.authfw@1.0-manifest.xml
 vendor/etc/vintf/manifest/vendor.samsung.hardware.hqm@1.0-manifest.xml
