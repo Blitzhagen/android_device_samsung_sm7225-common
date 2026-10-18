@@ -112,4 +112,29 @@ $(TOYBOX_BIN_LINKS): $(LOCAL_INSTALLED_MODULE) $(SM7225_COMMON_DIR)/vendor_bin_s
 
 ALL_DEFAULT_INSTALLED_MODULES += $(TOYBOX_BIN_LINKS)
 
+# Camera sensor/tuning blobs: the 64-bit camera provider resolves these
+# under /vendor/lib64/camera, but PRODUCT_COPY_FILES cannot install the
+# same file to both vendor/lib/camera and vendor/lib64/camera on 22.2
+# (generated prebuilt_rs_bitcode modules claim the lib64 path for their
+# arm64 variant -> fsgen "packaging conflict"). Copy them directly.
+CAM64_BINS := com.qti.tuned.default.bin \
+    com.samsung.sensormodule.0_0_sony_imx355.bin \
+    com.samsung.sensormodule.13_lsi_gc5035.bin \
+    com.samsung.sensormodule.1_lsi_gc5035.bin \
+    com.samsung.tuned.lsi_gc5035.bin \
+    com.samsung.tuned.sony_imx355.bin \
+    ois_mcu_stm32g_fw.bin
+
+CAM64_SRC_DIR := vendor/samsung/sm7225-common/proprietary/vendor/lib64/camera
+CAM64_STAMP := $(TARGET_OUT_INTERMEDIATES)/cam64_bins_done
+$(CAM64_STAMP): $(LOCAL_INSTALLED_MODULE) $(addprefix $(CAM64_SRC_DIR)/,$(CAM64_BINS))
+	@echo "Installing lib64 camera data blobs"
+	@mkdir -p $(TARGET_OUT_VENDOR)/lib64/camera
+	$(hide) for f in $(CAM64_BINS); do \
+	    cp $(CAM64_SRC_DIR)/$$f $(TARGET_OUT_VENDOR)/lib64/camera/$$f; \
+	done
+	$(hide) touch $@
+
+ALL_DEFAULT_INSTALLED_MODULES += $(CAM64_STAMP)
+
 endif

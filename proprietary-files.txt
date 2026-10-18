@@ -11,6 +11,14 @@
 # security.skpm@1.0, tlc.hdm@1.1, tlc.iccc@1.0, tlc.kg@1.1, tlc.ucm@2.0,
 # wifi@2.0, dsp@1.0, iop@2.0, wifilearner@1.0 -service.rc
 # Keep that edit when re-extracting.
+#
+# NOTE: the vendor/lib64/camera/*.bin entries below are listed so
+# extraction keeps them in the repo, but they must NOT go into the
+# generated vendor.mk as PRODUCT_COPY_FILES - a lib/camera PCF entry and
+# a lib64/camera PCF entry both generate prebuilt_rs_bitcode modules that
+# claim the same lib64 dest -> fsgen "packaging conflict". They are
+# installed via copy rules in device/samsung/sm7225-common/Android.mk
+# (CAM64_BINS) instead. Keep them out of the .mk when regenerating.
 vendor/apex/com.samsung.android.biometrics.face.signed.apex
 vendor/apex/com.samsung.android.camera.unihal.signed.apex
 vendor/apex/com.samsung.android.wifi.broadcom.signed.apex
@@ -1054,8 +1062,14 @@ vendor/lib64/camera.device@3.3-impl.so
 vendor/lib64/camera.device@3.4-impl.so
 vendor/lib64/camera.device@3.5-impl.so
 vendor/lib64/camera/com.qti.eeprom.sec2qcconversion.so
+vendor/lib64/camera/com.qti.tuned.default.bin
 vendor/lib64/camera/com.samsung.sensor.gc5035.so
 vendor/lib64/camera/com.samsung.sensor.imx355.so
+vendor/lib64/camera/com.samsung.sensormodule.0_0_sony_imx355.bin
+vendor/lib64/camera/com.samsung.sensormodule.13_lsi_gc5035.bin
+vendor/lib64/camera/com.samsung.sensormodule.1_lsi_gc5035.bin
+vendor/lib64/camera/com.samsung.tuned.lsi_gc5035.bin
+vendor/lib64/camera/com.samsung.tuned.sony_imx355.bin
 vendor/lib64/camera/components/com.qti.camx.chiiqutils.so
 vendor/lib64/camera/components/com.qti.eisv2.so
 vendor/lib64/camera/components/com.qti.eisv3.so
@@ -1100,6 +1114,7 @@ vendor/lib64/camera/components/com.ss.stats.pdlib.so
 vendor/lib64/camera/components/libMOTION.so
 vendor/lib64/camera/components/libdepthmapwrapper.so
 vendor/lib64/camera/f_dual_calibration.bin
+vendor/lib64/camera/ois_mcu_stm32g_fw.bin
 vendor/lib64/camera/t_tof_calibration.bin
 vendor/lib64/camera/uw_dual_calibration.bin
 vendor/lib64/camera/w_dual_calibration.bin
