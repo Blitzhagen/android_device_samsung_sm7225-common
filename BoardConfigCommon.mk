@@ -63,9 +63,9 @@ TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a55
 TARGET_KERNEL_SOURCE        := kernel/samsung/sm7225
 # Stock Samsung defconfig from the opensource release (T736BXXS9DYF1)
 TARGET_KERNEL_CONFIG := vendor/gts7xllite_eur_openx_defconfig
-# Stock kernel was built with clang 10.0.7; r522817 (clang 18) is the
-# closest version available in the LOS 22.2 tree (r475365b was dropped)
-TARGET_KERNEL_CLANG_VERSION := r522817
+# Stock kernel was built with clang 10.0.7; r547379 (clang 19) is the
+# closest version available in the LOS 23.2 tree (r522817/r475365b dropped)
+TARGET_KERNEL_CLANG_VERSION := r547379
 TARGET_KERNEL_ARCH          := arm64
 TARGET_KERNEL_HEADER_ARCH   := arm64
 TARGET_LINUX_KERNEL_VERSION := 4.19
@@ -244,7 +244,6 @@ DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
     hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml \
     hardware/qcom-caf/common/vendor_framework_compatibility_matrix_legacy.xml \
     hardware/samsung/vintf/samsung_framework_compatibility_matrix.xml \
-    vendor/lineage/config/device_framework_matrix.xml \
     $(COMMON_PATH)/configs/framework_compatibility_matrix.xml
 
 DEVICE_MATRIX_FILE := $(COMMON_PATH)/configs/compatibility_matrix.xml

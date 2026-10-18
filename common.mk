@@ -23,12 +23,8 @@ PRODUCT_ENFORCE_RRO_TARGETS := *
 BOARD_SHIPPING_API_LEVEL := 30
 PRODUCT_SHIPPING_API_LEVEL := $(BOARD_SHIPPING_API_LEVEL)
 
-PRODUCT_PACKAGES += \
-    com.android.vndk.v30
-
 # VNDK
 PRODUCT_TARGET_VNDK_VERSION := 30
-PRODUCT_EXTRA_VNDK_VERSIONS := 30
 
 # Init files and fstab
 # (remaining init-*.rc and init-*.sh come as stock blobs from vendor/)
@@ -69,11 +65,11 @@ PRODUCT_PACKAGES += \
     android.hardware.audio.service \
     android.hardware.audio@7.0-impl.samsung-sm7225 \
     android.hardware.audio.effect@7.0-impl \
-    android.hardware.soundtrigger@2.3-impl_vendor \
+    android.hardware.soundtrigger@2.3-impl \
     sound_trigger.primary.lito \
     audio.bluetooth.default \
     audio.r_submix.default \
-    audio.usb.default_vendor \
+    audio.usb.default \
     libqcomvisualizer \
     libqcomvoiceprocessing \
     libaudiotypeconv_shim \
@@ -141,7 +137,7 @@ $(call soong_config_set,samsungCameraVars,extra_ids,54) # ID=54 is macro
 
 # CAS
 PRODUCT_PACKAGES += \
-    android.hardware.cas@1.2-service-lazy
+    android.hardware.cas@1.2-service
 
 # Charger
 PRODUCT_PACKAGES += \
@@ -352,7 +348,7 @@ PRODUCT_COPY_FILES += \
 TARGET_FWK_SUPPORTS_FULL_VALUEADDS := true
 
 PRODUCT_PACKAGES += \
-    libjson_vendor
+    libjson
 
 # QTI fwk-detect
 PRODUCT_PACKAGES += \
@@ -386,7 +382,7 @@ PRODUCT_PACKAGES += \
 # Sensors
 PRODUCT_PACKAGES += \
     android.hardware.sensors-service.samsung-multihal \
-    libsensorndkbridge_vendor
+    libsensorndkbridge
 
 # Telephony
 $(call inherit-product, vendor/qcom/opensource/dataservices/dataservices_vendor_product.mk)
@@ -444,8 +440,8 @@ PRODUCT_PACKAGES += \
     hostapd \
     libwifi-hal-ctrl \
     libwifi-hal-qcom \
-    libwfdaac_vendor_vendor \
-    libwpa_client_vendor \
+    libwfdaac_vendor \
+    libwpa_client \
     WifiOverlay \
     wpa_cli \
     wpa_supplicant \
@@ -517,6 +513,9 @@ PRODUCT_PACKAGES += \
     libstagefright_softomx_plugin.vendor \
     libstagefright_xmlparser.vendor \
     libstagefrighthw \
+    libOmxCore \
+    libOmxVdec \
+    libOmxVenc \
     libtinycompress \
     libtinyxml \
     libvorbisidec.vendor \
