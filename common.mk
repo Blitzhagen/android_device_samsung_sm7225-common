@@ -78,7 +78,8 @@ PRODUCT_PACKAGES += \
     libaudiotypeconv_shim \
     libqcompostprocbundle \
     libui_compat_shim \
-    libvolumelistener
+    libvolumelistener \
+    libprocessgroup.vendor
 
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/audio/configs/a2dpsink_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dpsink_audio_policy_configuration.xml \
