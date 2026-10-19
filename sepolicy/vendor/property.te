@@ -1,5 +1,4 @@
 # Fastcharge
-vendor_internal_prop(vendor_fastcharge_prop)
 
 # Qseecom
 vendor_internal_prop(vendor_qseecomd_prop)
