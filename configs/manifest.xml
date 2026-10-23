@@ -163,22 +163,11 @@
         </interface>
         <fqname>@1.0::IOffloadControl/default</fqname>
     </hal>
-    <hal format="aidl">
-        <name>vendor.lineage.touch</name>
-        <version>1</version>
-        <interface>
-            <name>IGloveMode</name>
-            <instance>default</instance>
-        </interface>
-        <interface>
-            <name>IHighTouchPollingRate</name>
-            <instance>default</instance>
-        </interface>
-        <interface>
-            <name>ITouchscreenGesture</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
+    <!-- vendor.lineage.touch is not declared: tablets (TARGET_IS_TABLET)
+         don't build the touch HAL service at all. Declaring it makes
+         LineageHardwareManager's waitForService block forever, which hangs
+         system_server's main thread inside IMMS.onBootPhase(550) and
+         prevents sys.boot_completed. -->
     <hal format="hidl">
         <name>vendor.qti.data.factory</name>
         <transport>hwbinder</transport>
@@ -587,25 +576,8 @@
         </interface>
         <fqname>@3.1::ISehSupplicant/default</fqname>
     </hal>
-    <hal format="aidl">
-        <name>vendor.lineage.livedisplay</name>
-        <transport>hwbinder</transport>
-        <version>1</version>
-        <interface>
-            <name>IAdaptiveBacklight</name>
-            <instance>default</instance>
-        </interface>
-        <interface>
-            <name>IDisplayColorCalibration</name>
-            <instance>default</instance>
-        </interface>
-        <interface>
-            <name>IDisplayModes</name>
-            <instance>default</instance>
-        </interface>
-        <interface>
-            <name>ISunlightEnhancement</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
+    <!-- vendor.lineage.livedisplay is not declared: tablets don't build the
+         LiveDisplay service. Declaring it makes LineageHardwareManager's
+         waitForDeclaredService block system_server's android.display thread
+         in DisplayHardwareController.<init>, stalling boot. -->
 </manifest>
