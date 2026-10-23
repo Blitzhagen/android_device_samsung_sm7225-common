@@ -31,8 +31,10 @@ BOARD_AVB_SYSTEM_ROLLBACK_INDEX_LOCATION := 1
 # QC Connectivity Engine
 BOARD_USES_QCNE := true
 
-# VNDK: ro.vndk.version=30 (stock vendor = Android 11). BOARD_VNDK_VERSION
-# has no effect here (KEEP_VNDK=false in the ap2a release config).
+# VNDK: stock vendor is Android 11 (v30), but ro.vndk.version is NOT set
+# (see gts7xllite/vendor.prop) - the v30 VNDK apex no longer exists in this
+# tree, and declaring the version makes linkerconfig abort on undefined
+# VNDK_* variables. BOARD_VNDK_VERSION is a no-op in this release.
 
 # Platform
 PRODUCT_PLATFORM := lito
@@ -86,7 +88,7 @@ TARGET_KERNEL_ADDITIONAL_FLAGS := KCFLAGS="-fno-dwarf-directory-asm -gdwarf-4 -W
                                   PROJECT_NAME=gts7xllite
 
 # Kernel flags
-BOARD_KERNEL_CMDLINE += console=null androidboot.hardware=qcom androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 androidboot.usbcontroller=a600000.dwc3 swiotlb=2048 cgroup.memory=nokmem,nosocket firmware_class.path=/vendor/firmware_mnt/image loop.max_part=7 androidboot.bootdevice=1d84000.ufshc androidboot.fstab_suffix=default androidboot.boot_devices=soc/1d84000.ufshc
+BOARD_KERNEL_CMDLINE += console=null androidboot.hardware=qcom androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 androidboot.usbcontroller=a600000.dwc3 swiotlb=2048 cgroup.memory=nokmem,nosocket firmware_class.path=/vendor/firmware_mnt/image loop.max_part=7 androidboot.bootdevice=1d84000.ufshc androidboot.fstab_suffix=default androidboot.boot_devices=soc/1d84000.ufshc watchdog_v2.enable=0 androidboot.selinux=permissive
 BOARD_BOOTIMG_HEADER_VERSION := 2
 
 BOARD_KERNEL_BASE            := 0x00000000

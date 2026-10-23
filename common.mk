@@ -46,11 +46,9 @@ PRODUCT_PACKAGES += \
     vendor.samsung.rilchip.qcom.rc \
     ueventd.qcom.rc
 
-# libapexsupport is LLNDK but missing from the v30 LLNDK list
-# (ro.vndk.version=30 -> linkerconfig uses the APEX list, Android 11 state).
-# Without a requireLibs entry the vendor default namespace gets no link
-# to it and source-built vendor binaries (libbinder) die on load.
-# Do NOT copy it to /vendor/lib - that would be a duplicate provider
+# Explicit requireLibs so the vendor default namespace always links
+# libapexsupport for source-built vendor binaries (libbinder).
+# Do NOT copy the lib to /vendor/lib - that would be a duplicate provider
 # and linkerconfig aborts entirely.
 PRODUCT_VENDOR_LINKER_CONFIG_FRAGMENTS += \
     $(COMMON_PATH)/linkerconfig/vendor-linker-config.json
@@ -374,7 +372,8 @@ PRODUCT_PACKAGES += \
 # de.dwd.warnapp) abort in RenderScript.create() that way.
 # Without the impl there is no RS hidl service; libRS falls back to its
 # legacy path and dlopens libRS_internal/libRSCpuRef from the rs namespace
-# (prebuilt com.android.vndk.v30 apex), where libft2 resolves fine.
+# (VNDK libs live in /vendor; there is no com.android.vndk.v30 apex), where
+# libft2 resolves fine.
 # Shipping a libft2.so copy in /vendor is NOT an option either: libft2 is
 # LLNDK and linkerconfig aborts on "duplicate: provided by default and
 # system".
