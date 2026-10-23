@@ -125,11 +125,18 @@ PRODUCT_COPY_FILES += \
 # Bluetooth
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth.audio-impl \
-    android.hardware.bluetooth.audio@2.0-impl
+    android.hardware.bluetooth.audio@2.0-impl \
+    android.hardware.bluetooth@1.0.vendor
 
 # Camera — Stock proprietary provider covers ICameraProvider/legacy/0 +
 # ISehCameraProvider/legacy/0; the AIDL provider-service only crashed while
 # competing for /dev/video0.
+PRODUCT_PACKAGES += \
+    android.hardware.camera.device@3.6.vendor \
+    android.hardware.camera.provider@2.5.vendor \
+    android.hardware.camera.provider@2.6.vendor \
+    android.frameworks.cameraservice.service@2.1.vendor \
+    libexif.vendor
 $(call soong_config_set_bool,samsungCameraVars,needs_sec_reserved_field,true)
 $(call soong_config_set,samsungCameraVars,extra_ids,54) # ID=54 is macro
 
@@ -206,7 +213,8 @@ $(call soong_config_set_bool,lineage_health,charging_control_supports_bypass,fal
 # Health
 PRODUCT_PACKAGES += \
     android.hardware.health-service.samsung \
-    android.hardware.health-service.samsung-recovery
+    android.hardware.health-service.samsung-recovery \
+    android.hardware.health@2.1.vendor
 
 # Kernel
 PRODUCT_ENABLE_UFFD_GC := false
@@ -230,7 +238,8 @@ $(call soong_config_set,samsungVars,target_keymaster4_library,//vendor/samsung/s
 
 # Light
 PRODUCT_PACKAGES += \
-    android.hardware.light-service.samsung 
+    android.hardware.light-service.samsung \
+    android.hardware.light-V1-ndk.vendor
 
 # Lineage Health
 PRODUCT_PACKAGES += \
@@ -356,6 +365,11 @@ PRODUCT_PACKAGES += \
 
 # RIL
 PRODUCT_PACKAGES += \
+    android.hardware.radio@1.5.vendor \
+    android.hardware.radio.config@1.2.vendor \
+    android.hardware.radio.deprecated@1.0.vendor \
+    libjsoncpp.vendor \
+    libsqlite.vendor \
     secril_config_svc \
     sehradiomanager
 
@@ -436,6 +450,9 @@ $(call soong_config_set_bool,samsungVibratorVars,duration_amplitude,true)
 # Wifi
 PRODUCT_PACKAGES += \
     android.hardware.wifi-service \
+    android.hardware.wifi@1.4.vendor \
+    android.hardware.wifi.hostapd@1.2.vendor \
+    android.hardware.wifi.supplicant@1.0.vendor \
     hostapd \
     libwifi-hal-ctrl \
     libwifi-hal-qcom \
@@ -483,13 +500,22 @@ PRODUCT_PACKAGES += \
     libaudiofoundation.vendor \
     libavservices_minijail.vendor \
     libavservices_minijail_vendor \
+    android.hardware.automotive.vehicle@2.0.vendor \
+    android.hardware.biometrics.face@1.0.vendor \
+    android.hardware.common-V1-ndk.vendor \
+    android.hardware.gnss.measurement_corrections@1.1.vendor \
+    android.hardware.gnss.visibility_control@1.0.vendor \
+    android.hardware.gnss@2.1.vendor \
+    android.hardware.neuralnetworks@1.3.vendor \
     libcamera2ndk_vendor \
     libcodec2_hidl@1.0.vendor \
     libcodec2_hidl@1.1.vendor \
     libcodec2_vndk.vendor \
+    libcurl.vendor \
     libdrm.vendor \
     libeffects \
     libeffectsconfig.vendor \
+    libgrallocusage.vendor \
     libgui_vendor \
     libhidltransport.vendor \
     libhwbinder.vendor \
@@ -537,6 +563,8 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.allocator@3.0.vendor \
     vendor.qti.hardware.display.composer@1.0.vendor \
     vendor.qti.hardware.display.composer@2.0.vendor \
+    vendor.qti.hardware.display.mapper@1.1.vendor \
+    vendor.qti.hardware.display.mapper@2.0.vendor \
     vendor.qti.hardware.bluetooth_audio@2.0.vendor \
     vendor.qti.hardware.camera.device@1.0.vendor \
     vendor.qti.hardware.camera.postproc@1.0.vendor \
