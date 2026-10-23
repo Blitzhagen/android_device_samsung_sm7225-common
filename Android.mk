@@ -111,15 +111,15 @@ CAM64_BINS := com.qti.tuned.default.bin \
     ois_mcu_stm32g_fw.bin
 
 CAM64_SRC_DIR := vendor/samsung/sm7225-common/proprietary/vendor/lib64/camera
-CAM64_STAMP := $(TARGET_OUT_INTERMEDIATES)/cam64_bins_done
-$(CAM64_STAMP): $(LOCAL_INSTALLED_MODULE) $(addprefix $(CAM64_SRC_DIR)/,$(CAM64_BINS))
-	@echo "Installing lib64 camera data blobs"
-	@mkdir -p $(TARGET_OUT_VENDOR)/lib64/camera
-	$(hide) for f in $(CAM64_BINS); do \
-	    cp $(CAM64_SRC_DIR)/$$f $(TARGET_OUT_VENDOR)/lib64/camera/$$f; \
-	done
-	$(hide) touch $@
+CAM64_INSTALLED := $(addprefix $(TARGET_OUT_VENDOR)/lib64/camera/,$(CAM64_BINS))
 
-ALL_DEFAULT_INSTALLED_MODULES += $(CAM64_STAMP)
+# Register each staged file so it lands in INTERNAL_VENDORIMAGE_FILES /
+# the vendor image input-directory filter (a stamp-only copy gets dropped).
+$(CAM64_INSTALLED): $(TARGET_OUT_VENDOR)/lib64/camera/%: $(CAM64_SRC_DIR)/%
+	@echo "Installing lib64 camera blob $@"
+	@mkdir -p $(dir $@)
+	@cp $< $@
+
+ALL_DEFAULT_INSTALLED_MODULES += $(CAM64_INSTALLED)
 
 endif
