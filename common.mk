@@ -444,13 +444,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.usb-service.qti
 
-# Vibrator
-PRODUCT_PACKAGES += \
-    android.hardware.vibrator-service.samsung
-
-# Vibrator
-$(call soong_config_set_bool,samsungVibratorVars,duration_amplitude,true)
-
 # Wifi
 PRODUCT_PACKAGES += \
     android.hardware.wifi-service \
