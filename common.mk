@@ -394,7 +394,7 @@ PRODUCT_PACKAGES += \
 # Sensors
 PRODUCT_PACKAGES += \
     android.hardware.sensors-service.samsung-multihal \
-    libsensorndkbridge
+    android.frameworks.sensorservice@1.0.vendor
 
 # Telephony
 $(call inherit-product, vendor/qcom/opensource/dataservices/dataservices_vendor_product.mk)
