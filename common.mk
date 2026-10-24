@@ -284,7 +284,12 @@ PRODUCT_COPY_FILES += \
 # (was: vendor/lib/libstagefright_bufferqueue_helper_vendor.so blob).
 # Rebuilt from AOSP GraphicBufferSource + the Samsung FrucFacade ABI;
 # fixes the A11->A14 framework ABI mismatches that broke video recording.
+# The OMX service + wrapper also come from source now: Samsung's
+# Android-11 libstagefright_omx_vendor blob passes GraphicBuffer objects
+# across an incompatible C++ ABI boundary and crashes media.codec
+# (SIGBUS in OMXNodeInstance::updateGraphicBufferInMeta_l).
 PRODUCT_PACKAGES += \
+    android.hardware.media.omx@1.0-service \
     libstagefright_bufferqueue_helper_vendor
 
 PRODUCT_COPY_FILES += \
