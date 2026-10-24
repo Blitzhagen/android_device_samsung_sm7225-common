@@ -405,6 +405,7 @@ PRODUCT_PACKAGES += \
 $(call inherit-product, vendor/qcom/opensource/dataservices/dataservices_vendor_product.mk)
 
 PRODUCT_PACKAGES += \
+    CellBroadcastAppPlatform \
     extphonelib \
     extphonelib-product \
     extphonelib.xml \
