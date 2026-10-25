@@ -5,10 +5,10 @@
     "branch": "lineage-21"
   },
   {
-    "repository": "Blitzhagen/android_kernel_samsung_sm7225_old",
+    "repository": "Blitzhagen/android_kernel_samsung_sm7225",
     "target_path": "kernel/samsung/sm7225",
     "remote": "github",
-    "branch": "master"
+    "branch": "lineage-21.0"
   },
   {
     "repository": "Blitzhagen/android_vendor_samsung_sm7225-common",
