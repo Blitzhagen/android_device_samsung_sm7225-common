@@ -67,3 +67,4 @@ dontaudit rild default_prop:file r_file_perms;
 allow rild emservice:dir search;
 allow rild emservice:file r_file_perms;
 dontaudit rild system_prop:file r_file_perms;
+dontaudit rild vendor_default_prop:property_service set;

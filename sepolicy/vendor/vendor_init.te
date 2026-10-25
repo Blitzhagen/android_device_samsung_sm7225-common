@@ -23,3 +23,8 @@ dontaudit vendor_init build_prop:property_service set;
 dontaudit vendor_init shell_prop:property_service set;
 dontaudit vendor_init config_prop:property_service set;
 allow vendor_init vts_status_prop:file read;
+
+# init scripts chmod the rawdump by-name link; the debugfs chmod is
+# neverallow'd for non-core domains, keep denied + quiet
+dontaudit vendor_init debugfs:file setattr;
+allow vendor_init vendor_rawdump_block_device:lnk_file setattr;

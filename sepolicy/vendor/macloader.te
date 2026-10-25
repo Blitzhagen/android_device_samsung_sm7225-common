@@ -37,3 +37,5 @@ allow macloader sysfs_wifi:dir r_dir_perms;
 allow macloader sysfs_wifi:file r_file_perms;
 
 # Don't set ro.vendor.wifi.sap.interface
+# sets an unlabeled legacy prop; set is neverallow'd, keep denied + quiet
+dontaudit macloader default_prop:property_service set;

@@ -22,4 +22,8 @@ binder_call(system_app, vold)
 dontaudit system_app system_suspend_control_service:service_manager { find };
 dontaudit system_app system_suspend_control_internal_service:service_manager { find };
 
+# apexservice find is neverallow'd outside init/apexd/keystore/system_server;
+# the lookups are opportunistic, keep denied + quiet
+dontaudit system_app apex_service:service_manager find;
+
 # UDFPS

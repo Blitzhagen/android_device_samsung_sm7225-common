@@ -5,6 +5,8 @@ init_daemon_domain(argosd)
 type btcoex_cont, domain;
 type btcoex_cont_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(btcoex_cont)
+# reads an unlabeled prop; default_prop access is neverallow'd, stay denied + quiet
+dontaudit btcoex_cont default_prop:file r_file_perms;
 
 type cassd, domain;
 type cassd_exec, exec_type, vendor_file_type, file_type;
@@ -77,6 +79,7 @@ allow snap_utility ion_device:chr_file rw_file_perms;
 allow snap_utility property_socket:sock_file write;
 unix_socket_connect(snap_utility, property, init)
 set_prop(snap_utility, vendor_snap_prop)
+get_prop(snap_utility, system_boot_reason_prop)
 
 # emservice enumerates /dev/block during em checks
 allow emservice block_device:dir search;
@@ -107,3 +110,7 @@ allow vaultkeeperd hal_vaultkeeper_server_hwservice:hwservice_manager find;
 set_prop(vaultkeeperd, vendor_vaultkeeper_prop)
 # ro.em.version lives outside the vendor prop namespace; keep denied + quiet
 dontaudit emservice default_prop:property_service set;
+
+# install-recovery.sh reports status back through a vendor prop
+unix_socket_connect(vendor_install_recovery, property, init)
+dontaudit vendor_install_recovery vendor_default_prop:property_service set;
