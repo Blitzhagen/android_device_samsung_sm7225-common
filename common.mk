@@ -583,6 +583,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/lineage-priv/keys/releasekey
 PRODUCT_OTA_PUBLIC_KEYS := vendor/lineage-priv/keys/releasekey
 PRODUCT_EXTRA_RECOVERY_KEYS := vendor/lineage-priv/keys/releasekey
+PRODUCT_MAINLINE_BLUETOOTH_SEPOLICY_DEV_CERTIFICATES := $(dir $(PRODUCT_DEFAULT_DEV_CERTIFICATE))
 
 PRODUCT_CERTIFICATE_OVERRIDES := \
     com.android.adbd:com.android.adbd.cert \
