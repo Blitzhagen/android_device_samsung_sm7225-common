@@ -138,7 +138,11 @@ PRODUCT_PACKAGES += \
     android.frameworks.cameraservice.service@2.1.vendor \
     libexif.vendor
 $(call soong_config_set_bool,samsungCameraVars,needs_sec_reserved_field,true)
+$(call soong_config_set_bool,samsungCameraVars,needs_sec_qcom_reserved_field,true)
 $(call soong_config_set,samsungCameraVars,extra_ids,54) # ID=54 is macro
+
+# ION
+$(call soong_config_set_bool,libion,legacy_impl,true)
 
 # CAS
 PRODUCT_PACKAGES += \
