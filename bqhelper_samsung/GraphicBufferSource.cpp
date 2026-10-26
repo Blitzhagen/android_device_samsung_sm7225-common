@@ -997,7 +997,7 @@ status_t GraphicBufferSource::acquireBuffer_l(VideoBuffer *ab) {
                     if (buffer->isCached()) {
                         --mNumOutstandingAcquires;
                         mConsumer->releaseBuffer(
-                                buffer->getSlot(), frameNum, EGL_NO_DISPLAY, EGL_NO_SYNC_KHR,
+                                buffer->getSlot(), frameNum,
                                 buffer->getReleaseFence());
                     }
                 },
