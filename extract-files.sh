@@ -99,6 +99,9 @@ function blob_fixup() {
             ;;
         vendor/lib64/libsec-ril.so)
             sed -i 's/ril\.dds\.call\.ongoing/vendor.calls.ongoing/g' "${2}"
+            # Gate the uiccApplicationsEnablementChanged unsol off the
+            # OneUI version check so the framework sees SIM re-enable.
+            python3 "${MY_DIR}/patches/patch_sec_ril.py" "${2}"
             ;;
         *)
             return 1
