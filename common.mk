@@ -414,6 +414,7 @@ $(call inherit-product, vendor/qcom/opensource/dataservices/dataservices_vendor_
 
 PRODUCT_PACKAGES += \
     CellBroadcastAppPlatform \
+    EmergencyInfo \
     extphonelib \
     extphonelib-product \
     extphonelib.xml \
