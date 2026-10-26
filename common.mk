@@ -155,10 +155,8 @@ PRODUCT_COPY_FILES += \
 # DebugFS
 PRODUCT_SET_DEBUGFS_RESTRICTIONS := true
 
-# Dumpstate HAL interface libs (needed by vendor dumpstate@1.1-service-lazy blob)
+# Dumpstate
 PRODUCT_PACKAGES += \
-    android.hardware.dumpstate@1.0.vendor \
-    android.hardware.dumpstate@1.1.vendor \
     libdumpstateutil.vendor
 
 # Graphics
@@ -487,6 +485,7 @@ PRODUCT_SOONG_NAMESPACES += \
     $(COMMON_PATH) \
     hardware/google/interfaces \
     hardware/google/pixel \
+    hardware/google/pixel/power-libperfmgr \
     hardware/samsung \
     vendor/qcom/opensource/libfmjni
 
