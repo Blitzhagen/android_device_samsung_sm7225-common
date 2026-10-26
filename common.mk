@@ -585,6 +585,10 @@ PRODUCT_PACKAGES += \
 # Signing keys (private, not tracked by repo)
 PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/lineage-priv/keys/releasekey
 PRODUCT_OTA_PUBLIC_KEYS := vendor/lineage-priv/keys/releasekey
+
+# The 4.19 kernel cannot meet all FCM 7 kernel requirements
+# (e.g. CONFIG_KFENCE/CFI_CLANG do not exist on this tree)
+PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := false
 PRODUCT_EXTRA_RECOVERY_KEYS := vendor/lineage-priv/keys/releasekey
 PRODUCT_MAINLINE_BLUETOOTH_SEPOLICY_DEV_CERTIFICATES := $(dir $(PRODUCT_DEFAULT_DEV_CERTIFICATE))
 
