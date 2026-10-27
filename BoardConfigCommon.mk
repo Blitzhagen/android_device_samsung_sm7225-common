@@ -5,6 +5,10 @@
 
 COMMON_PATH := device/samsung/sm7225-common
 
+# Qualcomm vendor blobs (firmware ELFs, ~80 prebuilt binaries) still ship
+# via PRODUCT_COPY_FILES; no module type covers vendor/firmware paths.
+BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
+
 # A/B configuration
 AB_OTA_UPDATER := false
 
