@@ -5,10 +5,6 @@
 
 COMMON_PATH := device/samsung/sm7225-common
 
-BUILD_BROKEN_DUP_RULES := true
-BUILD_BROKEN_DUP_SYSPROP := true
-BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
-
 # A/B configuration
 AB_OTA_UPDATER := false
 
