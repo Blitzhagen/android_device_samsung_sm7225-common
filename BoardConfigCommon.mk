@@ -118,7 +118,8 @@ TARGET_FS_CONFIG_GEN := $(COMMON_PATH)/config.fs
 
 BOARD_ROOT_EXTRA_FOLDERS += \
     metadata \
-    efs
+    efs \
+    acct
 
 # File systems
 BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs
