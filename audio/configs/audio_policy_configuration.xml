@@ -12,7 +12,7 @@
          stack must never offer offload codecs (see vendor.prop).
     -->
 
-<audioPolicyConfiguration version="7.0" xmlns:xi="http://www.w3.org/2001/XInclude">
+<audioPolicyConfiguration version="1.0" xmlns:xi="http://www.w3.org/2001/XInclude">
 
     <globalConfiguration speaker_drc_enabled="true" call_screen_mode_supported="true"/>
 
@@ -245,11 +245,11 @@
                 <route type="mix" sink="HDMI"
                        sources="primary output,deep_buffer,fast,raw,direct_pcm,compressed_offload,voip_rx"/>
                 <route type="mix" sink="BT SCO"
-                       sources="voip_rx"/>
+                       sources="primary output,deep_buffer,fast,voip_rx"/>
                 <route type="mix" sink="BT SCO Headset"
-                       sources="voip_rx"/>
+                       sources="primary output,deep_buffer,fast,voip_rx"/>
                 <route type="mix" sink="BT SCO Car Kit"
-                       sources="voip_rx"/>
+                       sources="primary output,deep_buffer,fast,voip_rx"/>
                 <route type="mix" sink="USB Device Out"
                        sources="primary output,deep_buffer,fast,raw,direct_pcm,compressed_offload,voip_rx,mmap_no_irq_out,hifi_playback"/>
                 <route type="mix" sink="USB Headset Out"

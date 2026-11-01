@@ -1,4 +1,6 @@
 get_prop(rild, vendor_radio_prop)
+# vendor.calls.ongoing* (patched libsec-ril call state for audio HAL)
+set_prop(rild, vendor_radio_prop)
 
 allow rild block_device:dir search;
 allow rild mnt_vendor_file:dir { getattr search };

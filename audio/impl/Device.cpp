@@ -28,6 +28,8 @@
 #include <memory.h>
 #include <string.h>
 #include <algorithm>
+#include <mutex>
+#include <unordered_set>
 
 #include <android/log.h>
 #include <hidl/HidlTransportSupport.h>
@@ -35,6 +37,7 @@
 #include <memunreachable/memunreachable.h>
 
 #include <HidlUtils.h>
+#include <hardware/audio.h>
 
 namespace android {
 namespace hardware {
@@ -46,6 +49,147 @@ using ::android::hardware::audio::common::COMMON_TYPES_CPP_VERSION::implementati
 namespace util {
 using namespace ::android::hardware::audio::CORE_TYPES_CPP_VERSION::implementation::util;
 }
+
+namespace {
+
+// The Samsung vendor HAL rejects open_output_stream() for Bluetooth SCO
+// devices. AudioPolicyManager probes such a stream when an SCO device
+// connects; the failure makes APM refuse the device, so the communication
+// device can never become BT SCO and calls keep routing to the speaker.
+// Provide a no-op stream so the device gets registered. No real PCM flows
+// through it: SCO voice routing happens inside the vendor HAL mixer paths.
+
+std::mutex gScoStubLock;
+std::unordered_set<audio_stream_out_t*> gScoStubStreams;
+
+uint32_t stubGetSampleRate(const audio_stream*) { return 16000; }
+int stubSetSampleRate(audio_stream*, uint32_t) { return 0; }
+size_t stubGetBufferSize(const audio_stream*) { return 2048; }
+audio_channel_mask_t stubGetChannels(const audio_stream*) { return AUDIO_CHANNEL_OUT_MONO; }
+audio_format_t stubGetFormat(const audio_stream*) { return AUDIO_FORMAT_PCM_16_BIT; }
+int stubSetFormat(audio_stream*, audio_format_t) { return 0; }
+int stubStandby(audio_stream*) { return 0; }
+int stubDump(const audio_stream*, int) { return 0; }
+audio_devices_t stubGetDevice(const audio_stream*) {
+    return AUDIO_DEVICE_OUT_BLUETOOTH_SCO;
+}
+int stubSetDevice(audio_stream*, audio_devices_t) { return 0; }
+int stubSetParameters(audio_stream*, const char*) { return 0; }
+char* stubGetParameters(const audio_stream*, const char*) { return strdup(""); }
+int stubAddAudioEffect(const audio_stream*, effect_handle_t) { return 0; }
+int stubRemoveAudioEffect(const audio_stream*, effect_handle_t) { return 0; }
+uint32_t stubGetLatency(const audio_stream_out*) { return 0; }
+int stubSetVolume(audio_stream_out*, float, float) { return 0; }
+ssize_t stubWrite(audio_stream_out*, const void*, size_t bytes) { return bytes; }
+int stubGetRenderPosition(const audio_stream_out*, uint32_t* dspFrames) {
+    if (dspFrames) *dspFrames = 0;
+    return 0;
+}
+int stubGetNextWriteTimestamp(const audio_stream_out*, int64_t*) { return -ENOSYS; }
+int stubSetCallback(audio_stream_out*, stream_callback_t, void*) { return 0; }
+int stubNoopOut(audio_stream_out*) { return -ENOSYS; }
+int stubFlush(audio_stream_out*) { return 0; }
+int stubGetPresentationPosition(const audio_stream_out*, uint64_t* frames,
+                                struct timespec* timestamp) {
+    if (frames) *frames = 0;
+    if (timestamp) {
+        timestamp->tv_sec = 0;
+        timestamp->tv_nsec = 0;
+    }
+    return 0;
+}
+int stubStartStop(const audio_stream_out*) { return 0; }
+int stubCreateMmapBuffer(const audio_stream_out*, int32_t,
+                         struct audio_mmap_buffer_info*) {
+    return -ENOSYS;
+}
+int stubGetMmapPosition(const audio_stream_out*, struct audio_mmap_position*) {
+    return -ENOSYS;
+}
+void stubUpdateSourceMetadata(audio_stream_out*, const source_metadata_t*) {}
+int stubSetEventCallback(audio_stream_out*, stream_event_callback_t, void*) { return 0; }
+void stubUpdateSourceMetadataV7(audio_stream_out*, const source_metadata_v7_t*) {}
+int stubGetDualMonoMode(audio_stream_out*, audio_dual_mono_mode_t* mode) {
+    if (mode) *mode = AUDIO_DUAL_MONO_MODE_OFF;
+    return 0;
+}
+int stubSetDualMonoMode(audio_stream_out*, audio_dual_mono_mode_t) { return 0; }
+int stubGetAudioDescriptionMixLevel(audio_stream_out*, float* leveldB) {
+    if (leveldB) *leveldB = 0;
+    return 0;
+}
+int stubSetAudioDescriptionMixLevel(audio_stream_out*, float) { return 0; }
+int stubGetPlaybackRateParameters(audio_stream_out*, audio_playback_rate_t*) {
+    return -ENOSYS;
+}
+int stubSetPlaybackRateParameters(audio_stream_out*, const audio_playback_rate_t*) { return 0; }
+int stubSetLatencyMode(audio_stream_out*, audio_latency_mode_t) { return 0; }
+int stubGetRecommendedLatencyModes(audio_stream_out*, audio_latency_mode_t*, size_t*) {
+    return -ENOSYS;
+}
+int stubSetLatencyModeCallback(audio_stream_out*, stream_latency_mode_callback_t, void*) {
+    return -ENOSYS;
+}
+
+audio_stream_out_t* createScoStubStream(audio_devices_t device) {
+    audio_stream_out_t* stream =
+            static_cast<audio_stream_out_t*>(calloc(1, sizeof(audio_stream_out_t)));
+    if (!stream) return nullptr;
+    stream->common.get_sample_rate = stubGetSampleRate;
+    stream->common.set_sample_rate = stubSetSampleRate;
+    stream->common.get_buffer_size = stubGetBufferSize;
+    stream->common.get_channels = stubGetChannels;
+    stream->common.get_format = stubGetFormat;
+    stream->common.set_format = stubSetFormat;
+    stream->common.standby = stubStandby;
+    stream->common.dump = stubDump;
+    stream->common.get_device = stubGetDevice;
+    stream->common.set_device = stubSetDevice;
+    stream->common.set_parameters = stubSetParameters;
+    stream->common.get_parameters = stubGetParameters;
+    stream->common.add_audio_effect = stubAddAudioEffect;
+    stream->common.remove_audio_effect = stubRemoveAudioEffect;
+    stream->get_latency = stubGetLatency;
+    stream->set_volume = stubSetVolume;
+    stream->write = stubWrite;
+    stream->get_render_position = stubGetRenderPosition;
+    stream->get_next_write_timestamp = stubGetNextWriteTimestamp;
+    stream->set_callback = stubSetCallback;
+    stream->pause = stubNoopOut;
+    stream->resume = stubNoopOut;
+    stream->drain = [](audio_stream_out*, audio_drain_type_t) -> int { return -ENOSYS; };
+    stream->flush = stubFlush;
+    stream->get_presentation_position = stubGetPresentationPosition;
+    stream->start = stubStartStop;
+    stream->stop = stubStartStop;
+    stream->create_mmap_buffer = stubCreateMmapBuffer;
+    stream->get_mmap_position = stubGetMmapPosition;
+    stream->update_source_metadata = stubUpdateSourceMetadata;
+    stream->set_event_callback = stubSetEventCallback;
+    stream->update_source_metadata_v7 = stubUpdateSourceMetadataV7;
+    stream->get_dual_mono_mode = stubGetDualMonoMode;
+    stream->set_dual_mono_mode = stubSetDualMonoMode;
+    stream->get_audio_description_mix_level = stubGetAudioDescriptionMixLevel;
+    stream->set_audio_description_mix_level = stubSetAudioDescriptionMixLevel;
+    stream->get_playback_rate_parameters = stubGetPlaybackRateParameters;
+    stream->set_playback_rate_parameters = stubSetPlaybackRateParameters;
+    stream->set_latency_mode = stubSetLatencyMode;
+    stream->get_recommended_latency_modes = stubGetRecommendedLatencyModes;
+    stream->set_latency_mode_callback = stubSetLatencyModeCallback;
+    std::lock_guard<std::mutex> lock(gScoStubLock);
+    gScoStubStreams.insert(stream);
+    ALOGI("%s: created no-op SCO stream %p for device %#x", __func__, stream, device);
+    return stream;
+}
+
+bool destroyScoStubStream(audio_stream_out_t* stream) {
+    std::lock_guard<std::mutex> lock(gScoStubLock);
+    if (gScoStubStreams.erase(stream) == 0) return false;
+    free(stream);
+    return true;
+}
+
+}  // namespace
 
 Device::Device(audio_hw_device_t* device) : mIsClosed(false), mDevice(device) {}
 
@@ -66,7 +210,9 @@ void Device::closeInputStream(audio_stream_in_t* stream) {
 }
 
 void Device::closeOutputStream(audio_stream_out_t* stream) {
-    mDevice->close_output_stream(mDevice, stream);
+    if (!destroyScoStubStream(stream)) {
+        mDevice->close_output_stream(mDevice, stream);
+    }
     LOG_ALWAYS_FATAL_IF(mOpenedStreamsCount == 0, "mOpenedStreamsCount is already 0");
     --mOpenedStreamsCount;
 }
@@ -179,6 +325,14 @@ std::tuple<Result, sp<IStreamOut>> Device::openOutputStreamCore(int32_t ioHandle
           halConfig.channel_mask, halDeviceAddress);
     int status = mDevice->open_output_stream(mDevice, ioHandle, halDevice, halFlags, &halConfig,
                                              &halStream, halDeviceAddress);
+    if (status != OK &&
+            (halDevice & (AUDIO_DEVICE_OUT_BLUETOOTH_SCO |
+                          AUDIO_DEVICE_OUT_BLUETOOTH_SCO_HEADSET |
+                          AUDIO_DEVICE_OUT_BLUETOOTH_SCO_CARKIT))) {
+        ALOGW("%s: HAL failed to open SCO stream (%d), providing no-op stream", __func__, status);
+        halStream = createScoStubStream(halDevice);
+        status = halStream ? OK : NO_MEMORY;
+    }
     ALOGV("open_output_stream status %d stream %p", status, halStream);
     sp<IStreamOut> streamOut;
     if (status == OK) {
@@ -365,6 +519,57 @@ Return<void> Device::createAudioPatch(const hidl_vec<AudioPortConfig>& sources,
     return Void();
 }
 
+#if MAJOR_VERSION < 7
+namespace {
+
+// During calls APM produces output masks like speaker|0x8 (0xA): the 0x8 bit
+// is the low half of AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET (0x80000008)
+// leaking into an output mask. This tablet has no wired-jack device port, so
+// a WIRED_HEADPHONE bit in an output mask can only be that leak. The vendor
+// HAL rejects combo 0xA ("Invalid combo device") -> snd_device 0 -> silence.
+// Remapping to speaker|SCO (0x22) also fails: it makes the blob enable the
+// SCO backend for a non-call stream, and the following eSCO link setup is
+// rejected with 0x1C (SCO interval rejected). So just drop the leaked bit.
+// APM may patch a ringtone/notification stream to SPEAKER + BT SCO at the
+// same time (sinks [0x2, 0x20]). The vendor blob merges multi-device sinks
+// into a single internal mask and ends up with an invalid combo (seen as
+// "device a" -> "Invalid combo device(0xa)" -> snd_device 0 -> silence).
+// For a non-voice stream SCO must never be claimed anyway (it would break
+// the real eSCO call setup), so drop the SCO sink entirely.
+void dropScoSinksWhenPairedWithSpeaker(hidl_vec<AudioPortConfig>* ports) {
+    bool hasSpeaker = false;
+    bool hasSco = false;
+    for (auto& port : *ports) {
+        if (port.type != AudioPortType::DEVICE) continue;
+        const uint32_t t = static_cast<uint32_t>(port.ext.device.type);
+        if (t == AUDIO_DEVICE_OUT_SPEAKER) hasSpeaker = true;
+        if (t == AUDIO_DEVICE_OUT_BLUETOOTH_SCO_HEADSET ||
+            t == AUDIO_DEVICE_OUT_BLUETOOTH_SCO ||
+            t == AUDIO_DEVICE_OUT_BLUETOOTH_SCO_CARKIT) hasSco = true;
+    }
+    if (!(hasSpeaker && hasSco)) return;
+    hidl_vec<AudioPortConfig> filtered;
+    filtered.resize(ports->size());
+    size_t n = 0;
+    for (auto& port : *ports) {
+        if (port.type == AudioPortType::DEVICE) {
+            const uint32_t t = static_cast<uint32_t>(port.ext.device.type);
+            if (t == AUDIO_DEVICE_OUT_BLUETOOTH_SCO_HEADSET ||
+                t == AUDIO_DEVICE_OUT_BLUETOOTH_SCO ||
+                t == AUDIO_DEVICE_OUT_BLUETOOTH_SCO_CARKIT) {
+                ALOGW("%s: drop sco sink %#x (ring combo fix)", __func__, t);
+                continue;
+            }
+        }
+        filtered[n++] = port;
+    }
+    filtered.resize(n);
+    *ports = std::move(filtered);
+}
+
+}  // namespace
+#endif
+
 std::tuple<Result, AudioPatchHandle> Device::createOrUpdateAudioPatch(
         AudioPatchHandle patch, const hidl_vec<AudioPortConfig>& sources,
         const hidl_vec<AudioPortConfig>& sinks) {
@@ -376,14 +581,27 @@ std::tuple<Result, AudioPatchHandle> Device::createOrUpdateAudioPatch(
             status != NO_ERROR) {
             return {analyzeStatus("audioPortConfigsToHal;sources", status), patch};
         }
+#if MAJOR_VERSION < 7
+        hidl_vec<AudioPortConfig> mappedSinks(sinks);
+        dropScoSinksWhenPairedWithSpeaker(&mappedSinks);
+        std::unique_ptr<audio_port_config[]> halSinks;
+        if (status_t status = HidlUtils::audioPortConfigsToHal(mappedSinks, &halSinks);
+#else
         std::unique_ptr<audio_port_config[]> halSinks;
         if (status_t status = HidlUtils::audioPortConfigsToHal(sinks, &halSinks);
+#endif
             status != NO_ERROR) {
             return {analyzeStatus("audioPortConfigsToHal;sinks", status), patch};
         }
+        const size_t numHalSinks =
+#if MAJOR_VERSION < 7
+                mappedSinks.size();
+#else
+                sinks.size();
+#endif
         retval = analyzeStatus("create_audio_patch",
                                mDevice->create_audio_patch(mDevice, sources.size(), &halSources[0],
-                                                           sinks.size(), &halSinks[0], &halPatch));
+                                                           numHalSinks, &halSinks[0], &halPatch));
         if (retval == Result::OK) {
             patch = static_cast<AudioPatchHandle>(halPatch);
         }
