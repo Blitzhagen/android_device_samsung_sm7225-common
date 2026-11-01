@@ -522,20 +522,12 @@ Return<void> Device::createAudioPatch(const hidl_vec<AudioPortConfig>& sources,
 #if MAJOR_VERSION < 7
 namespace {
 
-// During calls APM produces output masks like speaker|0x8 (0xA): the 0x8 bit
-// is the low half of AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET (0x80000008)
-// leaking into an output mask. This tablet has no wired-jack device port, so
-// a WIRED_HEADPHONE bit in an output mask can only be that leak. The vendor
-// HAL rejects combo 0xA ("Invalid combo device") -> snd_device 0 -> silence.
-// Remapping to speaker|SCO (0x22) also fails: it makes the blob enable the
-// SCO backend for a non-call stream, and the following eSCO link setup is
-// rejected with 0x1C (SCO interval rejected). So just drop the leaked bit.
 // APM may patch a ringtone/notification stream to SPEAKER + BT SCO at the
 // same time (sinks [0x2, 0x20]). The vendor blob merges multi-device sinks
-// into a single internal mask and ends up with an invalid combo (seen as
-// "device a" -> "Invalid combo device(0xa)" -> snd_device 0 -> silence).
-// For a non-voice stream SCO must never be claimed anyway (it would break
-// the real eSCO call setup), so drop the SCO sink entirely.
+// into a single internal mask and produces the invalid combo 0xa
+// ("Invalid combo device" -> snd_device 0 -> silence). For a non-voice
+// stream SCO must never be claimed anyway (claiming it breaks the eSCO
+// call setup), so drop the SCO sink entirely.
 void dropScoSinksWhenPairedWithSpeaker(hidl_vec<AudioPortConfig>* ports) {
     bool hasSpeaker = false;
     bool hasSco = false;

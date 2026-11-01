@@ -133,13 +133,13 @@ BOARD_USES_METADATA_PARTITION        := true
 TARGET_USERIMAGES_USE_F2FS           := true
 TARGET_USERIMAGES_USE_EXT4           := true
 
-# Partition sizes, gemessen auf SM-T736B via /proc/partitions
+# Partition sizes measured on SM-T736B via /proc/partitions
 BOARD_DTBOIMG_PARTITION_SIZE       := 8388608      # sda33 = 8192 KiB
 BOARD_BOOTIMAGE_PARTITION_SIZE     := 100663296    # sda25 = 96 MiB
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 100663296    # sda26 = 96 MiB
 BOARD_CACHEIMAGE_PARTITION_SIZE    := 209715200    # sda30 = 200 MiB
 
-# Super partition: 8.388.608.000 B (sda27), LP-Gruppe "qti_dynamic_partitions"
+# Super partition: 8388608000 B (sda27), LP group "qti_dynamic_partitions"
 BOARD_SUPER_PARTITION_SIZE                     := 8388608000
 BOARD_SUPER_PARTITION_GROUPS                   := qti_dynamic_partitions
 BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST    := system vendor product odm
@@ -179,18 +179,16 @@ $(call soong_config_set,lineage_health,fast_charge_value_none,1)
 $(call soong_config_set,lineage_health,fast_charge_value_fast_charge,0)
 
 # Charging control via batt_slate_mode (0 = charging on, 1 = slate/charging off)
-TARGET_HEALTH_CHARGING_CONTROL_CHARGING_PATH := /sys/class/power_supply/battery/batt_slate_mode
-TARGET_HEALTH_CHARGING_CONTROL_CHARGING_ENABLED := 0
-TARGET_HEALTH_CHARGING_CONTROL_CHARGING_DISABLED := 1
-TARGET_HEALTH_CHARGING_CONTROL_SUPPORTS_BYPASS := false
+$(call soong_config_set,lineage_health,charging_control_charging_path,/sys/class/power_supply/battery/batt_slate_mode)
+$(call soong_config_set,lineage_health,charging_control_charging_enabled,0)
+$(call soong_config_set,lineage_health,charging_control_charging_disabled,1)
+$(call soong_config_set_bool,lineage_health,charging_control_supports_bypass,false)
 
 # DRM
 TARGET_ENABLE_MEDIADRM_64 := true
 
-# Shim for pre-Android-14 GraphicBufferMapper lock/unlock symbols still
-# referenced by Samsung media/camera blobs. LD_PRELOAD in the service rc files
-# does not reach the linker reliably, so the linker injects the shim into
-# whatever namespace loads the needy library.
+# Shim for pre-Android-14 GraphicBufferMapper symbols still referenced by
+# Samsung media/camera blobs (LD_PRELOAD in rc files is unreliable)
 TARGET_LD_SHIM_LIBS := \
     /vendor/lib64/libcodec2_vndk.so|/vendor/lib64/libui_compat_shim.so \
     /vendor/lib64/libscaler_hw.unifunc.so|/vendor/lib64/libui_compat_shim.so \

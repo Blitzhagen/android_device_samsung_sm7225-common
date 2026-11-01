@@ -46,15 +46,12 @@ PRODUCT_PACKAGES += \
     vendor.samsung.rilchip.qcom.rc \
     ueventd.qcom.rc
 
-# Explicit requireLibs so the vendor default namespace always links
-# libapexsupport for source-built vendor binaries (libbinder).
-# Do NOT copy the lib to /vendor/lib - that would be a duplicate provider
-# and linkerconfig aborts entirely.
+# Link libapexsupport via requireLibs for source-built vendor binaries;
+# copying it to /vendor/lib would duplicate the provider and abort linkerconfig
 PRODUCT_VENDOR_LINKER_CONFIG_FRAGMENTS += \
     $(COMMON_PATH)/linkerconfig/vendor-linker-config.json
 
-# fstab.default is installed via soong modules (init/Android.bp):
-# fstab.default -> /vendor/etc, fstab.default.ramdisk -> boot ramdisk root
+# fstab.default installs via soong modules: /vendor/etc + boot ramdisk root
 
 $(call soong_config_set,libinit,vendor_init_lib,//$(COMMON_PATH):libinit_sm7225)
 
@@ -129,9 +126,8 @@ PRODUCT_PACKAGES += \
     android.hardware.bluetooth.audio@2.0-impl \
     android.hardware.bluetooth@1.0.vendor
 
-# Camera — Stock proprietary provider covers ICameraProvider/legacy/0 +
-# ISehCameraProvider/legacy/0; the AIDL provider-service only crashed while
-# competing for /dev/video0.
+# Camera: the stock provider covers both legacy interfaces; the AIDL
+# provider-service crashes competing for /dev/video0
 PRODUCT_PACKAGES += \
     android.hardware.camera.device@3.6.vendor \
     android.hardware.camera.provider@2.5.vendor \
@@ -212,13 +208,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.system.net.netd@1.1.vendor
 
-$(call soong_config_set,lineage_health,fast_charge_node,/sys/class/sec/switch/afc_disable)
-$(call soong_config_set,lineage_health,fast_charge_value_none,1)
-$(call soong_config_set,lineage_health,fast_charge_value_fast_charge,0)
-$(call soong_config_set,lineage_health,charging_control_charging_path,/sys/class/power_supply/battery/batt_slate_mode)
-$(call soong_config_set,lineage_health,charging_control_charging_enabled,0)
-$(call soong_config_set,lineage_health,charging_control_charging_disabled,1)
-$(call soong_config_set_bool,lineage_health,charging_control_supports_bypass,false)
 # Health
 PRODUCT_PACKAGES += \
     android.hardware.health-service.samsung \
@@ -253,6 +242,7 @@ PRODUCT_PACKAGES += \
 # Lineage Health
 PRODUCT_PACKAGES += \
     vendor.lineage.health-service.default
+
 # LiveDisplay
 ifneq ($(TARGET_IS_TABLET),true)
 ifeq ($(TARGET_HAS_AMOLED),true)
@@ -261,6 +251,7 @@ PRODUCT_PACKAGES += \
 endif
 endif
 
+# Media
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/media/dax-default.xml:$(TARGET_COPY_OUT_VENDOR)/etc/dolby/dax-default.xml \
     $(COMMON_PATH)/configs/media/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
@@ -289,14 +280,9 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video_le.xml
 
-# Source-built replacement for the A11 vendor OMX BufferQueue bridge
-# (was: vendor/lib/libstagefright_bufferqueue_helper_vendor.so blob).
-# Rebuilt from AOSP GraphicBufferSource + the Samsung FrucFacade ABI;
-# fixes the A11->A14 framework ABI mismatches that broke video recording.
-# The OMX service + wrapper also come from source now: Samsung's
-# Android-11 libstagefright_omx_vendor blob passes GraphicBuffer objects
-# across an incompatible C++ ABI boundary and crashes media.codec
-# (SIGBUS in OMXNodeInstance::updateGraphicBufferInMeta_l).
+# OMX service and BufferQueue bridge are source-built: the A11 blobs pass
+# GraphicBuffer across an incompatible C++ ABI and crash media.codec
+# (SIGBUS in OMXNodeInstance::updateGraphicBufferInMeta_l)
 PRODUCT_PACKAGES += \
     android.hardware.media.omx@1.0-service \
     libstagefright_bufferqueue_helper_vendor
@@ -387,23 +373,11 @@ PRODUCT_PACKAGES += \
     sehradiomanager
 
 # RenderScript
-# No android.hardware.renderscript@1.0-impl blob and no manifest entry on
-# purpose: the source-built impl module carries
-# runtime_libs = [libRS_internal, libRSDriver], so installing the impl (the
-# blob copy merges into the module's install path and activates its deps)
-# also installs /vendor/lib*/libRS_internal.so + libRSCpuRef/libRSDriver.
-# A physical libRS_internal.so in /vendor/lib64 is found by the sphal
-# namespace before the sphal->rs link applies; loading it in sphal fails
-# because its libft2.so dependency is LLNDK-private and only reachable via
-# the dedicated "rs" namespace. Legacy RenderScript apps (e.g.
-# de.dwd.warnapp) abort in RenderScript.create() that way.
-# Without the impl there is no RS hidl service; libRS falls back to its
-# legacy path and dlopens libRS_internal/libRSCpuRef from the rs namespace
-# (VNDK libs live in /vendor; there is no com.android.vndk.v30 apex), where
-# libft2 resolves fine.
-# Shipping a libft2.so copy in /vendor is NOT an option either: libft2 is
-# LLNDK and linkerconfig aborts on "duplicate: provided by default and
-# system".
+# No impl blob and no manifest entry on purpose: installing the impl drags
+# libRS_internal into /vendor/lib64 where sphal loads it and fails on
+# LLNDK-private libft2. Without the impl, libRS dlopens the libs from the
+# "rs" namespace where libft2 resolves. Shipping libft2 itself is not an
+# option either (LLNDK duplicate aborts linkerconfig).
 
 # Sensors
 PRODUCT_PACKAGES += \
